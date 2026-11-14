@@ -1,11 +1,11 @@
 Model Information:
-* title:	2022 Maruti Suzuki Swift Dzire
-* source:	https://sketchfab.com/3d-models/2022-maruti-suzuki-swift-dzire-95451c00cb2d48778f67d798167e7237
-* author:	BHP3D (https://sketchfab.com/BHP3D)
+* title:	2017 Mercedes-Benz C63 AMG Coupe
+* source:	https://sketchfab.com/3d-models/2017-mercedes-benz-c63-amg-coupe-3493e64daddc4c258280bab7bfbe7361
+* author:	Ddiaz Design (https://sketchfab.com/ddiaz-design)
 
 Model License:
-* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-* requirements:	Author must be credited. Commercial use is allowed.
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "2022 Maruti Suzuki Swift Dzire" (https://sketchfab.com/3d-models/2022-maruti-suzuki-swift-dzire-95451c00cb2d48778f67d798167e7237) by BHP3D (https://sketchfab.com/BHP3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "2017 Mercedes-Benz C63 AMG Coupe" (https://sketchfab.com/3d-models/2017-mercedes-benz-c63-amg-coupe-3493e64daddc4c258280bab7bfbe7361) by Ddiaz Design (https://sketchfab.com/ddiaz-design) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

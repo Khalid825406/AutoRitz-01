@@ -52,7 +52,7 @@ export default function BookingModal({ open, onClose, initialService }: { open: 
     if (Object.keys(v).length) return;
     setStatus("submitting"); setServerError("");
     try {
-      const res = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const res = await fetch("/api/bookings/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) { setStatus("success"); return; }          // success ONLY when the server confirms the save
       if (data.errors) setErrors(data.errors);

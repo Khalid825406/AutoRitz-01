@@ -1,19 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, BadgeCheck, Clock3, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+import { motion } from "motion/react";
+import { ArrowRight, BadgeCheck, Check, Clock3, ShieldCheck } from "lucide-react";
 
-import { SERVICE_GROUPS, services, type ServiceGroup } from "@/data/services";
-import ServiceCard from "./ServiceCard";
+import { StickyScroll, type StickyScrollItem } from "@/components/ui/sticky-scroll-reveal";
+import { services } from "@/data/services";
 
 interface ServicesSectionProps {
   onBook: (service?: string) => void;
 }
 
-type Tab = "All" | ServiceGroup;
-
-const TABS: Tab[] = ["All", ...SERVICE_GROUPS];
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const TRUST = [
@@ -23,17 +20,60 @@ const TRUST = [
 ];
 
 export default function ServicesSection({ onBook }: ServicesSectionProps) {
-  const [tab, setTab] = useState<Tab>("All");
-
-  const visible = useMemo(
-    () => (tab === "All" ? services : services.filter((s) => s.group === tab)),
-    [tab],
-  );
-
-  const countFor = (t: Tab) => (t === "All" ? services.length : services.filter((s) => s.group === t).length);
+  const items: StickyScrollItem[] = services.map((s) => {
+    const Icon = s.icon;
+    return {
+      title: s.title,
+      eyebrow: (
+        <p className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] py-1 pl-1 pr-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0872BB]">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0872BB] shadow-xs">
+            <Icon size={15} strokeWidth={2} />
+          </span>
+          {s.category}
+        </p>
+      ),
+      description: s.description,
+      footer: (
+        <>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {s.features.map((f) => (
+              <li
+                key={f}
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[13px] font-medium text-[#082F59]"
+              >
+                <Check size={13} strokeWidth={3} className="text-[#0872BB]" />
+                {f}
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => onBook(s.title)}
+            className="group mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
+          >
+            Book this service
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </button>
+        </>
+      ),
+      content: (
+        <>
+          <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#061E3B]/95 via-[#061E3B]/25 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-8 text-white">
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 backdrop-blur">
+              <Icon size={22} strokeWidth={1.8} />
+            </span>
+            <p className="mt-4 text-[28px] font-bold leading-tight">{s.title}</p>
+            <p className="mt-2 max-w-md text-[15px] text-white/80">{s.description}</p>
+          </div>
+        </>
+      ),
+    };
+  });
 
   return (
-      <section id="services" className="relative w-full scroll-mt-32 overflow-hidden bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
+      <section id="services" className="relative w-full scroll-mt-32 overflow-clip bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
         {/* subtle background accent */}
         <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-[#0872BB]/[0.06] blur-3xl" />
 
@@ -80,55 +120,8 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             </div>
           </motion.div>
 
-          {/* ============ TABS ============ */}
-          <div className="mt-12 border-b border-slate-200">
-            <div
-              role="tablist"
-              aria-label="Service categories"
-              className="-mb-px flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {TABS.map((t) => {
-                const active = t === tab;
-                return (
-                  <button
-                    key={t}
-                    type="button"
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setTab(t)}
-                    className={`relative flex shrink-0 items-center gap-2 whitespace-nowrap px-4 py-3.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0872BB] ${
-                      active ? "text-[#082F59]" : "text-slate-500 hover:text-[#082F59]"
-                    }`}
-                  >
-                    {t === "All" ? "All services" : t}
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-[11px] tabular-nums ${
-                        active ? "bg-[#0872BB] text-white" : "bg-slate-200/70 text-slate-600"
-                      }`}
-                    >
-                      {countFor(t)}
-                    </span>
-                    {active && (
-                      <motion.span
-                        layoutId="services-tab-underline"
-                        transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                        className="absolute inset-x-0 bottom-0 h-[2px] bg-[#0872BB]"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ============ GRID ============ */}
-          <motion.div layout className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {visible.map((service, index) => (
-                <ServiceCard key={service.id} service={service} index={index} onBook={onBook} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          {/* ============ STICKY SCROLL ============ */}
+          <StickyScroll content={items} className="mt-10 lg:mt-14" />
 
           {/* ============ BOTTOM CTA ============ */}
           <motion.div

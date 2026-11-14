@@ -188,7 +188,7 @@ interface WorkGalleryProps {
 
 export default function WorkGallery({
   onBook,
-  galleryHref = "/gallery",
+  galleryHref = "/our-work-gallery/",
 }: WorkGalleryProps) {
   return (
       <section

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import {
   AnimatePresence,
   motion,
@@ -17,110 +18,26 @@ import {
   X,
 } from "lucide-react";
 import { CONTACT } from "@/config/site";
+import { POPULAR_AREAS, REGIONS, SERVICE_AREAS } from "@/data/service-areas";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import AreaDirectory from "./AreaDirectory";
+import AreaSearchResults from "./AreaSearchResults";
+
+// Browser-only widgets (Leaflet needs window; the globe needs WebGL).
+const AreasMap = dynamic(() => import("./AreasMap"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full rounded-2xl bg-[#EAF4FC]" />,
+});
+
+const DubaiGlobe = dynamic(() => import("./DubaiGlobe"), { ssr: false });
 
 /* ---------------------------------------------------------
    DATA — edit regions / areas to match what you really cover
 --------------------------------------------------------- */
 
-const REGIONS: Record<string, string[]> = {
-  "Central Dubai": [
-    "Al Jaddaf",
-    "Al Quoz",
-    "Al Quoz 1",
-    "Al Quoz 2",
-    "Al Quoz 3",
-    "Al Safa",
-    "Al Satwa",
-    "Al Wasl",
-    "Business Bay",
-    "City Walk",
-    "DIFC",
-    "Downtown Dubai",
-    "Dubai Creek Harbour",
-    "Dubai Design District",
-    "Dubai Healthcare City",
-    "Jumeirah",
-    "Karama",
-    "La Mer",
-    "Oud Metha",
-    "Ras Al Khor",
-    "Umm Suqeim",
-    "Zabeel",
-  ],
-  "Marina & Al Barsha": [
-    "Al Barsha",
-    "Al Barsha 1",
-    "Al Barsha 2",
-    "Al Barsha 3",
-    "Al Barsha South",
-    "Al Furjan",
-    "Al Sufouh",
-    "Barsha Heights",
-    "Discovery Gardens",
-    "Dubai Marina",
-    "Emirates Hills",
-    "JBR",
-    "JLT",
-    "Jumeirah Golf Estates",
-    "Palm Jumeirah",
-    "The Greens",
-    "The Lakes",
-    "The Springs",
-  ],
-  "Dubailand & South": [
-    "Al Barari",
-    "Arabian Ranches",
-    "Damac Hills",
-    "Damac Hills 2",
-    "Damac Lagoons",
-    "Dubai Hills",
-    "Dubai Production City",
-    "Dubai Silicon Oasis",
-    "Dubai South",
-    "Dubai Sports City",
-    "Dubai Studio City",
-    "International City",
-    "Jumeirah Village Circle",
-    "Jumeirah Village Triangle",
-    "Liwan",
-    "Town Square",
-  ],
-  "Deira & East Dubai": [
-    "Al Awir",
-    "Al Mizhar",
-    "Al Nahda",
-    "Al Qusais",
-    "Al Twar",
-    "Al Warqa",
-    "Deira",
-    "Dubai Festival City",
-    "Mirdif",
-    "Muhaisnah",
-    "Nad Al Hamar",
-    "Nad Al Sheba",
-    "Warsan",
-  ],
-};
-
 const ALL = "All areas";
-const TABS = [ALL, ...Object.keys(REGIONS)];
-
-const AREAS: string[] = Object.values(REGIONS)
-  .flat()
-  .sort((a, b) => a.localeCompare(b));
-
-const POPULAR = [
-  "Dubai Marina",
-  "Palm Jumeirah",
-  "JLT",
-  "Dubai Hills",
-  "Jumeirah",
-  "Al Barsha",
-  "Business Bay",
-  "Downtown Dubai",
-  "DIFC",
-  "Mirdif",
-];
+const TABS = [ALL, ...REGIONS];
+const POPULAR = POPULAR_AREAS;
 
 const PHONE = CONTACT.phone;
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -133,16 +50,6 @@ const heroV: Variants = {
 const heroItemV: Variants = {
   hidden: { opacity: 0, y: 22 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
-};
-
-const gridV: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.012 } },
-};
-
-const cellV: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE } },
 };
 
 const focusRing =
@@ -161,17 +68,23 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
   const [tab, setTab] = useState<string>(ALL);
   const [selected, setSelected] = useState<string | null>(null);
 
+  const [globeOk, setGlobeOk] = useState(true);
+  const hideGlobe = useCallback(() => setGlobeOk(false), []);
+
   const list = useMemo(() => {
-    const base =
-      tab === ALL
-        ? AREAS
-        : [...REGIONS[tab]].sort((a, b) => a.localeCompare(b));
+    const base = tab === ALL ? SERVICE_AREAS : SERVICE_AREAS.filter((a) => a.region === tab);
     const q = query.trim().toLowerCase();
-    return q ? base.filter((a) => a.toLowerCase().includes(q)) : base;
+    return q ? base.filter((a) => a.name.toLowerCase().includes(q)) : base;
   }, [tab, query]);
 
   const toggleArea = (area: string) =>
     setSelected((cur) => (cur === area ? null : area));
+
+  /** Picking a search result: select it and bring the map into view. */
+  const pickFromSearch = (area: string) => {
+    setSelected(area);
+    document.getElementById("areas-map")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const handleSearch = (value: string) => {
     setQuery(value);
@@ -181,7 +94,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
   const stats = [
     {
       icon: MapPin,
-      value: `${Math.floor(AREAS.length / 10) * 10}+`,
+      value: `${Math.floor(SERVICE_AREAS.length / 10) * 10}+`,
       label: "Areas covered",
     },
     { icon: BadgeCheck, value: "Free", label: "Vehicle inspection" },
@@ -269,31 +182,61 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   )}
                 </div>
 
-                <p className="mt-5 text-[13px] font-medium text-white/60">
-                  Popular areas
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {POPULAR.map((area) => {
-                    const active = selected === area;
-                    return (
-                      <motion.button
-                        key={area}
-                        type="button"
-                        onClick={() => toggleArea(area)}
-                        aria-pressed={active}
-                        whileTap={{ scale: 0.95 }}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                          active
-                            ? "bg-white text-[#082F59]"
-                            : "bg-white/10 text-white hover:bg-white/20"
-                        }`}
-                      >
-                        {active && <Check size={13} />}
-                        {area}
-                      </motion.button>
-                    );
-                  })}
-                </div>
+                {/* Live results while typing, otherwise popular areas */}
+                <AnimatePresence mode="wait" initial={false}>
+                  {query.trim() ? (
+                    <motion.div
+                      key="results"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <AreaSearchResults
+                        query={query}
+                        results={list}
+                        selected={selected}
+                        onSelect={pickFromSearch}
+                        phone={PHONE}
+                      />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="popular"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                      className="mt-5"
+                    >
+                    <p className="text-[13px] font-medium text-white/60">
+                      Popular areas
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {POPULAR.map((area) => {
+                        const active = selected === area;
+                        return (
+                          <motion.button
+                            key={area}
+                            type="button"
+                            onClick={() => toggleArea(area)}
+                            aria-pressed={active}
+                            whileTap={{ scale: 0.95 }}
+                            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                              active
+                                ? "bg-white text-[#082F59]"
+                                : "bg-white/10 text-white hover:bg-white/20"
+                            }`}
+                          >
+                            {active && <Check size={13} />}
+                            {area}
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             </motion.div>
           </div>
@@ -333,7 +276,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               {TABS.map((name) => {
                 const active = tab === name && !query;
                 const count =
-                  name === ALL ? AREAS.length : REGIONS[name].length;
+                  name === ALL ? SERVICE_AREAS.length : SERVICE_AREAS.filter((a) => a.region === name).length;
                 return (
                   <button
                     key={name}
@@ -379,70 +322,66 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               className="shrink-0 text-[13px] text-slate-500"
               aria-live="polite"
             >
-              Showing {list.length} of {AREAS.length} areas
+              Showing {list.length} of {SERVICE_AREAS.length} areas
             </p>
           </div>
 
-          {/* ================= AREA GRID ================= */}
-          <div className="mt-6">
-            {list.length > 0 ? (
-              <motion.ul
-                key={tab}
-                variants={gridV}
-                initial="hidden"
-                animate="show"
-                className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-              >
-                {list.map((area) => {
-                  const active = selected === area;
-                  return (
-                    <motion.li key={area} variants={cellV}>
-                      <button
-                        type="button"
-                        onClick={() => toggleArea(area)}
-                        aria-pressed={active}
-                        className={`group flex h-[60px] w-full items-center gap-3 rounded-xl border px-4 text-left transition-all duration-200 ${focusRing} ${
-                          active
-                            ? "border-[#082F59] bg-[#082F59] text-white shadow-[0_10px_24px_rgba(8,47,89,0.25)]"
-                            : "border-slate-200 bg-white text-[#082F59] hover:-translate-y-0.5 hover:border-[#0872BB] hover:shadow-[0_10px_24px_rgba(8,47,89,0.08)]"
-                        }`}
-                      >
-                        <span
-                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
-                            active
-                              ? "bg-white/15 text-white"
-                              : "bg-[#EAF4FC] text-[#0872BB] group-hover:bg-[#0872BB] group-hover:text-white"
-                          }`}
-                        >
-                          {active ? <Check size={17} /> : <MapPin size={17} />}
-                        </span>
-                        <span className="text-[14px] font-medium leading-tight">
-                          {area}
-                        </span>
-                      </button>
-                    </motion.li>
-                  );
-                })}
-              </motion.ul>
-            ) : (
-              <div className="rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
-                <p className="text-base font-semibold text-[#082F59]">
-                  No area matches “{query}”
-                </p>
-                <p className="mt-1 text-[14px] text-slate-600">
-                  We may still reach you. Call us and we will confirm
-                  availability for your location.
-                </p>
-                <a
-                  href={`tel:${PHONE}`}
-                  className={`mt-4 inline-flex h-11 items-center gap-2 rounded-md bg-[#0872BB] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
-                >
-                  <Phone size={16} />
-                  Call {PHONE}
-                </a>
+          {/* ================= GLOBE + MAP ================= */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className={`mt-6 grid gap-6 ${globeOk ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]" : ""}`}
+          >
+            {globeOk && (
+              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-6">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    backgroundImage: "radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)",
+                    backgroundSize: "22px 22px",
+                  }}
+                />
+                <ErrorBoundary name="DubaiGlobe" fallback={null}>
+                  <DubaiGlobe onUnavailable={hideGlobe} />
+                </ErrorBoundary>
               </div>
             )}
-          </div>
+
+            <div id="areas-map" className="relative h-[420px] scroll-mt-32 overflow-hidden rounded-2xl border border-slate-200 shadow-[0_20px_50px_rgba(8,47,89,0.10)] sm:h-[520px]">
+              {list.length > 0 ? (
+                <AreasMap areas={list} selected={selected} onSelect={toggleArea} />
+              ) : (
+                  <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
+                    <p className="text-base font-semibold text-[#082F59]">
+                      No area matches “{query}”
+                    </p>
+                    <p className="mt-1 text-[14px] text-slate-600">
+                      We may still reach you. Call us and we will confirm
+                      availability for your location.
+                    </p>
+                    <a
+                      href={`tel:${PHONE}`}
+                      className={`mt-4 inline-flex h-11 items-center gap-2 rounded-md bg-[#0872BB] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                    >
+                      <Phone size={16} />
+                      Call {PHONE}
+                    </a>
+                  </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* ================= AREAS BY REGION (click = zoom map) ================= */}
+          <AreaDirectory
+            areas={list}
+            selected={selected}
+            onSelect={toggleArea}
+            searching={!!query.trim()}
+            onBook={onBook}
+          />
 
           {/* ================= FLOATING BOOKING BAR ================= */}
           <div className="pointer-events-none sticky bottom-4 z-30 mt-6 flex justify-center">

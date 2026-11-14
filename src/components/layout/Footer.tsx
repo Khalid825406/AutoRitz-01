@@ -9,29 +9,39 @@ import {
   MapPin,
   Phone,
   Mail,
-  Clock,
+  MessageCircle,
   ShieldCheck,
   ChevronRight,
 } from "lucide-react";
 
-import { Facebook, Instagram, Linkedin, Youtube } from "@/components/icons/social";
+import { Facebook, Instagram, TikTok, Youtube } from "@/components/icons/social";
+import { SITE_CONTACT, SOCIAL_LINKS, waLink } from "@/config/site";
 
+/** Quick links — every entry is a page that exists (same set as the original footer). */
 const quickLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "#about" },
-  { name: "Our Services", href: "#services" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "Contact Us", href: "#contact" },
+  { name: "About Us", href: "/about-us/" },
+  { name: "Our Services", href: "/service/" },
+  { name: "Brands", href: "/brands/" },
+  { name: "Service Areas", href: "/service-areas/" },
+  { name: "Our Work", href: "/our-work-gallery/" },
+  { name: "Customer Reviews", href: "/customer-reviews/" },
+  { name: "Blog", href: "/blog/" },
+  { name: "Careers", href: "/careers/" },
+  { name: "Contact Us", href: "/contact-us/" },
 ];
 
 const services = [
-  "Auto Repair",
-  "Car Detailing",
-  "Battery Services",
-  "Oil & Filter Change",
-  "AC Repair",
-  "Vehicle Inspection",
+  { name: "Roadside Support", href: "/roadside-support/" },
+  { name: "Car Battery Change", href: "/service/car-battery-replacement/" },
+  { name: "Buy Car Batteries", href: "/buy-car-batteries/" },
+  { name: "Buy Car Tires", href: "/buy-car-tires/" },
+  { name: "Service Contract", href: "/service-contract/" },
+  { name: "Free Vehicle Inspection", href: "/complimentary-vehicle-inspection/" },
+  { name: "Auto Spare Parts", href: "/service/auto-spare-parts-trading/" },
 ];
+
+const SOCIAL_ICONS = { Facebook, Instagram, TikTok, YouTube: Youtube } as const;
 
 export default function Footer() {
   return (
@@ -69,7 +79,7 @@ export default function Footer() {
             </div>
 
             <Link
-              href="#contact"
+              href="/contact-us/"
               className="group inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-[#1766AE] px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:bg-[#2786D2] hover:shadow-[0_10px_35px_rgba(23,102,174,0.35)]"
             >
               Book An Appointment
@@ -107,18 +117,21 @@ export default function Footer() {
             </p>
 
             <div className="mt-7 flex items-center gap-3">
-              {[Facebook, Instagram, Linkedin, Youtube].map(
-                (Icon, index) => (
+              {SOCIAL_LINKS.map((s) => {
+                const Icon = SOCIAL_ICONS[s.name];
+                return (
                   <a
-                    key={index}
-                    href="#"
-                    aria-label={["Facebook", "Instagram", "LinkedIn", "YouTube"][index]}
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#9EB5CA] transition-all duration-300 hover:border-[#1766AE] hover:bg-[#1766AE] hover:text-white"
                   >
                     <Icon size={17} />
                   </a>
-                )
-              )}
+                );
+              })}
             </div>
           </div>
 
@@ -154,16 +167,16 @@ export default function Footer() {
 
             <ul className="space-y-4">
               {services.map((service) => (
-                <li key={service}>
+                <li key={service.name}>
                   <Link
-                    href="#services"
+                    href={service.href}
                     className="group flex items-center gap-2 text-[13px] text-[#9BAEC1] transition-colors hover:text-[#70B7F4]"
                   >
                     <ChevronRight
                       size={13}
                       className="text-[#1766AE] transition-transform group-hover:translate-x-1"
                     />
-                    {service}
+                    {service.name}
                   </Link>
                 </li>
               ))}
@@ -186,9 +199,14 @@ export default function Footer() {
                   <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[#70B7F4]">
                     Our Location
                   </p>
-                  <p className="text-[13px] leading-6 text-[#9BAEC1]">
-                    Add your business address here
-                  </p>
+                  <a
+                    href={SITE_CONTACT.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] leading-6 text-[#9BAEC1] transition-colors hover:text-white"
+                  >
+                    {SITE_CONTACT.address}
+                  </a>
                 </div>
               </div>
 
@@ -201,10 +219,10 @@ export default function Footer() {
                     Phone Number
                   </p>
                   <a
-                    href="tel:+10000000000"
+                    href={`tel:${SITE_CONTACT.phone}`}
                     className="text-[13px] text-[#9BAEC1] transition-colors hover:text-white"
                   >
-                    Add your phone number
+                    Toll Free {SITE_CONTACT.phone}
                   </a>
                 </div>
               </div>
@@ -218,25 +236,30 @@ export default function Footer() {
                     Email Address
                   </p>
                   <a
-                    href="mailto:info@example.com"
+                    href={`mailto:${SITE_CONTACT.email}`}
                     className="text-[13px] text-[#9BAEC1] transition-colors hover:text-white"
                   >
-                    Add your email address
+                    {SITE_CONTACT.email}
                   </a>
                 </div>
               </div>
 
               <div className="flex gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1766AE]/15 text-[#70B7F4]">
-                  <Clock size={18} />
+                  <MessageCircle size={18} />
                 </span>
                 <div>
                   <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-[#70B7F4]">
-                    Business Hours
+                    WhatsApp
                   </p>
-                  <p className="text-[13px] leading-6 text-[#9BAEC1]">
-                    Add your working hours here
-                  </p>
+                  <a
+                    href={waLink(SITE_CONTACT.whatsapp)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] text-[#9BAEC1] transition-colors hover:text-white"
+                  >
+                    +{SITE_CONTACT.whatsapp}
+                  </a>
                 </div>
               </div>
 
@@ -259,7 +282,7 @@ export default function Footer() {
           </div>
 
           <Link
-            href="#services"
+            href="/service/"
             className="group flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[#70B7F4] transition-colors hover:text-white"
           >
             Explore Our Services
@@ -275,11 +298,11 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-5 text-[11px] text-[#8295A8]">
-            <Link href="/privacy-policy" className="transition-colors hover:text-white">
-              Privacy Policy
+            <Link href="/contact-us/" className="transition-colors hover:text-white">
+              Contact Us
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-white">
-              Terms & Conditions
+            <Link href="/careers/" className="transition-colors hover:text-white">
+              Careers
             </Link>
           </div>
         </div>

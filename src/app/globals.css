@@ -257,3 +257,93 @@ body {
   }
 
 }
+
+/* =================================
+   SERVICE AREAS MAP (Leaflet)
+   Unlayered on purpose: Leaflet's own CSS is unlayered too.
+================================= */
+
+.areas-map {
+  font-family: var(--font-sans);
+  background: #eaf4fc;
+}
+
+.area-pin {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 0;
+  background: #0872bb;
+  transform: rotate(-45deg);
+  box-shadow: 0 6px 14px rgba(8, 47, 89, 0.35);
+  border: 2px solid #fff;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.area-pin > span {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.area-pin--active {
+  background: #082f59;
+  transform: rotate(-45deg) scale(1.25);
+}
+
+.leaflet-tooltip.area-label {
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #082f59;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(8, 47, 89, 0.18);
+}
+
+.leaflet-tooltip.area-label::before {
+  display: none;
+}
+
+.leaflet-tooltip.area-label--active {
+  background: #082f59;
+  color: #fff;
+  font-size: 13px;
+  z-index: 1000;
+}
+
+/* =================================
+   GLOBE FOCUS LABEL (Aceternity globe)
+================================= */
+
+.globe-focus-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.globe-focus-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #3fa9f5;
+  box-shadow: 0 0 0 4px rgba(63, 169, 245, 0.3), 0 0 18px rgba(63, 169, 245, 0.9);
+}
+
+.globe-focus-text {
+  white-space: nowrap;
+  border-radius: 999px;
+  background: #fff;
+  padding: 4px 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: #082f59;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
