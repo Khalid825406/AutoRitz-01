@@ -23,7 +23,13 @@ export default function PageShell({ children }: { children: ReactNode }) {
     };
     measure();
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    // re-measure when the header changes height (e.g. the announcement bar is closed)
+    const ro = new ResizeObserver(measure);
+    ro.observe(header);
+    return () => {
+      window.removeEventListener("resize", measure);
+      ro.disconnect();
+    };
   }, []);
 
   const openQuote = () =>

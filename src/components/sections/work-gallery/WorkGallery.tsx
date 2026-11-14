@@ -19,15 +19,15 @@ const WORKS = [
     tag: "Detailing",
     title: "Paint correction",
     text: "Swirl marks and scratches removed to bring back a deep, glossy finish.",
-    before: "/work/paint-before.webp",
-    after: "/work/paint-after.webp",
+    before: "/before.png",
+    after: "/after.png",
   },
   {
     tag: "Restoration",
     title: "Headlight restoration",
     text: "Yellowed, hazy lenses polished back to clear for safer night driving.",
-    before: "/work/headlight-before.webp",
-    after: "/work/headlight-after.webp",
+    before: "/Bumper-before.png",
+    after: "/Bumper-after.png",
   },
 ];
 

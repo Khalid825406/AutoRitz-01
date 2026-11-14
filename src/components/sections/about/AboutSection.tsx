@@ -86,7 +86,7 @@ interface AboutSectionProps {
 
 export default function AboutSection({
   onBook,
-  image = "/about-garage.webp",
+  image = "/about.png",
 }: AboutSectionProps) {
   const reduce = useReducedMotion();
   const imgBox = useRef<HTMLDivElement>(null);

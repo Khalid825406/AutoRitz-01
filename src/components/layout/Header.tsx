@@ -18,6 +18,7 @@ import {
 import { CONTACT, NAV_LINKS, isActiveLink } from "@/config/site";
 
 
+import AnnouncementBar from "./AnnouncementBar";
 import MobileMenu from "./MobileMenu";
 
 /* ---------------------------------------------------------
@@ -116,6 +117,8 @@ export default function Header({ onBook }: { onBook: () => void }) {
           isSticky ? "shadow-[0_4px_20px_rgba(8,47,89,0.12)]" : "shadow-xs"
         }`}
       >
+        <AnnouncementBar />
+
         {/* ================= TOP BAR ================= */}
         <div
           className={`border-b border-slate-100 bg-white transition-[padding] duration-300 ${
