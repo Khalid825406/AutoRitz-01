@@ -1,7 +1,5 @@
 "use client";
 
-import { useCallback, useState } from "react";
-
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/hero/Hero";
@@ -14,16 +12,14 @@ import TestimonialsSection from "@/components/sections/testimonials/Testimonials
 import ServiceAreas from "@/components/sections/service-areas/ServiceAreas";
 import AboutSection from "@/components/sections/about/AboutSection";
 import WorkGallery from "@/components/sections/work-gallery/WorkGallery";
-// import BookingModal from "@/components/booking/BookingModal";
+import { useBookService } from "@/lib/hooks/useBookService";
 
+/**
+ * Every "Book" / "Free quote" button on the homepage opens the appointment form on the
+ * Contact page, with the chosen service (if any) already filled in.
+ */
 export default function HomePage() {
-  const [, setOpen] = useState(false);
-  const [, setService] = useState<string | undefined>();
-
-  const book = useCallback((s?: string) => {
-    setService(s);
-    setOpen(true);
-  }, []);
+  const book = useBookService();
 
   return (
     <main>
@@ -34,12 +30,10 @@ export default function HomePage() {
       <ProcessSection onBook={book} />
       <BenefitsSection onBook={book} />
       <BrandsSection onBook={book} />
-      <ServiceAreas />
-      <AboutSection />
-      <WorkGallery />
+      <ServiceAreas onBook={book} />
+      <AboutSection onBook={book} />
+      <WorkGallery onBook={book} />
       <TestimonialsSection />
-      {/* Enable when bookings go live:
-      <BookingModal open={open} initialService={service} onClose={() => setOpen(false)} /> */}
       <Footer />
     </main>
   );

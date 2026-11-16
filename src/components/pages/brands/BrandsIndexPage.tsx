@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight, MessageCircle, Phone } from "lucide-react";
 
+import BrandOriginsMap from "./BrandOriginsMap";
 import PageShell from "@/components/layout/PageShell";
 import AppointmentSection from "@/components/page/AppointmentSection";
 import FaqSection from "@/components/page/FaqSection";
@@ -107,6 +108,8 @@ export default function BrandsIndexPage() {
           </motion.ul>
         </div>
       </section>
+
+      <BrandOriginsMap />
 
       <FaqSection items={GENERAL_FAQS} />
       <AppointmentSection />

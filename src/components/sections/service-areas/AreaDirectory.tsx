@@ -166,7 +166,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
             </div>
 
             {/* areas grid */}
-            <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-6 grid grid-cols-2 gap-x-2 gap-y-1 sm:gap-x-6 xl:grid-cols-3">
               {active.items.map((a, i) => {
                 const isSel = a.name === selected;
                 return (
@@ -180,7 +180,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                       type="button"
                       onClick={() => onSelect(a.name)}
                       aria-pressed={isSel}
-                      className={`group flex w-full items-center gap-3 rounded-lg border-b border-dashed px-2 py-2.5 text-left text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0872BB] ${
+                      className={`group flex h-full w-full items-center gap-2 rounded-lg border-b border-dashed px-1.5 py-2.5 text-left text-[13px] leading-snug transition-colors sm:gap-3 sm:px-2 sm:text-[14px] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0872BB] ${
                         isSel
                           ? "border-transparent bg-[#082F59] font-semibold text-white"
                           : "border-slate-200 text-slate-700 hover:border-transparent hover:bg-[#F2F8FD] hover:text-[#0872BB]"
@@ -195,11 +195,12 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                       >
                         <Check size={11} strokeWidth={3} />
                       </span>
-                      <span className="min-w-0 flex-1 truncate">{a.name}</span>
+                      {/* two columns on phones: long names wrap instead of being cut off */}
+                      <span className="min-w-0 flex-1 sm:truncate">{a.name}</span>
                       <MapPin
                         size={14}
                         aria-hidden
-                        className={`shrink-0 transition-opacity ${isSel ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                        className={`shrink-0 transition-opacity ${isSel ? "opacity-100" : "opacity-0 group-hover:opacity-100 max-sm:hidden"}`}
                       />
                     </button>
                   </motion.li>

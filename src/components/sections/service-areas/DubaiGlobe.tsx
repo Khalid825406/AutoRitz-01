@@ -65,7 +65,7 @@ export default function DubaiGlobe({ onUnavailable }: { onUnavailable?: () => vo
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={REVEAL_VIEWPORT}
       transition={{ duration: 1 }}
-      className="relative aspect-square w-full max-w-[520px] cursor-grab active:cursor-grabbing"
+      className="touch-scroll-3d relative aspect-square w-full max-w-[520px] cursor-grab active:cursor-grabbing"
       role="img"
       aria-label={`Globe centred on Dubai showing our ${SERVICE_AREAS.length} service areas`}
     >

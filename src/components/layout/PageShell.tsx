@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { SITE_CONTACT, waLink } from "@/config/site";
+import { useBookService } from "@/lib/hooks/useBookService";
 
 /** Header height on desktop before it shrinks — used until the real height is measured. */
 const DEFAULT_HEADER_OFFSET = 132;
@@ -13,6 +13,7 @@ const DEFAULT_HEADER_OFFSET = 132;
 export default function PageShell({ children }: { children: ReactNode }) {
   // The header is position:fixed, so push the content down by its (unshrunk) height.
   const [offset, setOffset] = useState(DEFAULT_HEADER_OFFSET);
+  const book = useBookService();
 
   useEffect(() => {
     const header = document.querySelector("header");
@@ -32,12 +33,9 @@ export default function PageShell({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const openQuote = () =>
-    window.open(waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I'd like a free quote."), "_blank", "noopener");
-
   return (
     <>
-      <Header onBook={openQuote} />
+      <Header onBook={() => book()} />
       <main style={{ paddingTop: offset }}>{children}</main>
       <Footer />
     </>

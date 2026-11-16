@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate:world-map": "node scripts/generate-world-map.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -30,6 +31,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.187.0",
+    "dotted-map": "^3.1.0",
     "eslint": "^10.14.0",
     "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4.3.5",

@@ -103,7 +103,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
     e.preventDefault();
     if (!search.trim()) return;
     closeMenus();
-    router.push("/service/");
+    router.push(`/service/?q=${encodeURIComponent(search.trim())}#all-services`);
   };
 
   const focusRing =

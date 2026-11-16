@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { CONTACT } from "@/config/site";
 
-import { scrollToId } from "@/lib/utils/scroll";
+import { useRouter } from "next/navigation";
 
 import TextReveal from "@/components/motion/TextReveal";
 import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
@@ -91,6 +91,7 @@ export default function AboutSection({
   image = "/about.png",
 }: AboutSectionProps) {
   const reduce = useReducedMotion();
+  const router = useRouter();
   const imgBox = useRef<HTMLDivElement>(null);
 
   // gentle parallax inside the photo frame
@@ -258,7 +259,7 @@ export default function AboutSection({
               >
                 <motion.button
                   type="button"
-                  onClick={() => scrollToId("contact")}
+                  onClick={() => router.push("/contact-us/")}
                   whileTap={{ scale: 0.97 }}
                   className={`group inline-flex h-12 items-center gap-2 rounded-md bg-[#0872BB] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
                 >

@@ -64,6 +64,9 @@ export default function AreasMap({ areas, selected, onSelect }: AreasMapProps) {
       minZoom={9}
       maxZoom={17}
       scrollWheelZoom={false}
+      // Phones: one finger scrolls the PAGE (not the map). Pinch with two fingers to zoom/move,
+      // or use the +/− buttons and tap a pin / list item.
+      dragging={!L.Browser.mobile}
       className="areas-map h-full w-full"
       attributionControl
     >

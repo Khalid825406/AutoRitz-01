@@ -98,3 +98,4 @@ export const SOCIAL_LINKS = [
 
 export const waLink = (number: string, text?: string) =>
   `https://wa.me/${number}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+

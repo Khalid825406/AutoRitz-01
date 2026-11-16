@@ -46,8 +46,11 @@ body {
   /* 3D car on touch screens: vertical swipes scroll the page, horizontal swipes rotate the car.
      R3F / OrbitControls put an inline `touch-action: none` on the canvas and its wrapper div,
      which swallowed every swipe and made the hero impossible to scroll past on phones. */
+  /* Same for the service-areas globe (.touch-scroll-3d). */
   .car-wrap,
-  .car-wrap * {
+  .car-wrap *,
+  .touch-scroll-3d,
+  .touch-scroll-3d * {
     touch-action: pan-y !important;
   }
 

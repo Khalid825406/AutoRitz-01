@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useSyncExternalStore } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   useGLTF,
@@ -12,11 +12,23 @@ import {
   OrbitControls,
 } from "@react-three/drei";
 
+// Phones: frame the car with more room so it stays fully on screen at every rotation angle
+// (the side view is much longer than the default 3/4 front view).
+const MOBILE_QUERY = "(max-width: 639px)";
+const subscribeMobile = (onChange: () => void) => {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
+const useIsMobile = () =>
+  useSyncExternalStore(subscribeMobile, () => window.matchMedia(MOBILE_QUERY).matches, () => false);
+
 function CarModel() {
   const { scene } = useGLTF("/models/scene.gltf");
+  const isMobile = useIsMobile();
 
   return (
-    <Bounds fit clip observe margin={0.75}>
+    <Bounds key={isMobile ? "mobile" : "desktop"} fit clip observe margin={isMobile ? 1 : 0.75}>
       <Center>
         <group position={[0, -0.3, 0]}>
           <primitive object={scene} scale={1.4} />

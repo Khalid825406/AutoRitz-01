@@ -351,7 +351,13 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
 
             <div id="areas-map" className="relative h-[420px] scroll-mt-32 overflow-hidden rounded-2xl border border-slate-200 shadow-[0_20px_50px_rgba(8,47,89,0.10)] sm:h-[520px]">
               {list.length > 0 ? (
-                <AreasMap areas={list} selected={selected} onSelect={toggleArea} />
+                <>
+                  <AreasMap areas={list} selected={selected} onSelect={toggleArea} />
+                  {/* touch screens: one finger scrolls the page, so explain how to move the map */}
+                  <p className="pointer-events-none absolute bottom-7 left-1/2 z-[500] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#082F59]/85 px-3 py-1.5 text-[11px] font-medium text-white [@media(hover:hover)]:hidden">
+                    Use two fingers to move the map
+                  </p>
+                </>
               ) : (
                   <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
                     <p className="text-base font-semibold text-[#082F59]">

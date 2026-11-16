@@ -20,6 +20,8 @@ interface PageHeroProps {
   breadcrumbs?: Crumb[];
   /** Optional content under the heading (cards, buttons…). */
   children?: ReactNode;
+  /** Optional right-hand column (shown below the text on small screens). */
+  aside?: ReactNode;
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -30,7 +32,7 @@ const item: Variants = {
 };
 
 /** Navy banner used at the top of every inner page. */
-export default function PageHero({ eyebrow, title, highlight, description, breadcrumbs, children }: PageHeroProps) {
+export default function PageHero({ eyebrow, title, highlight, description, breadcrumbs, children, aside }: PageHeroProps) {
   return (
     <section className="w-full bg-white pt-6 sm:pt-8">
       <div className="site-container">
@@ -45,7 +47,8 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
           />
           <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
 
-          <motion.div variants={stagger} initial="hidden" animate="show">
+          <div className={aside ? "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12" : undefined}>
+          <motion.div variants={stagger} initial="hidden" animate="show" className="min-w-0">
             {breadcrumbs && breadcrumbs.length > 0 && (
               <motion.nav variants={item} aria-label="Breadcrumb">
                 <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-white/60">
@@ -96,6 +99,18 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
 
             {children && <motion.div variants={item}>{children}</motion.div>}
           </motion.div>
+
+          {aside && (
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
+              className="min-w-0"
+            >
+              {aside}
+            </motion.div>
+          )}
+          </div>
         </div>
       </div>
     </section>

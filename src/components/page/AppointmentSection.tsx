@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion } from "motion/react";
-import { CalendarCheck, Clock3, Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { CalendarCheck, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { BRAND_PAGES } from "@/data/pages/brands";
@@ -22,12 +22,30 @@ const field =
 export default function AppointmentSection({
   defaultService = "",
   defaultBrand = "",
+  defaultMessage = "",
 }: {
   defaultService?: string;
   defaultBrand?: string;
+  /** Pre-filled message, e.g. the service a visitor picked on the homepage. */
+  defaultMessage?: string;
 }) {
-  const [form, setForm] = useState({ name: "", phone: "", brand: defaultBrand, service: defaultService, message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    brand: defaultBrand,
+    service: defaultService,
+    message: defaultMessage,
+  });
   const [error, setError] = useState("");
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Arriving from a "Book" button (/contact-us/?service=…#appointment): bring the form into view.
+  // Runs after layout settles so the jump lands on the form, not where the previous page was scrolled.
+  useEffect(() => {
+    if (window.location.hash !== "#appointment") return;
+    const t = window.setTimeout(() => sectionRef.current?.scrollIntoView({ behavior: "instant", block: "start" }), 120);
+    return () => window.clearTimeout(t);
+  }, []);
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -53,10 +71,12 @@ export default function AppointmentSection({
     { icon: MessageCircle, label: "WhatsApp", value: `+${SITE_CONTACT.whatsapp}`, href: waLink(SITE_CONTACT.whatsapp) },
     { icon: Phone, label: "Toll free", value: SITE_CONTACT.phone, href: `tel:${SITE_CONTACT.phone}` },
     { icon: Mail, label: "Email", value: SITE_CONTACT.email, href: `mailto:${SITE_CONTACT.email}` },
+    // workshop address — opens Google Maps
+    { icon: MapPin, label: "Our workshop", value: SITE_CONTACT.address, href: SITE_CONTACT.mapUrl },
   ];
 
   return (
-    <section id="appointment" className="w-full scroll-mt-32 bg-white py-20 sm:py-24">
+    <section ref={sectionRef} id="appointment" className="w-full scroll-mt-32 bg-white py-20 sm:py-24">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -92,9 +112,9 @@ export default function AppointmentSection({
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1766AE]/40 text-[#7cc0f5] transition-colors group-hover:bg-[#1766AE] group-hover:text-white">
                       <Icon size={19} />
                     </span>
-                    <span>
+                    <span className="min-w-0">
                       <span className="block text-xs uppercase tracking-[0.14em] text-white/55">{label}</span>
-                      <span className="block text-[15px] font-semibold">{value}</span>
+                      <span className="block text-[15px] font-semibold leading-snug">{value}</span>
                     </span>
                   </a>
                 </li>
@@ -103,7 +123,7 @@ export default function AppointmentSection({
           </div>
 
           {/* right: form */}
-          <form onSubmit={submit} noValidate className="grid gap-4 bg-white p-8 sm:grid-cols-2 sm:p-10 lg:p-12">
+          <form onSubmit={submit} noValidate className="grid content-center gap-4 bg-white p-8 sm:grid-cols-2 sm:p-10 lg:p-12">
             <label className="sm:col-span-1">
               <span className="mb-1.5 block text-[13px] font-semibold text-[#082F59]">Name</span>
               <input className={field} value={form.name} onChange={set("name")} placeholder="Your full name" autoComplete="name" />

@@ -97,10 +97,10 @@ export default function Footer() {
       {/* Main Footer */}
       <motion.div className="site-container relative pb-12 pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.7 }}>
 
-        <div className="grid grid-cols-1 gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-12 border-b border-white/10 pb-14 sm:gap-x-10 lg:grid-cols-12 lg:gap-10">
 
           {/* BRAND */}
-          <div className="lg:col-span-4">
+          <div className="col-span-2 lg:col-span-4">
 
             <Link href="/" className="inline-flex items-center">
               <Image
@@ -138,8 +138,8 @@ export default function Footer() {
           </div>
 
           {/* QUICK LINKS */}
-          <div className="lg:col-span-2">
-            <h3 className="mb-7 text-xs font-bold uppercase tracking-[0.16em] text-white">
+          <div className="min-w-0 lg:col-span-2">
+            <h3 className="mb-5 text-xs sm:mb-7 font-bold uppercase tracking-[0.16em] text-white">
               Quick Links
             </h3>
 
@@ -152,7 +152,7 @@ export default function Footer() {
                   >
                     <ChevronRight
                       size={13}
-                      className="text-[#1766AE] transition-transform group-hover:translate-x-1"
+                      className="shrink-0 text-[#1766AE] transition-transform group-hover:translate-x-1"
                     />
                     {link.name}
                   </Link>
@@ -162,8 +162,8 @@ export default function Footer() {
           </div>
 
           {/* SERVICES */}
-          <div className="lg:col-span-3">
-            <h3 className="mb-7 text-xs font-bold uppercase tracking-[0.16em] text-white">
+          <div className="min-w-0 lg:col-span-3">
+            <h3 className="mb-5 text-xs sm:mb-7 font-bold uppercase tracking-[0.16em] text-white">
               Our Services
             </h3>
 
@@ -176,7 +176,7 @@ export default function Footer() {
                   >
                     <ChevronRight
                       size={13}
-                      className="text-[#1766AE] transition-transform group-hover:translate-x-1"
+                      className="shrink-0 text-[#1766AE] transition-transform group-hover:translate-x-1"
                     />
                     {service.name}
                   </Link>
@@ -186,7 +186,7 @@ export default function Footer() {
           </div>
 
           {/* CONTACT */}
-          <div className="lg:col-span-3">
+          <div className="col-span-2 lg:col-span-3">
             <h3 className="mb-7 text-xs font-bold uppercase tracking-[0.16em] text-white">
               Get In Touch
             </h3>
