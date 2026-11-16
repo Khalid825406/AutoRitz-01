@@ -7,6 +7,8 @@ import Marquee from "@/components/ui/Marquee";
 import SafeImage from "@/components/ui/SafeImage";
 import { brands, type Brand } from "@/data/brands";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface BrandsSectionProps {
   onBook: (service?: string) => void;
 }
@@ -82,24 +84,24 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
       className="relative w-full scroll-mt-32 overflow-hidden bg-white py-20 sm:py-24 lg:py-28"
     >
       {/* soft brand glow */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[#EAF4FC] blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-radial from-[#EAF4FC] to-transparent to-70%" />
 
       <div className="site-container relative">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           className="mx-auto max-w-2xl text-center"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
             <BadgeCheck size={14} />
             Our automotive brands
           </span>
-          <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+          <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
             Experts in Every
             <span className="block text-[#0872BB]">Automotive Brand.</span>
-          </h2>
+          </TextReveal>
           <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
             From luxury European vehicles to Japanese and American automobiles, our experts deliver professional care
             for all leading automotive brands.
@@ -111,7 +113,7 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={REVEAL_VIEWPORT}
         transition={{ duration: 0.8 }}
         className="relative mt-14 flex flex-col gap-6 sm:gap-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         aria-label="Car brands we service"
@@ -130,7 +132,7 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={REVEAL_VIEWPORT}
           className="mt-14 flex flex-col items-center gap-4 text-center"
         >
           <p className="text-[15px] text-slate-600">

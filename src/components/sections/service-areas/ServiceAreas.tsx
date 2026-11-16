@@ -23,6 +23,8 @@ import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import AreaDirectory from "./AreaDirectory";
 import AreaSearchResults from "./AreaSearchResults";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 // Browser-only widgets (Leaflet needs window; the globe needs WebGL).
 const AreasMap = dynamic(() => import("./AreasMap"), {
   ssr: false,
@@ -124,7 +126,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               variants={heroV}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={REVEAL_VIEWPORT}
               className="relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
             >
               {/* heading */}
@@ -137,12 +139,9 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   Service areas
                 </motion.span>
 
-                <motion.h2
-                  variants={heroItemV}
-                  className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[46px]"
-                >
+                <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[46px]">
                   Wherever you are in Dubai, we come to you.
-                </motion.h2>
+                </TextReveal>
 
                 <motion.p
                   variants={heroItemV}
@@ -245,7 +244,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           <motion.ul
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.6, ease: EASE }}
             className="relative z-10 mx-4 -mt-12 grid divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(8,47,89,0.12)] sm:mx-10 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:mx-20"
           >
@@ -271,7 +270,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
             <div
               role="group"
               aria-label="Filter areas by region"
-              className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+              className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
             >
               {TABS.map((name) => {
                 const active = tab === name && !query;
@@ -330,7 +329,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
             className={`mt-6 grid gap-6 ${globeOk ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]" : ""}`}
           >

@@ -9,6 +9,7 @@ import type { GlobeConfig } from "@/components/ui/globe";
 import { globeArcs } from "@/data/globe-arcs";
 import { DUBAI_CENTER, SERVICE_AREAS } from "@/data/service-areas";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 // Aceternity globe (three-globe + React Three Fiber) — browser only.
 const World = dynamic(() => import("@/components/ui/globe").then((m) => m.World), { ssr: false });
 
@@ -62,7 +63,7 @@ export default function DubaiGlobe({ onUnavailable }: { onUnavailable?: () => vo
       ref={ref}
       initial={{ opacity: 0, scale: 0.92 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 1 }}
       className="relative aspect-square w-full max-w-[520px] cursor-grab active:cursor-grabbing"
       role="img"

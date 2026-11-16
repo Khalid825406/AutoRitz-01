@@ -51,7 +51,12 @@ export default function Car3DViewer() {
           powerPreference: "high-performance",
         }}
         dpr={[1, 1.5]}
-        shadows
+        // "percentage" = PCFShadowMap. The default ("soft" / PCFSoftShadowMap) was removed in three.js r18x,
+        // which made three.js fall back to PCF anyway and log a warning.
+        shadows="percentage"
+        // Render only when something changes (model loaded, user drags) instead of 60×/second.
+        // The car looks the same but the GPU stays free for the hero background videos.
+        frameloop="demand"
       >
         <ambientLight intensity={1.4} />
 

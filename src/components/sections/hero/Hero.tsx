@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 
+import HeroBackgroundVideos from "./HeroBackgroundVideos";
 import HeroTypography from "./HeroTypography";
 import LoadingScreen from "@/components/three/LoadingScreen";
 
@@ -27,6 +28,9 @@ export default function Hero(_props: HeroProps) {
       transition={{ duration: 0.8 }}
       className="hero-bg-layer hero-bg relative isolate min-h-[100svh] overflow-hidden"
     >
+      {/* Background videos — left & right, behind everything (z-0) */}
+      <HeroBackgroundVideos />
+
       {/* Big brand text — centered, sits BEHIND the car (z-10) */}
       <HeroTypography />
 

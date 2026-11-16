@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { motion, type Variants } from "motion/react";
 import { ChevronRight, Home } from "lucide-react";
 
+import TextReveal from "@/components/motion/TextReveal";
 export interface Crumb {
   label: string;
   href?: string;
@@ -42,14 +43,14 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
               backgroundSize: "22px 22px",
             }}
           />
-          <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-[#1766AE]/40 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
 
           <motion.div variants={stagger} initial="hidden" animate="show">
             {breadcrumbs && breadcrumbs.length > 0 && (
               <motion.nav variants={item} aria-label="Breadcrumb">
                 <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-white/60">
                   <li>
-                    <Link href="/" className="inline-flex items-center gap-1 transition-colors hover:text-white">
+                    <Link href="/" className="inline-flex items-center gap-1 py-1.5 transition-colors hover:text-white">
                       <Home size={13} />
                       Home
                     </Link>
@@ -58,7 +59,7 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
                     <li key={c.label} className="flex items-center gap-1.5">
                       <ChevronRight size={13} className="text-white/35" />
                       {c.href ? (
-                        <Link href={c.href} className="transition-colors hover:text-white">
+                        <Link href={c.href} className="inline-block py-1.5 transition-colors hover:text-white">
                           {c.label}
                         </Link>
                       ) : (
@@ -81,13 +82,11 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
               </motion.span>
             )}
 
-            <motion.h1
-              variants={item}
-              className="mt-5 max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
-            >
+            <TextReveal as="h1"
+              className="mt-5 max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl" delay={0.15}>
               {title}
               {highlight && <span className="block text-[#4B9DE0]">{highlight}</span>}
-            </motion.h1>
+            </TextReveal>
 
             {description && (
               <motion.p variants={item} className="mt-5 max-w-2xl text-base leading-relaxed text-[#DCE8F2]/85 sm:text-lg">

@@ -8,6 +8,8 @@ import { SITE_CONTACT, waLink } from "@/config/site";
 import { BRAND_PAGES } from "@/data/pages/brands";
 import { APPOINTMENT_SERVICES } from "@/data/pages/appointment";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const field =
@@ -59,20 +61,20 @@ export default function AppointmentSection({
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
           className="grid overflow-hidden rounded-3xl border border-slate-200/80 shadow-[0_30px_60px_-30px_rgba(8,47,89,0.3)] lg:grid-cols-[0.85fr_1.15fr]"
         >
           {/* left: info */}
           <div className="relative isolate overflow-hidden bg-[#082F59] p-8 text-white sm:p-10 lg:p-12">
-            <div className="pointer-events-none absolute -bottom-24 -left-24 -z-10 h-80 w-80 rounded-full bg-[#1766AE]/40 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
             <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
               <CalendarCheck size={14} />
               Get a service now!
             </span>
-            <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
+            <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
               Set An Appointment <span className="block text-[#4B9DE0]">Today</span>
-            </h2>
+            </TextReveal>
             <p className="mt-4 flex items-center gap-2 text-[15px] text-[#DCE8F2]/85">
               <Clock3 size={16} className="text-[#4B9DE0]" />
               We respond within 7 minutes

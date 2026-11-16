@@ -11,6 +11,8 @@ import { SITE_CONTACT, waLink } from "@/config/site";
 import { SERVICES } from "@/data/pages/services";
 import { DEFAULT_SERVICE_ICON, SERVICE_ICONS } from "./serviceIcons";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -55,16 +57,16 @@ export default function ServicesIndexPage() {
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
+            <TextReveal className="text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
               All services <span className="text-[#0872BB]">({SERVICES.length})</span>
-            </h2>
+            </TextReveal>
             <p className="text-[14px] text-slate-500">Pick a service to see how we do it.</p>
           </div>
 
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.05 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
             className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >

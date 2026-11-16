@@ -10,6 +10,8 @@ import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { PAGE_AREAS, SERVICE_AREAS_PAGE } from "@/data/pages/service-areas-page";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ServiceAreasPage() {
@@ -55,16 +57,16 @@ export default function ServiceAreasPage() {
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.6, ease: EASE }}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
                 <MapPin size={14} />
                 {PAGE_AREAS.length} areas
               </span>
-              <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+              <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
                 We Serve <span className="text-[#0872BB]">Across Dubai.</span>
-              </h2>
+              </TextReveal>
             </motion.div>
 
             {/* search */}

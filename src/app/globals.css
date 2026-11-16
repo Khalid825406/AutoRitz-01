@@ -27,11 +27,18 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Never allow sideways scrolling on phones. "clip" (unlike "hidden") keeps position: sticky working. */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   color: #0b1b4d;
-  overflow-x: hidden;
   background: #fff;
+  /* long words / URLs wrap instead of pushing the layout wider */
+  overflow-wrap: break-word;
 }
 
 /* Custom component styles live in a layer so Tailwind utilities can override them (v3 behaviour). */
@@ -176,7 +183,7 @@ body {
       rgba(23, 102, 174, 0.08) 45%,
       transparent 70%
     );
-    filter: blur(50px);
+    /* no filter: blur — the radial gradient is already soft, and blur is costly while scrolling */
     pointer-events: none;
     z-index: -1;
   }

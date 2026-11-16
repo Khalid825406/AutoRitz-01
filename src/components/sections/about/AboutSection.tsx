@@ -23,6 +23,8 @@ import { CONTACT } from "@/config/site";
 
 import { scrollToId } from "@/lib/utils/scroll";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 /* ---------------------------------------------------------
    DATA
 --------------------------------------------------------- */
@@ -112,7 +114,7 @@ export default function AboutSection({
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.8, ease: EASE }}
               className="relative mx-auto w-full max-w-[600px] pb-6 pl-0 lg:mx-0 lg:pl-4"
             >
@@ -153,7 +155,7 @@ export default function AboutSection({
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 14 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ delay: 0.45, type: "spring", stiffness: 220, damping: 18 }}
                 className="absolute left-0 top-8 z-10 flex items-center gap-3 rounded-xl bg-white py-3 pl-3 pr-5 shadow-[0_14px_36px_rgba(8,47,89,0.18)] sm:-left-2"
               >
@@ -174,7 +176,7 @@ export default function AboutSection({
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 14 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ delay: 0.6, type: "spring", stiffness: 220, damping: 18 }}
                 className="absolute -bottom-0 right-2 z-10 flex items-center gap-3 rounded-xl bg-[#0872BB] py-3 pl-3 pr-5 text-white shadow-[0_14px_36px_rgba(8,114,187,0.4)] sm:-right-4"
               >
@@ -195,7 +197,7 @@ export default function AboutSection({
               variants={stackV}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={REVEAL_VIEWPORT}
             >
               <motion.span
                 variants={riseV}
@@ -205,15 +207,12 @@ export default function AboutSection({
                 About Ritz Auto Care
               </motion.span>
 
-              <motion.h2
-                variants={riseV}
-                className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]"
-              >
+              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]">
                 More than just car maintenance.
                 <span className="block text-[#0872BB]">
                   We care about your drive.
                 </span>
-              </motion.h2>
+              </TextReveal>
 
               <motion.p
                 variants={riseV}
@@ -301,7 +300,7 @@ export default function AboutSection({
               variants={stackV}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={REVEAL_VIEWPORT}
               className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
             >
               <div className="max-w-[560px]">
@@ -312,12 +311,9 @@ export default function AboutSection({
                   <BadgeCheck size={14} />
                   Why choose us
                 </motion.span>
-                <motion.h2
-                  variants={riseV}
-                  className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[44px]"
-                >
+                <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[44px]">
                   The Ritz Auto Care difference.
-                </motion.h2>
+                </TextReveal>
               </div>
 
               <motion.div
@@ -351,7 +347,7 @@ export default function AboutSection({
               }}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={REVEAL_VIEWPORT}
               className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
               {FEATURES.map(({ icon: Icon, title, text }) => (
@@ -360,7 +356,7 @@ export default function AboutSection({
                   variants={riseV}
                   whileHover={{ y: -6 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-xs transition-colors duration-300 hover:border-[#3FA9F5]/60 hover:bg-white/[0.10]"
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 transition-colors duration-300 hover:border-[#3FA9F5]/60 hover:bg-white/[0.10]"
                 >
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0872BB] text-white shadow-[0_10px_24px_rgba(8,114,187,0.45)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
                     <Icon size={22} />

@@ -9,6 +9,8 @@ import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { CUSTOMER_REVIEWS } from "@/data/pages/customer-reviews";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -67,9 +69,9 @@ export default function CustomerReviewsPage() {
       <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
+            <TextReveal className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
               Customer reviews <Heart size={24} className="fill-[#0872BB] text-[#0872BB]" />
-            </h2>
+            </TextReveal>
             <p className="flex items-center gap-1.5 text-[14px] font-medium text-slate-600">
               <span className="flex text-amber-400">
                 {Array.from({ length: 5 }, (_, i) => (
@@ -83,7 +85,7 @@ export default function CustomerReviewsPage() {
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.05 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
             className="mt-10 columns-1 gap-6 md:columns-2 xl:columns-3"
           >
@@ -125,7 +127,7 @@ export default function CustomerReviewsPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-8 flex flex-col items-center gap-4 text-center"
           >
             <p className="text-[15px] text-slate-600">Had a great experience with us? We&apos;d love to hear from you.</p>

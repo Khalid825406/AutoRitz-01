@@ -10,6 +10,8 @@ import {
 } from "motion/react";
 import { ArrowRight, ChevronsLeftRight, Images } from "lucide-react";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 /* ---------------------------------------------------------
    DATA — replace the image paths with your own (inside /public)
 --------------------------------------------------------- */
@@ -201,7 +203,7 @@ export default function WorkGallery({
             variants={stackV}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={REVEAL_VIEWPORT}
             className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
           >
             <div className="max-w-[640px]">
@@ -213,15 +215,12 @@ export default function WorkGallery({
                 Our work
               </motion.span>
 
-              <motion.h2
-                variants={riseV}
-                className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]"
-              >
+              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]">
                 Visible results.
                 <span className="block text-[#0872BB]">
                   Real transformations.
                 </span>
-              </motion.h2>
+              </TextReveal>
 
               <motion.p
                 variants={riseV}
@@ -255,7 +254,7 @@ export default function WorkGallery({
             }}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-12 grid gap-6 md:grid-cols-2"
           >
             {WORKS.map((work) => (
@@ -291,7 +290,7 @@ export default function WorkGallery({
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
             className="mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-[#EAF4FC] px-6 py-6 sm:flex-row sm:items-center sm:px-8"
           >

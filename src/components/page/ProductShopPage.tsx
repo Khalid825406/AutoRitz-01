@@ -12,6 +12,7 @@ import Marquee from "@/components/ui/Marquee";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { SITE_CONTACT, waLink } from "@/config/site";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 export interface ShopProduct {
   brand: string;
   name: string;
@@ -85,7 +86,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       {/* ================= PRODUCTS ================= */}
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               eyebrow={section.eyebrow}
               icon={section.icon}
@@ -98,7 +99,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
             className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
@@ -175,7 +176,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
             className="flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200/80 bg-white p-6 sm:flex-row sm:items-center sm:p-8"
           >
             <div className="flex items-center gap-4">

@@ -7,6 +7,7 @@ import { MessageCircle, Star } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { REVIEW_SUMMARY, testimonials, type Testimonial } from "@/data/testimonials";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Stars({ value, size = 16 }: { value: number; size?: number }) {
@@ -114,7 +115,7 @@ export default function TestimonialsSection() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
           className="site-container flex flex-col items-center"
         >

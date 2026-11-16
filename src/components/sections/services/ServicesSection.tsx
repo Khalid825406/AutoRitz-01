@@ -7,6 +7,8 @@ import { ArrowRight, BadgeCheck, Check, Clock3, ShieldCheck } from "lucide-react
 import { StickyScroll, type StickyScrollItem } from "@/components/ui/sticky-scroll-reveal";
 import { services } from "@/data/services";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface ServicesSectionProps {
   onBook: (service?: string) => void;
 }
@@ -61,11 +63,12 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
           <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           <div className="absolute inset-0 bg-linear-to-t from-[#061E3B]/95 via-[#061E3B]/25 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-8 text-white">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 backdrop-blur">
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
               <Icon size={22} strokeWidth={1.8} />
             </span>
-            <p className="mt-4 text-[28px] font-bold leading-tight">{s.title}</p>
-            <p className="mt-2 max-w-md text-[15px] text-white/80">{s.description}</p>
+            {/* title + text are already shown next to the photo on mobile — show them on the card only on desktop */}
+            <p className="mt-4 text-[28px] font-bold leading-tight max-lg:hidden">{s.title}</p>
+            <p className="mt-2 max-w-md text-[15px] text-white/80 max-lg:hidden">{s.description}</p>
           </div>
         </>
       ),
@@ -75,14 +78,14 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
   return (
       <section id="services" className="relative w-full scroll-mt-32 overflow-clip bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
         {/* subtle background accent */}
-        <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-[#0872BB]/[0.06] blur-3xl" />
+        <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-radial from-[#0872BB]/[0.06] to-transparent to-70%" />
 
         <div className="site-container relative">
           {/* ============ HEADER ============ */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
             className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end"
           >
@@ -91,9 +94,9 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
                 <span className="h-px w-8 bg-[#0872BB]" />
                 Our services
               </p>
-              <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+              <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
                 Everything your car needs, <span className="text-[#0872BB]">under one roof</span>
-              </h2>
+              </TextReveal>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
                 From routine maintenance to emergency roadside support, our certified technicians keep your
                 vehicle safe, reliable and ready for the road.
@@ -127,7 +130,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
             className="mt-14 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl bg-linear-to-r from-[#082F59] to-[#0B477D] px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10"
           >

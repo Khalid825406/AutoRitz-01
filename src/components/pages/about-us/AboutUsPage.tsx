@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 import { Check, Phone, Quote, Users } from "lucide-react";
 
@@ -13,6 +12,9 @@ import { SITE_CONTACT } from "@/config/site";
 import { QUALITY_IMAGES, WHY_US } from "@/data/pages/common";
 import { ABOUT, CEO, EXPERT_CARE } from "@/data/pages/about-us";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -38,34 +40,34 @@ export default function AboutUsPage() {
           {/* photo collage */}
           <div className="relative mx-auto w-full max-w-[560px]">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.9, ease: EASE }}
               className="relative aspect-square w-[78%] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
             >
-              <Image src={ABOUT.images[0]} alt="Inside the Ritz Auto Care workshop" fill sizes="(min-width: 1024px) 35vw, 75vw" className="object-cover" />
+              <RevealImage src={ABOUT.images[0]} alt="Inside the Ritz Auto Care workshop" fill sizes="(min-width: 1024px) 35vw, 75vw" className="object-cover" />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
               className="absolute bottom-[-8%] right-0 aspect-[3/4] w-[46%] overflow-hidden rounded-3xl border-[6px] border-white shadow-[0_30px_60px_-24px_rgba(8,47,89,0.5)]"
             >
-              <Image src={ABOUT.images[1]} alt="Ritz Auto Care LLC building in Dubai" fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover" />
+              <RevealImage src={ABOUT.images[1]} alt="Ritz Auto Care LLC building in Dubai" fill sizes="(min-width: 1024px) 22vw, 45vw" className="object-cover" />
             </motion.div>
           </div>
 
           {/* text */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} className="pt-6 lg:pt-0">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT} className="pt-6 lg:pt-0">
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
               <Users size={14} />
               {ABOUT.eyebrow}
             </span>
-            <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+            <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
               {ABOUT.heading}
-            </h2>
+            </TextReveal>
             <p className="mt-5 text-base leading-relaxed text-slate-600">{ABOUT.text}</p>
 
             <ul className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -102,11 +104,11 @@ export default function AboutUsPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             className="grid overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_30px_60px_-30px_rgba(8,47,89,0.3)] md:grid-cols-[0.75fr_1.25fr]"
           >
             <div className="relative aspect-[4/5] bg-white md:aspect-auto md:min-h-[440px]">
-              <Image src={CEO.image} alt={`${CEO.name}, ${CEO.role}`} fill sizes="(min-width: 768px) 35vw, 90vw" className="object-cover object-top" />
+              <RevealImage src={CEO.image} alt={`${CEO.name}, ${CEO.role}`} fill sizes="(min-width: 768px) 35vw, 90vw" className="object-cover object-top" />
             </div>
             <div className="relative flex flex-col justify-center p-8 sm:p-12">
               <Quote size={56} className="text-[#EAF4FC]" fill="currentColor" strokeWidth={0} />

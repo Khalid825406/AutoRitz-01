@@ -32,7 +32,7 @@ export interface Service {
   icon: LucideIcon;
 }
 
-// Replace image URLs with your own workshop photos (put them in /public) for best results.
+// Real Ritz Auto Care photos (from ritzautocare.ae), stored in /public/images/services/.
 export const services: Service[] = [
   {
     id: "01",
@@ -41,7 +41,7 @@ export const services: Service[] = [
     title: "Expert Car Repairs",
     description: "Engine, brake, suspension and electrical repairs by certified technicians.",
     features: ["Computer diagnostics", "Genuine & OEM parts", "Transparent pricing"],
-    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/expert-car-repairs.webp",
     icon: Wrench,
   },
   {
@@ -51,7 +51,7 @@ export const services: Service[] = [
     title: "Roadside Assistance",
     description: "Fast help across the UAE when you are stuck — day or night.",
     features: ["Jump starts & towing", "Flat tyre change", "Quick response"],
-    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/roadside-assistance.webp",
     icon: Truck,
   },
   {
@@ -61,7 +61,7 @@ export const services: Service[] = [
     title: "Battery Services",
     description: "Testing, replacement and on-site fitting with the right battery for your car.",
     features: ["Battery health check", "On-site replacement", "Top brands in stock"],
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/battery-services.webp",
     icon: BatteryCharging,
   },
   {
@@ -71,7 +71,7 @@ export const services: Service[] = [
     title: "Tyre & Wheel Care",
     description: "Better grip, balanced handling and safer journeys on every road.",
     features: ["Supply & fitting", "Wheel balancing", "Alignment check"],
-    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/tyre-wheel-care.webp",
     icon: CircleGauge,
   },
   {
@@ -81,7 +81,7 @@ export const services: Service[] = [
     title: "Periodic Maintenance",
     description: "Scheduled servicing that keeps your car reliable and protects its value.",
     features: ["Oil & filter change", "Fluid top-ups", "Multi-point check"],
-    image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/periodic-maintenance.webp",
     icon: Settings2,
   },
   {
@@ -91,7 +91,7 @@ export const services: Service[] = [
     title: "Service Contracts",
     description: "Fixed-price maintenance plans built around your vehicle and mileage.",
     features: ["Predictable costs", "Priority booking", "Service reminders"],
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/service-contracts.webp",
     icon: FileText,
   },
   {
@@ -101,7 +101,7 @@ export const services: Service[] = [
     title: "Car AC Services",
     description: "Stay cool in UAE summers with complete AC diagnosis and repair.",
     features: ["Gas refill", "Compressor repair", "Cabin filter change"],
-    image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/car-ac-services.webp",
     icon: Snowflake,
   },
   {
@@ -111,7 +111,7 @@ export const services: Service[] = [
     title: "Vehicle Inspection",
     description: "A detailed health report before you buy, sell or travel.",
     features: ["Detailed checklist", "Written report", "Pre-purchase checks"],
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/vehicle-inspection.webp",
     icon: ClipboardCheck,
   },
   {
@@ -121,7 +121,7 @@ export const services: Service[] = [
     title: "Premium Car Detailing",
     description: "Restore the shine inside and out with professional-grade products.",
     features: ["Paint correction", "Ceramic coating", "Interior deep clean"],
-    image: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1000&q=80",
+    image: "/images/services/car-detailing.webp",
     icon: Sparkles,
   },
 ];

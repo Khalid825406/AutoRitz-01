@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "motion/react";
 import { ArrowLeft, ArrowUpRight, CalendarDays, MessageCircle, Phone, Tag } from "lucide-react";
@@ -10,6 +9,7 @@ import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { BLOG_POSTS, formatDate, type BlogPost } from "@/data/pages/blog";
 
+import RevealImage from "@/components/motion/RevealImage";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Template for every /blog/<slug>/ post. */
@@ -45,7 +45,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
             className="min-w-0"
           >
             <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(8,47,89,0.45)]">
-              <Image src={post.image} alt={post.title} fill priority sizes="(min-width: 1024px) 60vw, 92vw" className="object-cover" />
+              <RevealImage src={post.image} alt={post.title} fill priority sizes="(min-width: 1024px) 60vw, 92vw" className="object-cover" />
             </div>
 
             <div className="mx-auto mt-10 max-w-3xl">
@@ -74,7 +74,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
           {/* sidebar */}
           <aside className="space-y-6 lg:sticky lg:top-36 lg:self-start">
             <div className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-7 text-white">
-              <div className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-[#1766AE]/40 blur-3xl" />
+              <div className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7cc0f5]">Need help?</p>
               <p className="mt-3 text-xl font-bold leading-snug">Talk to our technicians today.</p>
               <div className="mt-6 flex flex-col gap-3">

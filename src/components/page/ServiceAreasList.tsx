@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { SERVICE_AREAS } from "@/data/service-areas";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** "Service Areas in Dubai" — compact list of every area we cover (used on brand pages). */
@@ -16,7 +17,7 @@ export default function ServiceAreasList() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <SectionHeading
@@ -31,7 +32,7 @@ export default function ServiceAreasList() {
         <motion.ul
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.8 }}
           className="mt-12 flex flex-wrap justify-center gap-2"
           aria-label="Areas we cover"

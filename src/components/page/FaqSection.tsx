@@ -6,6 +6,7 @@ import { HelpCircle, Plus } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 export interface Faq {
   q: string;
   a: string;
@@ -27,7 +28,7 @@ export default function FaqSection({ items, eyebrow = "FAQ's", title = "Frequent
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
           className="lg:sticky lg:top-32 lg:self-start"
         >
@@ -42,7 +43,7 @@ export default function FaqSection({ items, eyebrow = "FAQ's", title = "Frequent
                 key={f.q}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.5, ease: EASE, delay: i * 0.05 }}
                 className={`overflow-hidden rounded-2xl border bg-white transition-colors ${
                   isOpen ? "border-[#0872BB]/30 shadow-[0_16px_36px_-18px_rgba(8,47,89,0.3)]" : "border-slate-200/80"

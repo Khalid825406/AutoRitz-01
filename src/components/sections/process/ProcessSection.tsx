@@ -5,6 +5,8 @@ import { ArrowUpRight, CalendarCheck, ClipboardCheck, KeyRound, Phone, ShieldChe
 
 import { CONTACT } from "@/config/site";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface ProcessSectionProps {
   onBook: (service?: string) => void;
 }
@@ -32,17 +34,17 @@ export default function ProcessSection({ onBook }: ProcessSectionProps) {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="lg:sticky lg:top-32"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
               <CalendarCheck size={14} />
               Simple service process
             </span>
-            <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+            <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
               Four Easy Steps to
               <span className="block text-[#0872BB]">Better Car Care.</span>
-            </h2>
+            </TextReveal>
             <p className="mt-5 max-w-md text-[15px] leading-relaxed text-slate-600">
               Enjoy a simple and hassle-free car servicing experience. From booking to delivery, we make every step
               smooth, transparent and convenient.
@@ -87,9 +89,9 @@ export default function ProcessSection({ onBook }: ProcessSectionProps) {
             {STEPS.map(({ icon: Icon, title, text }, i) => (
               <motion.li
                 key={title}
-                initial={{ opacity: 0, x: 24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.6, ease: EASE, delay: i * 0.08 }}
                 className="relative flex gap-5 pb-6 last:pb-0 sm:gap-8"
               >

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 
+import CallAdvisor from "@/components/layout/CallAdvisor";
 import MotionProvider from "@/components/providers/MotionProvider";
 
 import "./globals.css";
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={montserrat.variable}>
       <body>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          {children}
+          <CallAdvisor />
+        </MotionProvider>
       </body>
     </html>
   );

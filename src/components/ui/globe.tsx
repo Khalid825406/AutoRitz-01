@@ -271,7 +271,8 @@ export function WebGLRendererConfig() {
   const { gl, size } = useThree();
 
   useEffect(() => {
-    gl.setPixelRatio(window.devicePixelRatio);
+    // cap at 1.5: on high-DPI laptop screens the full ratio renders ~2x the pixels for no visible gain
+    gl.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     gl.setSize(size.width, size.height);
     gl.setClearColor(0xffaaff, 0);
   }, [gl, size.width, size.height]);

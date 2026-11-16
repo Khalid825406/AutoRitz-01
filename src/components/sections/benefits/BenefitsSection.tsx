@@ -17,6 +17,7 @@ import {
 
 import SectionHeading from "@/components/ui/SectionHeading";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface BenefitsSectionProps {
   onBook: (service?: string) => void;
 }
@@ -46,7 +47,7 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
   return (
       <section id="benefits" className="w-full scroll-mt-32 bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               eyebrow="Exclusive benefits"
               icon={Sparkles}
@@ -61,7 +62,7 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
             variants={stagger}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
           >
             {BENEFITS.map(({ icon: Icon, title, text }, i) => (
@@ -92,10 +93,10 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={REVEAL_VIEWPORT}
             className="relative isolate mt-8 overflow-hidden rounded-3xl bg-linear-to-br from-[#0b1424] via-[#0d1b30] to-[#0B2F55] p-6 shadow-[0_30px_60px_-20px_rgba(8,47,89,0.55)] sm:p-10 lg:p-12"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#1766AE]/30 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/30 to-transparent to-70%" />
 
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">

@@ -16,6 +16,8 @@ import SafeImage from "@/components/ui/SafeImage";
 import { CONTACT, whatsappLink } from "@/config/site";
 import { roadsideServices } from "@/data/roadside";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface RoadsideSectionProps {
   onBook: (service?: string) => void;
 }
@@ -47,7 +49,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="relative isolate overflow-hidden rounded-3xl bg-[#061E3B] shadow-[0_30px_60px_-20px_rgba(8,47,89,0.5)]"
           >
             {/* background photo (optional) + overlays */}
@@ -60,7 +62,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
               fallback={null}
             />
             <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#061E3B] via-[#082F59]/95 to-[#082F59]/60" />
-            <div className="pointer-events-none absolute -left-20 -top-24 -z-10 h-80 w-80 rounded-full bg-[#1766AE]/40 blur-3xl" />
+            <div className="pointer-events-none absolute -left-20 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
 
             <div className="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14 lg:p-14">
               {/* left */}
@@ -69,10 +71,10 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   <Truck size={14} />
                   Roadside assistance
                 </span>
-                <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
                   Reliable Help,
                   <span className="block text-[#4B9DE0]">Wherever You Are.</span>
-                </h2>
+                </TextReveal>
                 <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#DCE8F2]/85">
                   Unexpected vehicle trouble can happen anytime. Get professional roadside assistance for battery
                   failures, flat tyres, fuel emergencies and more, so you can get back on the road with confidence.
@@ -82,7 +84,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   {HIGHLIGHTS.map(({ icon: Icon, label }) => (
                     <li
                       key={label}
-                      className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm font-semibold text-white backdrop-blur-sm"
+                      className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm font-semibold text-white"
                     >
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#1766AE]/30 text-[#7cc0f5]">
                         <Icon size={17} />
@@ -94,7 +96,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
               </div>
 
               {/* right — help card */}
-              <div className="self-center rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-md sm:p-8">
+              <div className="self-center rounded-2xl border border-white/15 bg-white/[0.06] p-6 sm:p-8">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4B9DE0]">
                   Always ready to assist
                 </p>
@@ -150,7 +152,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             variants={stagger}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
           >
             <motion.div variants={fadeUp}>
@@ -158,10 +160,10 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                 <span className="h-px w-8 bg-[#0872BB]" />
                 What we offer
               </p>
-              <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
+              <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
                 Roadside Assistance
                 <span className="block text-[#0872BB]">For Every Situation.</span>
-              </h2>
+              </TextReveal>
               <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-slate-600">
                 From minor roadside issues to unexpected emergencies, our assistance services help you move forward
                 with confidence.
@@ -180,7 +182,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             variants={stagger}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2"
           >
             {roadsideServices.map((s) => {
@@ -205,7 +207,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                         </div>
                       }
                     />
-                    <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#082F59]/80 text-[11px] font-bold text-white backdrop-blur-sm">
+                    <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#082F59]/80 text-[11px] font-bold text-white">
                       {s.id}
                     </span>
                   </div>

@@ -17,6 +17,8 @@ import {
 import { Facebook, Instagram, TikTok, Youtube } from "@/components/icons/social";
 import { SITE_CONTACT, SOCIAL_LINKS, waLink } from "@/config/site";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 /** Quick links — every entry is a page that exists (same set as the original footer). */
 const quickLinks = [
   { name: "Home", href: "/" },
@@ -48,11 +50,11 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-[#071525] text-white">
 
       {/* Background Effects */}
-      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-[#1766AE]/15 blur-[120px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#1766AE]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-radial from-[#1766AE]/15 to-transparent to-70%" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-radial from-[#1766AE]/10 to-transparent to-70%" />
 
       {/* Top CTA */}
-      <motion.div className="site-container relative pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
+      <motion.div className="site-container relative pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.7 }}>
         <div className="relative overflow-hidden rounded-2xl border border-[#367DBB]/30 bg-linear-to-r from-[#102D4B] via-[#123B63] to-[#0D2742] p-7 sm:p-10 lg:p-12">
 
           <div className="pointer-events-none absolute -right-10 -top-28 h-72 w-72 rounded-full border border-white/10" />
@@ -65,12 +67,12 @@ export default function Footer() {
                 Your Car Deserves The Best
               </span>
 
-              <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+              <TextReveal className="max-w-xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                 Ready to Give Your Car
                 <span className="block text-[#70B7F4]">
                   The Care It Deserves?
                 </span>
-              </h2>
+              </TextReveal>
 
               <p className="mt-4 max-w-lg text-sm leading-7 text-[#B7C9DA]">
                 Experience professional automotive care with
@@ -93,7 +95,7 @@ export default function Footer() {
       </motion.div>
 
       {/* Main Footer */}
-      <motion.div className="site-container relative pb-12 pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
+      <motion.div className="site-container relative pb-12 pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.7 }}>
 
         <div className="grid grid-cols-1 gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
 
@@ -141,12 +143,12 @@ export default function Footer() {
               Quick Links
             </h3>
 
-            <ul className="space-y-4">
+            <ul className="space-y-1.5">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-[13px] text-[#9BAEC1] transition-colors hover:text-[#70B7F4]"
+                    className="group flex items-center gap-2 py-1.5 text-[13px] text-[#9BAEC1] transition-colors hover:text-[#70B7F4]"
                   >
                     <ChevronRight
                       size={13}
@@ -165,12 +167,12 @@ export default function Footer() {
               Our Services
             </h3>
 
-            <ul className="space-y-4">
+            <ul className="space-y-1.5">
               {services.map((service) => (
                 <li key={service.name}>
                   <Link
                     href={service.href}
-                    className="group flex items-center gap-2 text-[13px] text-[#9BAEC1] transition-colors hover:text-[#70B7F4]"
+                    className="group flex items-center gap-2 py-1.5 text-[13px] text-[#9BAEC1] transition-colors hover:text-[#70B7F4]"
                   >
                     <ChevronRight
                       size={13}

@@ -117,7 +117,7 @@ export function StickyScroll({ content, backgrounds = DEFAULT_BACKGROUNDS, class
             </AnimatePresence>
 
             {/* counter */}
-            <div className="absolute right-6 top-6 z-10 rounded-full bg-white/90 px-3 py-1 text-xs font-bold tabular-nums text-[#082F59] shadow-sm backdrop-blur">
+            <div className="absolute right-6 top-6 z-10 rounded-full bg-white/90 px-3 py-1 text-xs font-bold tabular-nums text-[#082F59] shadow-sm">
               {String(active + 1).padStart(2, "0")} <span className="text-slate-400">/ {String(content.length).padStart(2, "0")}</span>
             </div>
           </motion.div>

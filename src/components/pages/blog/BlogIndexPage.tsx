@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, CalendarDays, Tag } from "lucide-react";
@@ -9,6 +8,8 @@ import PageShell from "@/components/layout/PageShell";
 import PageHero from "@/components/page/PageHero";
 import { BLOG_POSTS, formatDate } from "@/data/pages/blog";
 
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -30,7 +31,7 @@ export default function BlogIndexPage() {
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
@@ -39,7 +40,7 @@ export default function BlogIndexPage() {
               const card = (
                 <>
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                    <Image
+                    <RevealImage
                       src={p.image}
                       alt={p.title}
                       fill

@@ -6,6 +6,7 @@ import { CalendarCheck, Car, ClipboardCheck, KeyRound, ThumbsUp, Wrench } from "
 import SectionHeading from "@/components/ui/SectionHeading";
 import { HOW_IT_WORKS } from "@/data/pages/common";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const ICONS = [CalendarCheck, KeyRound, ClipboardCheck, ThumbsUp, Wrench, Car];
 
@@ -17,7 +18,7 @@ export default function HowItWorksSection() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <SectionHeading eyebrow="How it works" icon={CalendarCheck} title="Easy Steps to Make" highlight="Your Car Shine." />
@@ -31,7 +32,7 @@ export default function HowItWorksSection() {
                 key={s.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.55, ease: EASE, delay: (i % 3) * 0.08 }}
                 className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-7 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)]"
               >

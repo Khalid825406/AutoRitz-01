@@ -8,6 +8,7 @@ import { BadgeCheck } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { BRAND_PAGES } from "@/data/pages/brands";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** "Trusted By Luxury Car Owners" — the 45 brand logos of the original site; built brand pages are linked. */
@@ -30,7 +31,7 @@ export default function TrustedBrandsSection({
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <SectionHeading
@@ -45,7 +46,7 @@ export default function TrustedBrandsSection({
         <motion.ul
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={REVEAL_VIEWPORT}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.015 } } }}
           className="mt-12 grid grid-cols-4 gap-3 sm:grid-cols-6 lg:grid-cols-9"
           aria-label="Car brands we service"

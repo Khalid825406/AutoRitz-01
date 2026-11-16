@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { motion, type Variants } from "motion/react";
 import { Briefcase, GraduationCap, Mail, Send, TrendingUp, Wrench } from "lucide-react";
@@ -10,6 +9,9 @@ import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT } from "@/config/site";
 import { CAREER_DEPARTMENTS, CAREERS } from "@/data/pages/careers";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -57,14 +59,14 @@ export default function CareersPage() {
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           {/* left: story + photo */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
               <Briefcase size={14} />
               We&apos;re hiring
             </span>
-            <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+            <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
               {CAREERS.heading} <span className="block text-[#0872BB]">{CAREERS.highlight}</span>
-            </h2>
+            </TextReveal>
             <p className="mt-5 text-base leading-relaxed text-slate-600">{CAREERS.text}</p>
 
             <ul className="mt-8 flex flex-wrap gap-3">
@@ -77,7 +79,7 @@ export default function CareersPage() {
             </ul>
 
             <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]">
-              <Image src={CAREERS.image} alt="Ritz Auto Care technicians working together on a car" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover object-top" />
+              <RevealImage src={CAREERS.image} alt="Ritz Auto Care technicians working together on a car" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover object-top" />
             </div>
           </motion.div>
 
@@ -87,7 +89,7 @@ export default function CareersPage() {
             noValidate
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
             className="h-fit rounded-3xl border border-slate-200/80 bg-white p-7 shadow-[0_30px_60px_-30px_rgba(8,47,89,0.3)] sm:p-10 lg:sticky lg:top-36"
           >

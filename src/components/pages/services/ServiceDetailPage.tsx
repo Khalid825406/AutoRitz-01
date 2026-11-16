@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, Camera, Check, MessageCircle, Phone } from "lucide-react";
 
@@ -17,6 +16,9 @@ import { QUALITY_IMAGES, WHY_US } from "@/data/pages/common";
 import type { ServiceDetail } from "@/data/pages/services";
 import { DEFAULT_SERVICE_ICON, SERVICE_ICONS } from "./serviceIcons";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -67,28 +69,28 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
               <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
                 <Icon size={26} />
               </span>
-              <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{process.title}</h2>
+              <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{process.title}</TextReveal>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">{process.intro}</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.8, ease: EASE }}
               className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
             >
-              <Image src={process.image} alt={process.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+              <RevealImage src={process.image} alt={process.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
             </motion.div>
           </div>
 
           <motion.ol
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
             className="mt-14 grid gap-5 md:grid-cols-3"
           >
@@ -100,7 +102,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-linear-to-br from-[#0B477D] to-[#061E3B]">
                   {st.image ? (
-                    <Image
+                    <RevealImage
                       src={st.image}
                       alt={st.title}
                       fill
@@ -130,23 +132,23 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
         <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
             className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
           >
-            <Image src={features.image} alt={features.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+            <RevealImage src={features.image} alt={features.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </motion.div>
 
           <div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
               <SectionHeading align="left" eyebrow="What you get" icon={Check} title={features.title} description={features.intro} />
             </motion.div>
             <motion.ul
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={REVEAL_VIEWPORT}
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
               className="mt-8 grid gap-3 sm:grid-cols-2"
             >

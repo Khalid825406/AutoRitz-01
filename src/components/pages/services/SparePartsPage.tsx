@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 import {
   BadgeCheck,
@@ -24,6 +23,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { SPARE_PARTS } from "@/data/pages/auto-spare-parts";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -75,20 +77,20 @@ export default function SparePartsPage() {
       {/* ================= INTRO ================= */}
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-            <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
+            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
               OEM & Aftermarket Parts <span className="block text-[#0872BB]">for Every Make & Model.</span>
-            </h2>
+            </TextReveal>
             <p className="mt-5 text-base leading-relaxed text-slate-600">{SPARE_PARTS.intro}</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
             className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
           >
-            <Image src={SPARE_PARTS.heroImage} alt={SPARE_PARTS.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+            <RevealImage src={SPARE_PARTS.heroImage} alt={SPARE_PARTS.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </motion.div>
         </div>
       </section>
@@ -96,14 +98,14 @@ export default function SparePartsPage() {
       {/* ================= PARTS WE SUPPLY ================= */}
       <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="What we supply" icon={Cog} title="Our Auto Spare Parts &" highlight="Trading Services Include." />
           </motion.div>
 
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
             className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
@@ -132,11 +134,11 @@ export default function SparePartsPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] text-white md:grid-cols-2"
           >
             <div className="relative min-h-[240px]">
-              <Image src={SPARE_PARTS.sideImage} alt="Mechanic sorting auto spare parts" fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover" />
+              <RevealImage src={SPARE_PARTS.sideImage} alt="Mechanic sorting auto spare parts" fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover" />
             </div>
             <div className="flex flex-col justify-center p-8 sm:p-10">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7cc0f5]">Need a part?</p>

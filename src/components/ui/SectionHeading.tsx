@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
+import TextReveal from "@/components/motion/TextReveal";
 interface SectionHeadingProps {
   eyebrow: string;
   icon?: LucideIcon;
@@ -29,10 +30,10 @@ export default function SectionHeading({
         {Icon && <Icon size={14} />}
         {eyebrow}
       </span>
-      <h2 className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
+      <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
         {title}
         {highlight && <span className="block text-[#0872BB]">{highlight}</span>}
-      </h2>
+      </TextReveal>
       {description && (
         <p className={`mt-5 text-[15px] leading-relaxed text-slate-600 sm:text-base ${center ? "mx-auto max-w-xl" : "max-w-xl"}`}>
           {description}

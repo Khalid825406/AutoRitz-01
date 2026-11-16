@@ -39,7 +39,7 @@ export function StickyBanner({ children, className = "", hideOnScroll = false }:
             type="button"
             onClick={() => setClosed(true)}
             aria-label="Close announcement"
-            className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+            className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
           >
             <X size={16} />
           </button>

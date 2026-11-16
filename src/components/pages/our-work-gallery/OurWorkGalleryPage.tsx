@@ -12,6 +12,9 @@ import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { GALLERY, GALLERY_HERO } from "@/data/pages/our-work-gallery";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Full-screen photo viewer with arrows, keyboard (← → Esc) and swipe-friendly buttons. */
@@ -136,11 +139,11 @@ export default function OurWorkGalleryPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
             className="relative aspect-[1915/821] overflow-hidden rounded-3xl bg-[#EEF2F6]"
           >
-            <Image src={GALLERY_HERO} alt="Ritz Auto Care" fill sizes="(min-width: 1280px) 1150px, 92vw" className="object-cover" />
+            <RevealImage src={GALLERY_HERO} alt="Ritz Auto Care" fill sizes="(min-width: 1280px) 1150px, 92vw" className="object-cover" />
           </motion.div>
         </div>
       </section>
@@ -149,17 +152,17 @@ export default function OurWorkGalleryPage() {
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
+            <TextReveal className="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
               <Images size={26} className="text-[#0872BB]" />
               Inside our workshop <span className="text-[#0872BB]">({GALLERY.length})</span>
-            </h2>
+            </TextReveal>
             <p className="text-[14px] text-slate-500">Tap a photo to view it full size.</p>
           </div>
 
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.05 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
             className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
           >
@@ -175,7 +178,7 @@ export default function OurWorkGalleryPage() {
                   aria-label={`Open photo: ${g.alt}`}
                   className="group relative block aspect-square w-full overflow-hidden rounded-2xl bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
                 >
-                  <Image
+                  <RevealImage
                     src={g.src}
                     alt={g.alt}
                     fill

@@ -16,6 +16,7 @@ import {
   type Cylinder,
 } from "@/data/pages/service-contract";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -59,7 +60,7 @@ export default function ServiceContractPage() {
       {/* ================= PLANS ================= */}
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               eyebrow="Standard & Premium"
               icon={FileText}
@@ -103,7 +104,7 @@ export default function ServiceContractPage() {
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
             className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2"
           >
@@ -120,7 +121,7 @@ export default function ServiceContractPage() {
                   }`}
                 >
                   {premium && (
-                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#1766AE]/40 blur-3xl" />
+                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
                   )}
                   <div className="relative flex items-start justify-between gap-4">
                     <div>
@@ -186,7 +187,7 @@ export default function ServiceContractPage() {
       {/* ================= COMPARISON ================= */}
       <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="Compare" icon={FileText} title="Basic vs" highlight="Signature." />
           </motion.div>
 
@@ -194,7 +195,7 @@ export default function ServiceContractPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             className="mx-auto mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
           >
             <table className="w-full min-w-[560px] text-left text-[14px]">

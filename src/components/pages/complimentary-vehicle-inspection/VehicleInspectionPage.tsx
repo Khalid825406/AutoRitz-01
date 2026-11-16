@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import {
@@ -26,6 +25,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { SITE_CONTACT, waLink } from "@/config/site";
 import { AI_INSPECTION, BENEFITS, INSPECTION } from "@/data/pages/complimentary-vehicle-inspection";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -67,19 +69,19 @@ export default function VehicleInspectionPage() {
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
                 <ScanSearch size={14} />
                 What we check
               </span>
-              <h2 className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight text-[#082F59] sm:text-4xl">{INSPECTION.heading}</h2>
+              <TextReveal className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight text-[#082F59] sm:text-4xl">{INSPECTION.heading}</TextReveal>
               <p className="mt-5 text-base leading-relaxed text-slate-600">{INSPECTION.intro}</p>
             </motion.div>
 
             <motion.ul
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={REVEAL_VIEWPORT}
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
               className="mt-8 grid gap-3 sm:grid-cols-2"
             >
@@ -107,11 +109,11 @@ export default function VehicleInspectionPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
             className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
           >
-            <Image src={INSPECTION.image} alt="Technician running a computer inspection on a car" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+            <RevealImage src={INSPECTION.image} alt="Technician running a computer inspection on a car" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
             <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-[#082F59] shadow-lg">
               <ScanSearch size={14} className="text-[#0872BB]" />
               Full View Inspection
@@ -123,7 +125,7 @@ export default function VehicleInspectionPage() {
       {/* ================= BENEFITS ================= */}
       <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               eyebrow="Benefits"
               icon={Gauge}
@@ -137,7 +139,7 @@ export default function VehicleInspectionPage() {
             <motion.ul
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={REVEAL_VIEWPORT}
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
               className="grid gap-5 sm:grid-cols-2"
             >
@@ -159,13 +161,13 @@ export default function VehicleInspectionPage() {
               })}
             </motion.ul>
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.8, ease: EASE }}
               className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
             >
-              <Image src={BENEFITS.image} alt="Computer diagnostics screen showing a car health report" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover" />
+              <RevealImage src={BENEFITS.image} alt="Computer diagnostics screen showing a car health report" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover" />
             </motion.div>
           </div>
         </div>
@@ -178,17 +180,17 @@ export default function VehicleInspectionPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-8 text-white sm:p-12 lg:p-14"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#1766AE]/40 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
             <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
                   <BrainCircuit size={14} />
                   {AI_INSPECTION.subheading}
                 </span>
-                <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">{AI_INSPECTION.heading}</h2>
+                <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">{AI_INSPECTION.heading}</TextReveal>
                 <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#DCE8F2]/85">{AI_INSPECTION.text}</p>
               </div>
               <div className="flex lg:justify-end">

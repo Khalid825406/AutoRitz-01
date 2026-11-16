@@ -25,6 +25,7 @@ import { SITE_CONTACT, waLink } from "@/config/site";
 import { QUALITY_IMAGES } from "@/data/pages/common";
 import { FAQS, HIGHLIGHTS, ROADSIDE_SERVICES, WHY_US } from "@/data/pages/roadside-support";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -73,7 +74,7 @@ export default function RoadsideSupportPage() {
           {HIGHLIGHTS.map((h, i) => {
             const Icon = HIGHLIGHT_ICONS[i];
             return (
-              <li key={h.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-sm">
+              <li key={h.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1766AE]/40 text-[#7cc0f5]">
                   <Icon size={20} />
                 </span>
@@ -88,7 +89,7 @@ export default function RoadsideSupportPage() {
       {/* ================= EXPERT ROADSIDE ASSISTANCE ================= */}
       <section className="w-full bg-white py-20 sm:py-24">
         <div className="site-container">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               eyebrow="What we offer"
               icon={Truck}
@@ -101,7 +102,7 @@ export default function RoadsideSupportPage() {
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
             className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >

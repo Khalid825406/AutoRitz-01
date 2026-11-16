@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 import { Award, BadgeCheck, Eye, Gauge, Sparkles } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
 
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface WhyChooseSectionProps {
   items: { title: string; text: string }[];
   /** Two photos shown beside the list (original "Quality Services" images). */
@@ -32,7 +33,7 @@ export default function WhyChooseSection({
     <section className="w-full bg-white py-20 sm:py-24">
       <div className={`site-container grid gap-14 ${images ? "lg:grid-cols-2 lg:items-center lg:gap-16" : ""}`}>
         <div>
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }}>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
               align="left"
               eyebrow="Why choose us"
@@ -45,7 +46,7 @@ export default function WhyChooseSection({
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
             className="mt-10 grid gap-4 sm:grid-cols-2"
           >
@@ -75,13 +76,13 @@ export default function WhyChooseSection({
                 key={src}
                 initial={{ opacity: 0, y: i === 0 ? 30 : 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.8, ease: EASE, delay: i * 0.15 }}
                 className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-[0_24px_50px_-20px_rgba(8,47,89,0.4)] ${
                   i === 1 ? "mt-12" : ""
                 }`}
               >
-                <Image
+                <RevealImage
                   src={src}
                   alt={i === 0 ? "Ritz Auto Care technician diagnosing an engine" : "Ritz Auto Care LLC workshop"}
                   fill

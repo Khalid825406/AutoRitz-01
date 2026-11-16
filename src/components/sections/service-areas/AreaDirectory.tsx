@@ -6,6 +6,7 @@ import { ArrowRight, Building2, Check, ChevronRight, MapPin, Palmtree, Plane, Wa
 
 import { REGIONS, type ServiceArea } from "@/data/service-areas";
 
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface AreaDirectoryProps {
   /** Areas currently visible (already filtered by tab / search). */
   areas: ServiceArea[];
@@ -63,7 +64,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.6, ease: EASE }}
       className="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_24px_60px_-28px_rgba(8,47,89,0.25)] lg:grid lg:grid-cols-[300px_minmax(0,1fr)]"
     >

@@ -30,6 +30,9 @@ import { SITE_CONTACT, waLink } from "@/config/site";
 import { BRAND_FEATURES, FREE_BENEFITS, QUALITY_IMAGES, WHY_US } from "@/data/pages/common";
 import type { BrandDetail } from "@/data/pages/brands";
 
+import TextReveal from "@/components/motion/TextReveal";
+import RevealImage from "@/components/motion/RevealImage";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -61,8 +64,8 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       {/* ================= INTRO + CAR ================= */}
       <section className="w-full overflow-hidden bg-white py-20 sm:py-24">
         <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-            <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{detail.heading}</h2>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
+            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{detail.heading}</TextReveal>
             <p className="mt-5 text-base leading-relaxed text-slate-600">{detail.intro}</p>
             <a
               href="https://www.instagram.com/ritzautocare/"
@@ -76,13 +79,13 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             </a>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 1, ease: EASE }}
             className="relative aspect-[3/2]"
           >
-            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-[#082F59]/20 blur-2xl" />
+            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-radial from-[#082F59]/20 to-transparent to-70%" />
             <Image src={detail.heroImage} alt={`${detail.fullName}`} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-contain" />
           </motion.div>
         </div>
@@ -93,7 +96,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="rounded-3xl border border-slate-200/80 bg-[#F7FAFD] p-6 sm:p-8"
           >
             <h3 className="flex items-center gap-2 text-lg font-semibold text-[#082F59]">
@@ -117,7 +120,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
@@ -145,11 +148,11 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 key={src}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
                 className="relative aspect-square overflow-hidden rounded-3xl shadow-[0_20px_40px_-20px_rgba(8,47,89,0.35)]"
               >
-                <Image
+                <RevealImage
                   src={src}
                   alt={`${detail.fullName} service at Ritz Auto Care`}
                   fill
@@ -169,19 +172,19 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-8 text-white sm:p-12"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#1766AE]/40 blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
                   <Gift size={14} />
                   Exclusive Offer
                 </span>
-                <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
+                <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
                   Claim Your Free <span className="text-[#4B9DE0]">{detail.fullName} Benefits</span>
-                </h2>
+                </TextReveal>
                 <p className="mt-4 text-[15px] text-[#DCE8F2]/80">Three complimentary perks with every service booking.</p>
               </div>
               <div className="flex flex-wrap gap-3">

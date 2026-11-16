@@ -9,6 +9,8 @@ import AppointmentSection from "@/components/page/AppointmentSection";
 import PageHero from "@/components/page/PageHero";
 import { SITE_CONTACT, SOCIAL_LINKS, waLink } from "@/config/site";
 
+import TextReveal from "@/components/motion/TextReveal";
+import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -66,7 +68,7 @@ export default function ContactUsPage() {
           <motion.ul
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
@@ -105,7 +107,7 @@ export default function ContactUsPage() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={REVEAL_VIEWPORT}
             className="flex flex-col justify-between rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-8 text-white sm:p-10"
           >
             <div>
@@ -113,9 +115,9 @@ export default function ContactUsPage() {
                 <MapPin size={14} />
                 Our workshop
               </span>
-              <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight">
+              <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight">
                 Visit Ritz Auto Care <span className="block text-[#4B9DE0]">in Dubai.</span>
-              </h2>
+              </TextReveal>
               <p className="mt-5 text-[15px] leading-relaxed text-[#DCE8F2]/85">{SITE_CONTACT.address}</p>
               <a
                 href={SITE_CONTACT.mapUrl}
@@ -154,7 +156,7 @@ export default function ContactUsPage() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
             className="min-h-[380px] overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
           >

@@ -125,7 +125,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
             isSticky ? "py-1.5" : "py-3"
           }`}
         >
-          <div className="site-container flex items-center justify-between gap-3 lg:gap-6">
+          <div className="site-container flex items-center justify-between gap-2 min-[360px]:gap-3 lg:gap-6">
             {/* Logo */}
             <Link
               href="/"
@@ -138,8 +138,8 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 alt="Ritz Auto Care LLC"
                 className={`h-auto object-contain transition-all duration-300 ${
                   isSticky
-                    ? "w-[130px] sm:w-[145px] lg:w-[155px]"
-                    : "w-[150px] sm:w-[175px] lg:w-[195px]"
+                    ? "w-[118px] min-[360px]:w-[130px] sm:w-[145px] lg:w-[155px]"
+                    : "w-[124px] min-[360px]:w-[150px] sm:w-[175px] lg:w-[195px]"
                 }`}
               />
             </Link>
@@ -240,7 +240,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
               <button
                 type="button"
                 onClick={handleBook}
-                className={`flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-[#0872BB] px-3.5 text-[12px] font-bold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                className={`flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-[#0872BB] px-2.5 min-[360px]:px-3.5 text-[12px] font-bold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
               >
                 Free quote
               </button>

@@ -14,7 +14,7 @@ export default function HeroTypography() {
         initial={{ opacity: 0, x: -80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: EASE, delay: 0.25 }}
-        className="hero-text hero-title text-[27vw] sm:text-[24vw] lg:text-[21vw] xl:text-[15rem]"
+        className="hero-text hero-title text-[19vw] sm:text-[20vw] lg:text-[21vw] xl:text-[15rem]"
       >
         Ritz Auto
       </motion.div>
@@ -22,7 +22,7 @@ export default function HeroTypography() {
         initial={{ opacity: 0, x: 60, y: 15 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
-        className="hero-sub hero-text -mt-[1.2vw] text-[12vw] sm:text-[10vw] lg:text-[8.5vw] xl:text-[8rem]"
+        className="hero-sub hero-text -mt-[1.2vw] text-[10vw] sm:text-[9.5vw] lg:text-[8.5vw] xl:text-[8rem]"
       >
         Care LLC
       </motion.div>
