@@ -43,6 +43,14 @@ body {
 
 /* Custom component styles live in a layer so Tailwind utilities can override them (v3 behaviour). */
 @layer components {
+  /* 3D car on touch screens: vertical swipes scroll the page, horizontal swipes rotate the car.
+     R3F / OrbitControls put an inline `touch-action: none` on the canvas and its wrapper div,
+     which swallowed every swipe and made the hero impossible to scroll past on phones. */
+  .car-wrap,
+  .car-wrap * {
+    touch-action: pan-y !important;
+  }
+
   .hero-bg {
     background:
       radial-gradient(60% 45% at 50% 38%, rgba(255, 255, 255, .55), transparent 70%),
