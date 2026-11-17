@@ -1,22 +1,16 @@
 "use client";
 
-import { getImageProps } from "next/image";
 import { motion } from "motion/react";
 
 const EASE = [0.215, 0.61, 0.355, 1] as const;
 
 /**
- * Optimised srcset for the Audi (next/image), wrapped in <picture> below so that screens of 768px and
- * up — where this hero is hidden — get a 1×1 placeholder instead of downloading the car.
+ * Animated Audi with blinking headlights (public/mobileresponsive.gif, re-encoded as an animated WebP:
+ * same 4 frames and timing, 120 KB instead of 320 KB). Served through <picture> so screens of 768px and
+ * up — where this hero is hidden — get a 1×1 placeholder instead of downloading it.
+ * The car fills the middle ~63% of the 887×443 canvas; the rest is transparent.
  */
-const { props: audi } = getImageProps({
-  src: "/Audi-Front.png",
-  alt: "Blue Audi at Ritz Auto Care",
-  width: 1536,
-  height: 1024,
-  sizes: "88vw",
-  priority: true,
-});
+const CAR_SRC = "/images/hero-audi-mobile.webp";
 const BLANK =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
@@ -130,37 +124,27 @@ export default function HeroMobile() {
           initial={{ opacity: 0, y: 70, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.1, ease: EASE, delay: 0.4 }}
-          className="relative z-10 mx-auto mt-7 w-[88%] max-w-[480px]"
+          // canvas is wider than the car (transparent sides), so it is 130% wide to keep the car the same size
+          className="relative left-1/2 z-10 mt-7 w-[130%] max-w-[700px] -translate-x-1/2"
         >
-          {/* floor glow + shadow */}
-          <div className="pointer-events-none absolute inset-x-[8%] bottom-[3%] h-[14%] rounded-[50%] bg-black/55 blur-md" />
-          <div className="pointer-events-none absolute inset-x-[4%] bottom-0 h-[10%] rounded-[50%] bg-[#2f8fe0]/30 blur-lg" />
+          {/* floor glow + shadow under the car (the car spans the middle ~63% of the canvas) */}
+          <div className="pointer-events-none absolute inset-x-[24%] bottom-[2%] h-[12%] rounded-[50%] bg-black/55 blur-md" />
+          <div className="pointer-events-none absolute inset-x-[21%] bottom-0 h-[9%] rounded-[50%] bg-[#2f8fe0]/30 blur-lg" />
           <picture>
             <source media="(min-width: 768px)" srcSet={BLANK} />
-            <source
-              media="(max-width: 767px)"
-              srcSet={audi.srcSet}
-              sizes={audi.sizes}
-            />
-            {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- animated WebP must not be re-encoded by next/image */}
             <img
-              {...audi}
+              src={CAR_SRC}
+              alt="Blue Audi at Ritz Auto Care"
+              width={887}
+              height={443}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
               className="relative h-auto w-full select-none"
               draggable={false}
             />
           </picture>
-          {/* headlight glow */}
-          {[13, 87].map((left) => (
-            <motion.span
-              key={left}
-              aria-hidden
-              className="pointer-events-none absolute top-[44%] h-[7%] w-[16%] -translate-x-1/2 rounded-full bg-[#cfe9ff] blur-md"
-              style={{ left: `${left}%` }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.9, 0.55] }}
-              transition={{ duration: 1.2, delay: 1.3, ease: "easeOut" }}
-            />
-          ))}
         </motion.div>
       </div>
     </div>
