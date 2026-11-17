@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Suspense, useSyncExternalStore } from "react";
+import { Suspense, useState, useSyncExternalStore } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   useGLTF,
@@ -47,10 +47,31 @@ function Loader() {
   );
 }
 
+/** How many times the canvas is rebuilt after the GPU drops the WebGL context and doesn't give it back. */
+const MAX_REBUILDS = 1;
+
 export default function Car3DViewer() {
+  // Bumped to rebuild the <Canvas> (new WebGL context) when the GPU loses ours.
+  const [attempt, setAttempt] = useState(0);
+
   return (
     <div className="absolute inset-0 h-full w-full">
       <Canvas
+        key={attempt}
+        onCreated={({ gl, invalidate }) => {
+          // GPU reset / driver hiccup: three.js asks the browser to restore the context. If it comes back,
+          // redraw; if not within 3 s, rebuild the canvas once. (A context the browser refuses to create
+          // throws, and the hero's ErrorBoundary simply hides the car.)
+          const canvas = gl.domElement;
+          let timer = 0;
+          canvas.addEventListener("webglcontextlost", () => {
+            timer = window.setTimeout(() => setAttempt((a) => (a < MAX_REBUILDS ? a + 1 : a)), 3000);
+          });
+          canvas.addEventListener("webglcontextrestored", () => {
+            window.clearTimeout(timer);
+            invalidate();
+          });
+        }}
         camera={{
           position: [4, 2.5, 7],
           fov: 35,
@@ -60,7 +81,9 @@ export default function Car3DViewer() {
         gl={{
           antialias: true,
           alpha: true,
-          powerPreference: "high-performance",
+          // "default" lets the browser pick the GPU. "high-performance" can force a GPU switch on laptops,
+          // which itself causes WebGL context loss.
+          powerPreference: "default",
         }}
         dpr={[1, 1.5]}
         // "percentage" = PCFShadowMap. The default ("soft" / PCFSoftShadowMap) was removed in three.js r18x,

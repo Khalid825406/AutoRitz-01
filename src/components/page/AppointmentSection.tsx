@@ -4,7 +4,9 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion } from "motion/react";
 import { CalendarCheck, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
+import { useBookingJourney } from "@/components/booking-journey/BookingJourneyProvider";
 import { SITE_CONTACT, waLink } from "@/config/site";
+import { submitAppointment } from "@/lib/appointments";
 import { BRAND_PAGES } from "@/data/pages/brands";
 import { APPOINTMENT_SERVICES } from "@/data/pages/appointment";
 
@@ -49,6 +51,8 @@ export default function AppointmentSection({
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const { startJourney } = useBookingJourney();
+
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (form.name.trim().length < 2) return setError("Please enter your name.");
@@ -64,7 +68,17 @@ export default function AppointmentSection({
     ]
       .filter(Boolean)
       .join("\n");
-    window.open(waLink(SITE_CONTACT.whatsapp, text), "_blank", "noopener");
+    // Animated booking journey: sends the request to /api/appointments while it plays, then hands the
+    // visitor over to WhatsApp with all the details filled in (or shows an error + "Try again").
+    const request = {
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      brand: form.brand,
+      service: form.service,
+      message: form.message.trim(),
+      source: window.location.pathname,
+    };
+    startJourney({ whatsappUrl: waLink(SITE_CONTACT.whatsapp, text), submit: () => submitAppointment(request) });
   };
 
   const contacts = [

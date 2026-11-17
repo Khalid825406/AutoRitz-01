@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 
+import BookingJourneyProvider from "@/components/booking-journey/BookingJourneyProvider";
 import CallAdvisor from "@/components/layout/CallAdvisor";
+import ScrollManager from "@/components/layout/ScrollManager";
 import MotionProvider from "@/components/providers/MotionProvider";
 
 import "./globals.css";
@@ -27,8 +29,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={montserrat.variable}>
       <body>
         <MotionProvider>
-          {children}
-          <CallAdvisor />
+          <BookingJourneyProvider>
+            {children}
+            <CallAdvisor />
+            <ScrollManager />
+          </BookingJourneyProvider>
         </MotionProvider>
       </body>
     </html>

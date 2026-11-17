@@ -341,7 +341,7 @@ export function World(
   }, []);
   return (
     <div className="relative h-full w-full">
-    <Canvas scene={scene} camera={camera} frameloop={frameloop}>
+    <Canvas scene={scene} camera={camera} frameloop={frameloop} gl={{ powerPreference: "default" }}>
       {focus && <FocusCamera lat={focus.lat} lng={focus.lng} />}
       {focus && showLabel && <FocusLabelTracker lat={focus.lat} lng={focus.lng} onMove={moveLabel} />}
       {children}

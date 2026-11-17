@@ -57,6 +57,9 @@ export default function DubaiGlobe({ onUnavailable }: { onUnavailable?: () => vo
   const ref = useRef<HTMLDivElement>(null);
   // Only render frames while the globe is on screen — saves GPU for the hero car.
   const inView = useInView(ref, { margin: "200px" });
+  // Don't create the globe's WebGL context until the visitor scrolls near it — on load the hero car
+  // is the only 3D canvas, which keeps the GPU (and weak laptop graphics) much calmer.
+  const near = useInView(ref, { margin: "600px", once: true });
 
   return (
     <motion.div
@@ -70,7 +73,7 @@ export default function DubaiGlobe({ onUnavailable }: { onUnavailable?: () => vo
       aria-label={`Globe centred on Dubai showing our ${SERVICE_AREAS.length} service areas`}
     >
       <ErrorBoundary name="DubaiGlobe" fallback={<ReportUnavailable onMount={onUnavailable} />}>
-        <World data={globeArcs} globeConfig={globeConfig} frameloop={inView ? "always" : "never"} />
+        {near && <World data={globeArcs} globeConfig={globeConfig} frameloop={inView ? "always" : "never"} />}
       </ErrorBoundary>
     </motion.div>
   );
