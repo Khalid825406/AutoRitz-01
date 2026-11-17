@@ -106,7 +106,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
   return (
       <section
         id="areas"
-        className="w-full scroll-mt-32 bg-white py-16 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
       >
         <div className="site-container">
           {/* ================= HERO PANEL ================= */}
@@ -127,7 +127,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               initial="hidden"
               whileInView="show"
               viewport={REVEAL_VIEWPORT}
-              className="relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+              className="relative grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16"
             >
               {/* heading */}
               <div>
@@ -145,7 +145,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
 
                 <motion.p
                   variants={heroItemV}
-                  className="mt-4 max-w-[500px] text-base leading-relaxed text-white/75"
+                  className="mt-4 max-w-[500px] text-[15px] leading-relaxed text-white/75"
                 >
                   Professional car repair, maintenance and roadside assistance
                   across Dubai. Search your area to check coverage and book in
@@ -266,7 +266,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           </motion.ul>
 
           {/* ================= REGION TABS ================= */}
-          <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div
               role="group"
               aria-label="Filter areas by region"
@@ -360,7 +360,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                 </>
               ) : (
                   <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
-                    <p className="text-base font-semibold text-[#082F59]">
+                    <p className="text-[15px] font-semibold text-[#082F59]">
                       No area matches “{query}”
                     </p>
                     <p className="mt-1 text-[14px] text-slate-600">
@@ -389,7 +389,8 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           />
 
           {/* ================= FLOATING BOOKING BAR ================= */}
-          <div className="pointer-events-none sticky bottom-4 z-30 mt-6 flex justify-center">
+          {/* z above the floating WhatsApp/Call buttons (9990), below the header (9999) and popups */}
+          <div className="pointer-events-none sticky bottom-4 z-[9995] mt-6 flex justify-center">
             <AnimatePresence>
               {selected && (
                 <motion.div
@@ -436,12 +437,12 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           </div>
 
           {/* ================= BOTTOM CTA ================= */}
-          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#EAF4FC] px-6 py-7 sm:flex-row sm:items-center sm:px-8">
+          <div className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#EAF4FC] px-6 py-7 sm:flex-row sm:items-center sm:px-8">
             <div>
-              <p className="text-lg font-semibold text-[#082F59]">
+              <p className="text-base font-semibold text-[#082F59]">
                 Can’t find your area?
               </p>
-              <p className="mt-1 text-[15px] text-slate-600">
+              <p className="mt-1 text-[14px] text-slate-600">
                 Tell us where your vehicle is and we will confirm if we can
                 reach you today.
               </p>

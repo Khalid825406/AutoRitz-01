@@ -23,8 +23,8 @@ export default function FaqSection({ items, eyebrow = "FAQ's", title = "Frequent
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
-      <div className="site-container grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ export default function FaqSection({ items, eyebrow = "FAQ's", title = "Frequent
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: EASE }}
                     >
-                      <p className="px-6 pb-6 text-[15px] leading-relaxed text-slate-600">{f.a}</p>
+                      <p className="px-6 pb-6 text-[14px] leading-relaxed text-slate-600">{f.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

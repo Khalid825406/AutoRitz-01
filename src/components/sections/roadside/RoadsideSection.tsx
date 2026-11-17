@@ -42,7 +42,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
   const wa = whatsappLink();
 
   return (
-      <section id="support" className="w-full scroll-mt-32 bg-[#F7FAFD] py-20 sm:py-24">
+      <section id="support" className="w-full scroll-mt-32 bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           {/* ================= BANNER ================= */}
           <motion.div
@@ -64,7 +64,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#061E3B] via-[#082F59]/95 to-[#082F59]/60" />
             <div className="pointer-events-none absolute -left-20 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
 
-            <div className="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14 lg:p-14">
+            <div className="grid gap-8 sm:gap-10 p-6 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14 lg:p-14">
               {/* left */}
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
@@ -75,7 +75,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   Reliable Help,
                   <span className="block text-[#4B9DE0]">Wherever You Are.</span>
                 </TextReveal>
-                <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#DCE8F2]/85">
+                <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-[#DCE8F2]/85">
                   Unexpected vehicle trouble can happen anytime. Get professional roadside assistance for battery
                   failures, flat tyres, fuel emergencies and more, so you can get back on the road with confidence.
                 </p>
@@ -153,7 +153,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+            className="mt-12 sm:mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
           >
             <motion.div variants={fadeUp}>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0872BB]">
@@ -164,7 +164,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                 Roadside Assistance
                 <span className="block text-[#0872BB]">For Every Situation.</span>
               </TextReveal>
-              <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-slate-600">
+              <p className="mt-4 max-w-lg text-[14px] leading-relaxed text-slate-600">
                 From minor roadside issues to unexpected emergencies, our assistance services help you move forward
                 with confidence.
               </p>
@@ -183,7 +183,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2"
+            className="mt-8 sm:mt-10 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2"
           >
             {roadsideServices.map((s) => {
               const Icon = s.icon;
@@ -194,7 +194,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   className="group relative grid overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-12px_rgba(8,47,89,0.18)] sm:grid-cols-[42%_1fr]"
                 >
                   {/* image */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#082F59] sm:aspect-auto sm:min-h-[220px]">
+                  <div className="relative aspect-[16/9] overflow-hidden bg-[#082F59] sm:aspect-auto sm:min-h-[220px]">
                     <SafeImage
                       src={s.image}
                       alt={s.title}
@@ -213,16 +213,16 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   </div>
 
                   {/* content */}
-                  <div className="flex flex-col p-6">
+                  <div className="flex flex-col p-4 sm:p-6">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#0872BB]/15 bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border sm:h-11 sm:w-11 border-[#0872BB]/15 bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
                         <Icon size={20} strokeWidth={1.8} />
                       </span>
-                      <h3 className="text-lg font-semibold tracking-tight text-[#082F59]">{s.title}</h3>
+                      <h3 className="text-base font-semibold tracking-tight text-[#082F59] sm:text-lg">{s.title}</h3>
                     </div>
-                    <p className="mt-4 text-[15px] leading-relaxed text-slate-600">{s.description}</p>
-                    <span className="mt-5 h-[2px] w-10 bg-[#0872BB] transition-all duration-500 group-hover:w-20" />
-                    <div className="mt-auto flex items-center justify-between pt-6">
+                    <p className="mt-2.5 text-[14px] leading-normal text-slate-600 sm:mt-4 sm:leading-relaxed">{s.description}</p>
+                    <span className="mt-3 h-[2px] w-10 bg-[#0872BB] sm:mt-5 transition-all duration-500 group-hover:w-20" />
+                    <div className="mt-auto flex items-center justify-between pt-3.5 sm:pt-6">
                       <button
                         type="button"
                         onClick={() => onBook("Roadside Support")}
@@ -230,7 +230,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                       >
                         Request Assistance
                       </button>
-                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white sm:h-9 sm:w-9">
                         <ArrowUpRight size={16} />
                       </span>
                     </div>

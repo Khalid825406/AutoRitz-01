@@ -97,7 +97,7 @@ export default function Footer() {
       {/* Main Footer */}
       <motion.div className="site-container relative pb-12 pt-16 lg:pt-20" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.7 }}>
 
-        <div className="grid grid-cols-2 gap-x-5 gap-y-12 border-b border-white/10 pb-14 sm:gap-x-10 lg:grid-cols-12 lg:gap-10">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-y-12 border-b border-white/10 pb-14 sm:gap-x-10 lg:grid-cols-12 lg:gap-10">
 
           {/* BRAND */}
           <div className="col-span-2 lg:col-span-4">

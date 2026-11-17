@@ -139,7 +139,7 @@ export default function ContactUsPage() {
       </PageHero>
 
       {/* ================= HOW CAN WE HELP ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -161,7 +161,7 @@ export default function ContactUsPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-            className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
             {HELP_OPTIONS.map((o) => (
               <motion.li key={o.title} variants={fadeUp}>
@@ -182,7 +182,7 @@ export default function ContactUsPage() {
       <FaqSection items={GENERAL_FAQS} eyebrow="Before you visit" title="Questions we hear often" />
 
       {/* ================= VISIT US ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
           <motion.div
             variants={fadeUp}
@@ -201,7 +201,7 @@ export default function ContactUsPage() {
               Find us in <span className="block text-[#4B9DE0]">Dubai Investment Park.</span>
             </TextReveal>
 
-            <p className="mt-5 text-[15px] leading-relaxed text-[#DCE8F2]/85">{SITE_CONTACT.address}</p>
+            <p className="mt-5 text-[14px] leading-relaxed text-[#DCE8F2]/85">{SITE_CONTACT.address}</p>
             <p className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-white/[0.07] px-3 py-2 text-[13px] text-[#DCE8F2]/90 ring-1 ring-white/10">
               <Landmark size={15} className="text-[#7cc0f5]" />
               Landmark: near AIKO Mall, DIP 1

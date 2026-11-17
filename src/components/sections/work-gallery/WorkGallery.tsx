@@ -195,7 +195,7 @@ export default function WorkGallery({
   return (
       <section
         id="gallery"
-        className="w-full scroll-mt-32 bg-white py-16 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
       >
         <div className="site-container">
           {/* ============ HEADER ROW ============ */}
@@ -224,7 +224,7 @@ export default function WorkGallery({
 
               <motion.p
                 variants={riseV}
-                className="mt-4 text-base leading-relaxed text-slate-600"
+                className="mt-4 text-[15px] leading-relaxed text-slate-600"
               >
                 Real before-and-after results from diagnostics, detailing and
                 car restoration. Drag the slider on each photo to see the
@@ -255,7 +255,7 @@ export default function WorkGallery({
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-12 grid gap-6 md:grid-cols-2"
+            className="mt-8 sm:mt-12 grid gap-6 md:grid-cols-2"
           >
             {WORKS.map((work) => (
               <motion.li
@@ -292,13 +292,13 @@ export default function WorkGallery({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
-            className="mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-[#EAF4FC] px-6 py-6 sm:flex-row sm:items-center sm:px-8"
+            className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-[#EAF4FC] px-6 py-6 sm:flex-row sm:items-center sm:px-8"
           >
             <div>
-              <p className="text-lg font-semibold text-[#082F59]">
+              <p className="text-base font-semibold text-[#082F59]">
                 Want results like these for your car?
               </p>
-              <p className="mt-1 text-[15px] text-slate-600">
+              <p className="mt-1 text-[14px] text-slate-600">
                 Book a free inspection and we will tell you exactly what your
                 vehicle needs.
               </p>

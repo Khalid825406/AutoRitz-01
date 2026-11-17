@@ -84,7 +84,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       </PageHero>
 
       {/* ================= PRODUCTS ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -101,7 +101,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-            className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-10 sm:mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
             {products.map((p) => (
               <motion.li
@@ -151,7 +151,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       </section>
 
       {/* ================= BRANDS ================= */}
-      <section className="w-full bg-[#F7FAFD] py-16 sm:py-20">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-20">
         <div className="site-container">
           <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">{brandsLabel}</p>
         </div>
@@ -171,7 +171,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
           </Marquee>
         </div>
 
-        <div className="site-container mt-12">
+        <div className="site-container mt-8 sm:mt-12">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -184,7 +184,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
                 <Wrench size={20} />
               </span>
               <div>
-                <p className="text-lg font-semibold text-[#082F59]">{fitting.title}</p>
+                <p className="text-base font-semibold text-[#082F59]">{fitting.title}</p>
                 <p className="text-[14px] text-slate-600">{fitting.text}</p>
               </div>
             </div>

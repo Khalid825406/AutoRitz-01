@@ -66,8 +66,8 @@ export default function VehicleInspectionPage() {
       </PageHero>
 
       {/* ================= FREE CAR INSPECTION ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
-        <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <section className="w-full bg-white py-12 sm:py-24">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
               <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
@@ -75,7 +75,7 @@ export default function VehicleInspectionPage() {
                 What we check
               </span>
               <TextReveal className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight text-[#082F59] sm:text-4xl">{INSPECTION.heading}</TextReveal>
-              <p className="mt-5 text-base leading-relaxed text-slate-600">{INSPECTION.intro}</p>
+              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{INSPECTION.intro}</p>
             </motion.div>
 
             <motion.ul
@@ -123,7 +123,7 @@ export default function VehicleInspectionPage() {
       </section>
 
       {/* ================= BENEFITS ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -135,7 +135,7 @@ export default function VehicleInspectionPage() {
             />
           </motion.div>
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="mt-10 sm:mt-14 grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <motion.ul
               initial="hidden"
               whileInView="show"
@@ -174,7 +174,7 @@ export default function VehicleInspectionPage() {
       </section>
 
       {/* ================= AI-POWERED INSPECTION ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.div
             variants={fadeUp}
@@ -191,7 +191,7 @@ export default function VehicleInspectionPage() {
                   {AI_INSPECTION.subheading}
                 </span>
                 <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">{AI_INSPECTION.heading}</TextReveal>
-                <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#DCE8F2]/85">{AI_INSPECTION.text}</p>
+                <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-[#DCE8F2]/85">{AI_INSPECTION.text}</p>
               </div>
               <div className="flex lg:justify-end">
                 <Link

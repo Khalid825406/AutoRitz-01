@@ -35,7 +35,7 @@ export default function SectionHeading({
         {highlight && <span className="block text-[#0872BB]">{highlight}</span>}
       </TextReveal>
       {description && (
-        <p className={`mt-5 text-[15px] leading-relaxed text-slate-600 sm:text-base ${center ? "mx-auto max-w-xl" : "max-w-xl"}`}>
+        <p className={`mt-5 text-[14px] leading-relaxed text-slate-600 sm:text-[15px] ${center ? "mx-auto max-w-xl" : "max-w-xl"}`}>
           {description}
         </p>
       )}

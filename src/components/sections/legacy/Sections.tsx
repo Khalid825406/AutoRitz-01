@@ -14,7 +14,7 @@ export default function Sections({ onBook }: { onBook: (s?: string) => void }) {
   return (
     <div className="bg-white">
       {BLOCKS.map(({ id, title, Icon, text, service }, i) => (
-        <section key={id} id={id} className={`scroll-mt-4 px-6 py-20 ${i % 2 ? "bg-slate-50" : ""}`}>
+        <section key={id} id={id} className={`scroll-mt-4 px-6 py-12 ${i % 2 ? "bg-slate-50" : ""}`}>
           <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8">
             <span className="rounded-3xl bg-royal/10 p-5 text-royal"><Icon size={36} /></span>
             <div>

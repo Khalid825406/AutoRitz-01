@@ -35,7 +35,7 @@ export default function AreaSearchResults({ query, results, selected, onSelect, 
   if (results.length === 0) {
     return (
       <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-5 text-center" role="status">
-        <p className="text-[15px] font-semibold text-white">No area matches &ldquo;{q}&rdquo;</p>
+        <p className="text-[14px] font-semibold text-white">No area matches &ldquo;{q}&rdquo;</p>
         <p className="mt-1 text-[13px] text-white/65">We may still reach you — call us to confirm your location.</p>
         <a
           href={`tel:${phone}`}

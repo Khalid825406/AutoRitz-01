@@ -51,7 +51,7 @@ export default function ServiceAreasPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <motion.div
@@ -103,7 +103,7 @@ export default function ServiceAreasPage() {
 
           {/* areas */}
           {list.length > 0 ? (
-            <motion.ul layout className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <motion.ul layout className="mt-8 sm:mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               <AnimatePresence initial={false}>
                 {list.map((a, i) => {
                   const active = a === selected;
@@ -140,8 +140,8 @@ export default function ServiceAreasPage() {
               </AnimatePresence>
             </motion.ul>
           ) : (
-            <div className="mt-10 rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center" role="status">
-              <p className="text-base font-semibold text-[#082F59]">No area matches &ldquo;{query}&rdquo;</p>
+            <div className="mt-8 sm:mt-10 rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center" role="status">
+              <p className="text-[15px] font-semibold text-[#082F59]">No area matches &ldquo;{query}&rdquo;</p>
               <p className="mt-1 text-[14px] text-slate-600">We may still reach you — call us and we will confirm your location.</p>
               <a
                 href={`tel:${SITE_CONTACT.phone}`}
@@ -161,7 +161,7 @@ export default function ServiceAreasPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3, ease: EASE }}
-                className="sticky bottom-4 z-30 mx-auto mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(8,47,89,0.22)] sm:flex-row sm:items-center sm:justify-between"
+                className="sticky bottom-4 z-[9995] mx-auto mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(8,47,89,0.22)] sm:flex-row sm:items-center sm:justify-between"
               >
                 <p className="flex items-center gap-3 text-[14px] text-slate-600">
                   <Truck size={20} className="shrink-0 text-[#0872BB]" />

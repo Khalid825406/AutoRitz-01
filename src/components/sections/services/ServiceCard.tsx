@@ -60,7 +60,7 @@ export default function ServiceCard({ service, index = 0, onBook, ref }: Service
           </h3>
         </div>
 
-        <p className="mt-4 text-[15px] leading-relaxed text-slate-600">{service.description}</p>
+        <p className="mt-4 text-[14px] leading-relaxed text-slate-600">{service.description}</p>
 
         <ul className="mt-5 space-y-2.5">
           {service.features.map((f) => (

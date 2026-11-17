@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, Building2, Check, ChevronRight, MapPin, Palmtree, Plane, Waves } from "lucide-react";
+import { ArrowRight, Building2, Check, ChevronDown, ChevronRight, MapPin, Palmtree, Plane, Waves } from "lucide-react";
 
 import { REGIONS, type ServiceArea } from "@/data/service-areas";
 
@@ -18,6 +18,9 @@ interface AreaDirectoryProps {
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Areas shown per region before "Show more". */
+const PREVIEW_COUNT = 6;
 
 const REGION_META: Record<string, { icon: typeof MapPin; blurb: string }> = {
   "Central Dubai": {
@@ -44,6 +47,8 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
     (g) => g.items.length > 0,
   );
   const [picked, setPicked] = useState<string>(REGIONS[0]);
+  /** Region whose full list is open ("Show more"); switching region collapses it again. */
+  const [expandedRegion, setExpandedRegion] = useState<string | null>(null);
 
   // When an area is chosen elsewhere (map pin, popular chip), jump to its region.
   const [prevSelected, setPrevSelected] = useState(selected);
@@ -59,6 +64,14 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
   const active = groups.find((g) => g.region === picked) ?? groups[0];
   const meta = REGION_META[active.region] ?? { icon: MapPin, blurb: "" };
   const ActiveIcon = meta.icon;
+
+  // First 6 areas, the rest behind "Show more". While searching, or when the chosen area (e.g. from a
+  // map pin) is further down the list, every area is shown so nothing is hidden from the visitor.
+  const selectedIndex = active.items.findIndex((a) => a.name === selected);
+  const showAll =
+    searching || expandedRegion === active.region || selectedIndex >= PREVIEW_COUNT || active.items.length <= PREVIEW_COUNT;
+  const visibleItems = showAll ? active.items : active.items.slice(0, PREVIEW_COUNT);
+  const hiddenCount = active.items.length - PREVIEW_COUNT;
 
   return (
     <motion.div
@@ -167,14 +180,14 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
 
             {/* areas grid */}
             <ul className="mt-6 grid grid-cols-2 gap-x-2 gap-y-1 sm:gap-x-6 xl:grid-cols-3">
-              {active.items.map((a, i) => {
+              {visibleItems.map((a, i) => {
                 const isSel = a.name === selected;
                 return (
                   <motion.li
                     key={a.name}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25, ease: EASE, delay: Math.min(i * 0.015, 0.3) }}
+                    transition={{ duration: 0.25, ease: EASE, delay: Math.min((i % PREVIEW_COUNT) * 0.02, 0.3) }}
                   >
                     <button
                       type="button"
@@ -207,6 +220,24 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                 );
               })}
             </ul>
+
+            {/* show more / less (not while searching — matches are always shown in full) */}
+            {!searching && hiddenCount > 0 && selectedIndex < PREVIEW_COUNT && (
+              <div className="mt-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setExpandedRegion(expandedRegion === active.region ? null : active.region)}
+                  aria-expanded={expandedRegion === active.region}
+                  className="group inline-flex h-11 items-center gap-2 rounded-full border border-[#0872BB]/25 bg-[#EAF4FC] px-5 text-[13px] font-semibold text-[#0872BB] transition-colors hover:bg-[#0872BB] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] sm:text-sm"
+                >
+                  {expandedRegion === active.region ? "Show less" : `Show ${hiddenCount} more ${hiddenCount === 1 ? "area" : "areas"}`}
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-300 ${expandedRegion === active.region ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
+            )}
 
             <p className="mt-6 flex items-center gap-2 text-xs text-slate-500">
               <MapPin size={13} className="text-[#0872BB]" />

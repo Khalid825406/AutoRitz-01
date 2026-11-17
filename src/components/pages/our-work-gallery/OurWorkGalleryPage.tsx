@@ -149,7 +149,7 @@ export default function OurWorkGalleryPage() {
       </section>
 
       {/* ================= GRID ================= */}
-      <section className="w-full bg-white py-16 sm:py-20">
+      <section className="w-full bg-white py-12 sm:py-20">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
@@ -164,7 +164,7 @@ export default function OurWorkGalleryPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
-            className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
+            className="mt-8 sm:mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
           >
             {GALLERY.map((g, i) => (
               <motion.li
@@ -194,7 +194,7 @@ export default function OurWorkGalleryPage() {
             ))}
           </motion.ul>
 
-          <div className="mt-12 flex justify-center">
+          <div className="mt-8 sm:mt-12 flex justify-center">
             <a
               href="https://www.instagram.com/ritzautocare/"
               target="_blank"

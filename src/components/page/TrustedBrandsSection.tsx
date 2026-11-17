@@ -26,7 +26,7 @@ export default function TrustedBrandsSection({
   description = "We proudly service premium and luxury vehicles.",
 }: TrustedBrandsSectionProps) {
   return (
-    <section className="w-full bg-white py-20 sm:py-24">
+    <section className="w-full bg-white py-12 sm:py-24">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -48,7 +48,7 @@ export default function TrustedBrandsSection({
           whileInView="show"
           viewport={REVEAL_VIEWPORT}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.015 } } }}
-          className="mt-12 grid grid-cols-4 gap-3 sm:grid-cols-6 lg:grid-cols-9"
+          className="mt-8 sm:mt-12 grid grid-cols-4 gap-3 sm:grid-cols-6 lg:grid-cols-9"
           aria-label="Car brands we service"
         >
           {BRAND_PAGES.map((b) => {

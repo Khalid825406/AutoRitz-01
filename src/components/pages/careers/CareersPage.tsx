@@ -56,8 +56,8 @@ export default function CareersPage() {
     <PageShell>
       <PageHero breadcrumbs={[{ label: "Careers" }]} eyebrow="Join our team" title="Careers" />
 
-      <section className="w-full bg-white py-20 sm:py-24">
-        <div className="site-container grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+      <section className="w-full bg-white py-12 sm:py-24">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           {/* left: story + photo */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
@@ -67,7 +67,7 @@ export default function CareersPage() {
             <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
               {CAREERS.heading} <span className="block text-[#0872BB]">{CAREERS.highlight}</span>
             </TextReveal>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{CAREERS.text}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{CAREERS.text}</p>
 
             <ul className="mt-8 flex flex-wrap gap-3">
               {HIGHLIGHTS.map(({ icon: Icon, label }) => (
@@ -78,7 +78,7 @@ export default function CareersPage() {
               ))}
             </ul>
 
-            <div className="relative mt-10 aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]">
+            <div className="relative mt-8 sm:mt-10 aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]">
               <RevealImage src={CAREERS.image} alt="Ritz Auto Care technicians working together on a car" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover object-top" />
             </div>
           </motion.div>

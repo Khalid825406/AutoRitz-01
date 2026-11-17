@@ -75,13 +75,13 @@ export default function SparePartsPage() {
       </PageHero>
 
       {/* ================= INTRO ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
-        <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <section className="w-full bg-white py-12 sm:py-24">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
               OEM & Aftermarket Parts <span className="block text-[#0872BB]">for Every Make & Model.</span>
             </TextReveal>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{SPARE_PARTS.intro}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{SPARE_PARTS.intro}</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
@@ -96,7 +96,7 @@ export default function SparePartsPage() {
       </section>
 
       {/* ================= PARTS WE SUPPLY ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="What we supply" icon={Cog} title="Our Auto Spare Parts &" highlight="Trading Services Include." />
@@ -107,7 +107,7 @@ export default function SparePartsPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {SPARE_PARTS.items.map((it) => {
               const Icon = ICONS[it.key];
@@ -135,7 +135,7 @@ export default function SparePartsPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] text-white md:grid-cols-2"
+            className="mt-10 sm:mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] text-white md:grid-cols-2"
           >
             <div className="relative min-h-[240px]">
               <RevealImage src={SPARE_PARTS.sideImage} alt="Mechanic sorting auto spare parts" fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover" />

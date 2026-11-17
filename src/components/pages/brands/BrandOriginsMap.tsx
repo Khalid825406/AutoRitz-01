@@ -20,7 +20,7 @@ const TOTAL_BRANDS = BRAND_ORIGINS.reduce((n, o) => n + o.brands.length, 0);
 /** /brands/ — world map with arcs from our Dubai workshop to the home country of every brand we service. */
 export default function BrandOriginsMap() {
   return (
-    <section className="w-full bg-white pb-20 sm:pb-24">
+    <section className="w-full bg-white pb-12 sm:pb-24">
       <div className="site-container">
         <div className="relative isolate overflow-hidden rounded-3xl bg-[#082F59] px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-14">
           <div
@@ -40,14 +40,14 @@ export default function BrandOriginsMap() {
               {`${TOTAL_BRANDS} brands from ${BRAND_ORIGINS.length} countries,`}
               <span className="block text-[#4B9DE0]">serviced in Dubai.</span>
             </TextReveal>
-            <p className="mt-4 text-[15px] leading-relaxed text-[#DCE8F2]/80">
+            <p className="mt-4 text-[14px] leading-relaxed text-[#DCE8F2]/80">
               From German engineering to Japanese reliability and American muscle — our technicians know the
               brands, the parts and the details that keep each of them running at its best.
             </p>
           </div>
 
           {/* map */}
-          <div className="mx-auto mt-10 max-w-5xl">
+          <div className="mx-auto mt-8 sm:mt-10 max-w-5xl">
             <WorldMap dots={ARCS} lineColor="#4B9DE0" dotColor="rgba(220,232,242,0.28)" />
             <p className="mt-2 flex items-center justify-center gap-2 text-[13px] text-[#DCE8F2]/70">
               <span className="relative flex h-2 w-2">
@@ -64,7 +64,7 @@ export default function BrandOriginsMap() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }}
-            className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-8 sm:mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
           >
             {BRAND_ORIGINS.map((o) => (
               <motion.li

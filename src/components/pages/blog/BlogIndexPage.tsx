@@ -26,7 +26,7 @@ export default function BlogIndexPage() {
         description="Car care tips and advice from the Ritz Auto Care team in Dubai."
       />
 
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.ul
             initial="hidden"

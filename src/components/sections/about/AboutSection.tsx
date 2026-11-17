@@ -104,13 +104,13 @@ export default function AboutSection({
   return (
       <section
         id="about"
-        className="w-full scroll-mt-32 bg-white py-16 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
       >
         <div className="site-container">
           {/* ===================================================
               PART 1 — ABOUT
           =================================================== */}
-          <div className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
+          <div className="grid items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
             {/* ---------- PHOTO ---------- */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -217,7 +217,7 @@ export default function AboutSection({
 
               <motion.p
                 variants={riseV}
-                className="mt-5 max-w-[560px] text-base leading-relaxed text-slate-600"
+                className="mt-5 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
                 Ritz Auto Care delivers professional maintenance and repair
                 across Dubai, backed by trained technicians and modern
@@ -226,7 +226,7 @@ export default function AboutSection({
               </motion.p>
               <motion.p
                 variants={riseV}
-                className="mt-3 max-w-[560px] text-base leading-relaxed text-slate-600"
+                className="mt-3 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
                 From a routine service to a roadside emergency, you get clear
                 advice, fair pricing and work you can trust.
@@ -284,7 +284,7 @@ export default function AboutSection({
           {/* ===================================================
               PART 2 — WHY CHOOSE US
           =================================================== */}
-          <div className="relative mt-20 overflow-hidden rounded-3xl bg-[#082F59] px-6 py-12 sm:px-12 sm:py-14 lg:mt-28 lg:px-16 lg:py-16">
+          <div className="relative mt-12 sm:mt-20 overflow-hidden rounded-3xl bg-[#082F59] px-6 py-12 sm:px-12 sm:py-14 lg:mt-28 lg:px-16 lg:py-16">
             {/* subtle dotted texture */}
             <div
               aria-hidden="true"
@@ -321,7 +321,7 @@ export default function AboutSection({
                 variants={riseV}
                 className="max-w-[440px] lg:text-right"
               >
-                <p className="text-base leading-relaxed text-white/75">
+                <p className="text-[15px] leading-relaxed text-white/75">
                   Discover the expertise, technology and commitment that make
                   your satisfaction our priority.
                 </p>
@@ -349,7 +349,7 @@ export default function AboutSection({
               initial="hidden"
               whileInView="show"
               viewport={REVEAL_VIEWPORT}
-              className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+              className="relative mt-8 sm:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
               {FEATURES.map(({ icon: Icon, title, text }) => (
                 <motion.li

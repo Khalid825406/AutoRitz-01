@@ -27,8 +27,8 @@ const STEPS = [
 
 export default function ProcessSection({ onBook }: ProcessSectionProps) {
   return (
-      <section id="how-it-works" className="w-full scroll-mt-32 bg-white py-20 sm:py-24 lg:py-28">
-        <div className="site-container grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
+      <section id="how-it-works" className="w-full scroll-mt-32 bg-white py-12 sm:py-24 lg:py-28">
+        <div className="site-container grid gap-10 sm:gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
           {/* ================= LEFT ================= */}
           <motion.div
             variants={fadeUp}
@@ -45,7 +45,7 @@ export default function ProcessSection({ onBook }: ProcessSectionProps) {
               Four Easy Steps to
               <span className="block text-[#0872BB]">Better Car Care.</span>
             </TextReveal>
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-slate-600">
+            <p className="mt-5 max-w-md text-[14px] leading-relaxed text-slate-600">
               Enjoy a simple and hassle-free car servicing experience. From booking to delivery, we make every step
               smooth, transparent and convenient.
             </p>
@@ -105,7 +105,7 @@ export default function ProcessSection({ onBook }: ProcessSectionProps) {
                   </span>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">Step {i + 1}</p>
                   <h3 className="mt-2 text-lg font-semibold text-[#082F59]">{title}</h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-slate-600">{text}</p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-slate-600">{text}</p>
                   <span className="mt-4 block h-[2px] w-8 bg-[#0872BB] transition-all duration-500 group-hover:w-16" />
                 </div>
               </motion.li>

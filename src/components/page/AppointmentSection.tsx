@@ -89,7 +89,7 @@ export default function AppointmentSection({
   ];
 
   return (
-    <section ref={sectionRef} id="appointment" className="w-full scroll-mt-32 bg-white py-20 sm:py-24">
+    <section ref={sectionRef} id="appointment" className="w-full scroll-mt-32 bg-white py-12 sm:py-24">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -108,12 +108,12 @@ export default function AppointmentSection({
             <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
               Set An Appointment <span className="block text-[#4B9DE0]">Today</span>
             </TextReveal>
-            <p className="mt-4 flex items-center gap-2 text-[15px] text-[#DCE8F2]/85">
+            <p className="mt-4 flex items-center gap-2 text-[14px] text-[#DCE8F2]/85">
               <Clock3 size={16} className="text-[#4B9DE0]" />
               We respond within 7 minutes
             </p>
 
-            <ul className="mt-10 space-y-3">
+            <ul className="mt-8 sm:mt-10 space-y-3">
               {contacts.map(({ icon: Icon, label, value, href }) => (
                 <li key={label}>
                   <a

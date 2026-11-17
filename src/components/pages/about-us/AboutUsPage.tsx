@@ -35,8 +35,8 @@ export default function AboutUsPage() {
       />
 
       {/* ================= WHO WE ARE ================= */}
-      <section className="w-full overflow-hidden bg-white py-20 sm:py-24">
-        <div className="site-container grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <section className="w-full overflow-hidden bg-white py-12 sm:py-24">
+        <div className="site-container grid gap-10 sm:gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* photo collage */}
           <div className="relative mx-auto w-full max-w-[560px]">
             <motion.div
@@ -68,7 +68,7 @@ export default function AboutUsPage() {
             <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
               {ABOUT.heading}
             </TextReveal>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{ABOUT.text}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{ABOUT.text}</p>
 
             <ul className="mt-8 grid gap-3 sm:grid-cols-2">
               {ABOUT.points.map((p) => (
@@ -83,7 +83,7 @@ export default function AboutUsPage() {
 
             <a
               href={`tel:+${SITE_CONTACT.whatsapp}`}
-              className="group mt-10 inline-flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-[#F7FAFD] p-4 pr-6 transition-colors hover:border-[#0872BB]/40"
+              className="group mt-8 sm:mt-10 inline-flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-[#F7FAFD] p-4 pr-6 transition-colors hover:border-[#0872BB]/40"
             >
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white">
                 <Phone size={20} />
@@ -98,7 +98,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ================= CEO MESSAGE ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.div
             variants={fadeUp}
@@ -113,7 +113,7 @@ export default function AboutUsPage() {
             <div className="relative flex flex-col justify-center p-8 sm:p-12">
               <Quote size={56} className="text-[#EAF4FC]" fill="currentColor" strokeWidth={0} />
               <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">Message from the CEO</p>
-              <div className="mt-5 space-y-4 text-[17px] leading-relaxed text-slate-700">
+              <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-700">
                 {CEO.message.map((m) => (
                   <p key={m}>{m}</p>
                 ))}

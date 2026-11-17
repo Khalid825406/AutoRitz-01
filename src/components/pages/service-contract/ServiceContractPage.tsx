@@ -58,7 +58,7 @@ export default function ServiceContractPage() {
       </PageHero>
 
       {/* ================= PLANS ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -71,7 +71,7 @@ export default function ServiceContractPage() {
           </motion.div>
 
           {/* cylinder switch */}
-          <div className="mt-10 flex justify-center">
+          <div className="mt-8 sm:mt-10 flex justify-center">
             <div role="tablist" aria-label="Engine size" className="inline-flex rounded-full border border-slate-200 bg-[#F7FAFD] p-1.5">
               {CYLINDERS.map((c) => {
                 const active = c === cyl;
@@ -106,7 +106,7 @@ export default function ServiceContractPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
-            className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2"
+            className="mx-auto mt-8 sm:mt-10 grid max-w-5xl gap-6 lg:grid-cols-2"
           >
             {CONTRACT_PLANS.map((p) => {
               const premium = p.id === "signature";
@@ -145,7 +145,7 @@ export default function ServiceContractPage() {
                     </div>
                     <div className="text-right">
                       <p className={`text-xs uppercase tracking-[0.14em] ${premium ? "text-[#DCE8F2]/60" : "text-slate-400"}`}>Coverage</p>
-                      <p className="mt-1 whitespace-nowrap text-lg font-bold">{p.coverage}</p>
+                      <p className="mt-1 whitespace-nowrap text-base font-bold">{p.coverage}</p>
                     </div>
                   </div>
 
@@ -168,7 +168,7 @@ export default function ServiceContractPage() {
                     href={bookLink(p, cyl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group relative mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                    className={`group relative mt-8 sm:mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
                       premium
                         ? "bg-white text-[#082F59] hover:bg-[#DCE8F2] focus-visible:outline-white"
                         : "bg-[#082F59] text-white hover:bg-[#0872BB] focus-visible:outline-[#0872BB]"
@@ -185,7 +185,7 @@ export default function ServiceContractPage() {
       </section>
 
       {/* ================= COMPARISON ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="Compare" icon={FileText} title="Basic vs" highlight="Signature." />
@@ -196,7 +196,7 @@ export default function ServiceContractPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mx-auto mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
+            className="mx-auto mt-8 sm:mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
           >
             <table className="w-full min-w-[560px] text-left text-[14px]">
               <thead>

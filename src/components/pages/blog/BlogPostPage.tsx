@@ -36,8 +36,8 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
         </p>
       </PageHero>
 
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="site-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+      <section className="w-full bg-white py-12 sm:py-20">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
           <motion.article
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,14 +48,14 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
               <RevealImage src={post.image} alt={post.title} fill priority sizes="(min-width: 1024px) 60vw, 92vw" className="object-cover" />
             </div>
 
-            <div className="mx-auto mt-10 max-w-3xl">
+            <div className="mx-auto mt-8 sm:mt-10 max-w-3xl">
               {post.content?.map((b, i) =>
                 b.type === "h2" ? (
-                  <h2 key={i} className="mt-10 scroll-mt-32 text-2xl font-bold tracking-tight text-[#082F59]">
+                  <h2 key={i} className="mt-8 sm:mt-10 scroll-mt-32 text-2xl font-bold tracking-tight text-[#082F59]">
                     {b.text}
                   </h2>
                 ) : (
-                  <p key={i} className={`text-[17px] leading-[1.8] text-slate-700 ${i === 0 ? "text-lg font-medium text-slate-800" : "mt-4"}`}>
+                  <p key={i} className={`text-base leading-[1.8] text-slate-700 ${i === 0 ? "text-[17px] font-medium text-slate-800" : "mt-4"}`}>
                     {b.text}
                   </p>
                 ),
@@ -63,7 +63,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
               <Link
                 href="/blog/"
-                className="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-[#0872BB] hover:text-[#082F59]"
+                className="mt-8 sm:mt-12 inline-flex items-center gap-2 text-sm font-semibold text-[#0872BB] hover:text-[#082F59]"
               >
                 <ArrowLeft size={16} />
                 Back to all posts

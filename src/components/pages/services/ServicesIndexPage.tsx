@@ -66,14 +66,14 @@ export default function ServicesIndexPage() {
         </div>
       </PageHero>
 
-      <section id="all-services" className="w-full scroll-mt-32 bg-white py-20 sm:py-24">
+      <section id="all-services" className="w-full scroll-mt-32 bg-white py-12 sm:py-24">
         <div className="site-container">
           {/* The static HTML shows every service; the header search (?q=…) filters it in the browser. */}
           <Suspense fallback={<ServiceGrid items={SERVICES} />}>
             <SearchableServiceGrid />
           </Suspense>
 
-          <p className="mt-10 flex items-center justify-center gap-2 text-center text-[14px] text-slate-500">
+          <p className="mt-8 sm:mt-10 flex items-center justify-center gap-2 text-center text-[14px] text-slate-500">
             <Wrench size={15} className="text-[#0872BB]" />
             Don&apos;t see what you need? Call {SITE_CONTACT.phone} — we likely do it.
           </p>
@@ -116,9 +116,9 @@ function ServiceGrid({ items, query = "" }: { items: ServiceItem[]; query?: stri
       </div>
 
       {items.length === 0 ? (
-        <div className="mt-10 flex flex-col items-center rounded-2xl border border-dashed border-slate-300 px-6 py-14 text-center">
+        <div className="mt-8 sm:mt-10 flex flex-col items-center rounded-2xl border border-dashed border-slate-300 px-6 py-14 text-center">
           <SearchX size={36} className="text-[#0872BB]" />
-          <p className="mt-4 text-base font-semibold text-[#082F59]">No service matches “{query}”</p>
+          <p className="mt-4 text-[15px] font-semibold text-[#082F59]">No service matches “{query}”</p>
           <p className="mt-1 max-w-md text-[14px] text-slate-600">
             We may still be able to help — call {SITE_CONTACT.phone} or browse all our services.
           </p>
@@ -137,7 +137,7 @@ function ServiceGrid({ items, query = "" }: { items: ServiceItem[]; query?: stri
           whileInView="show"
           viewport={REVEAL_VIEWPORT}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="mt-8 sm:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {items.map((s) => {
             const Icon = SERVICE_ICONS[s.slug] ?? DEFAULT_SERVICE_ICON;

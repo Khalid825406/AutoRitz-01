@@ -110,7 +110,7 @@ export default function TestimonialsSection() {
   return (
       <section
         id="testimonials"
-        className="w-full scroll-mt-32 overflow-hidden bg-linear-to-b from-[#EEF5FB] to-[#F7FAFD] py-20 sm:py-24 lg:py-28"
+        className="w-full scroll-mt-32 overflow-hidden bg-linear-to-b from-[#EEF5FB] to-[#F7FAFD] py-12 sm:py-24 lg:py-28"
       >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -142,7 +142,7 @@ export default function TestimonialsSection() {
           )}
         </motion.div>
 
-        <div className="mt-14 flex flex-col gap-6">
+        <div className="mt-10 sm:mt-14 flex flex-col gap-6">
           <MarqueeRow items={testimonials} direction="left" />
           <MarqueeRow items={[...testimonials.slice(1), testimonials[0]]} direction="right" />
         </div>

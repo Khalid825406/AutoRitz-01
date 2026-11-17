@@ -81,7 +81,7 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
   return (
     <section
       id="brands"
-      className="relative w-full scroll-mt-32 overflow-hidden bg-white py-20 sm:py-24 lg:py-28"
+      className="relative w-full scroll-mt-32 overflow-hidden bg-white py-12 sm:py-24 lg:py-28"
     >
       {/* soft brand glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-radial from-[#EAF4FC] to-transparent to-70%" />
@@ -102,7 +102,7 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
             Experts in Every
             <span className="block text-[#0872BB]">Automotive Brand.</span>
           </TextReveal>
-          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
+          <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
             From luxury European vehicles to Japanese and American automobiles, our experts deliver professional care
             for all leading automotive brands.
           </p>
@@ -115,7 +115,7 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
         whileInView={{ opacity: 1 }}
         viewport={REVEAL_VIEWPORT}
         transition={{ duration: 0.8 }}
-        className="relative mt-14 flex flex-col gap-6 sm:gap-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+        className="relative mt-10 sm:mt-14 flex flex-col gap-6 sm:gap-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         aria-label="Car brands we service"
       >
         {ROWS.map((row, i) => (
@@ -133,9 +133,9 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
           initial="hidden"
           whileInView="show"
           viewport={REVEAL_VIEWPORT}
-          className="mt-14 flex flex-col items-center gap-4 text-center"
+          className="mt-10 sm:mt-14 flex flex-col items-center gap-4 text-center"
         >
-          <p className="text-[15px] text-slate-600">
+          <p className="text-[14px] text-slate-600">
             Your vehicle deserves professional attention.{" "}
             <span className="font-semibold text-[#082F59]">Don&apos;t see your brand? Just ask us.</span>
           </p>

@@ -66,7 +66,7 @@ export default function CustomerReviewsPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
@@ -87,7 +87,7 @@ export default function CustomerReviewsPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-            className="mt-10 columns-1 gap-6 md:columns-2 xl:columns-3"
+            className="mt-8 sm:mt-10 columns-1 gap-6 md:columns-2 xl:columns-3"
           >
             {CUSTOMER_REVIEWS.map((r) => (
               <motion.li key={r.name} variants={fadeUp} className="mb-6 break-inside-avoid">
@@ -130,7 +130,7 @@ export default function CustomerReviewsPage() {
             viewport={REVEAL_VIEWPORT}
             className="mt-8 flex flex-col items-center gap-4 text-center"
           >
-            <p className="text-[15px] text-slate-600">Had a great experience with us? We&apos;d love to hear from you.</p>
+            <p className="text-[14px] text-slate-600">Had a great experience with us? We&apos;d love to hear from you.</p>
             <a
               href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I'd like to share my feedback.")}
               target="_blank"

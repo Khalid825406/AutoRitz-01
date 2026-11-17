@@ -12,7 +12,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /** "Service Areas in Dubai" — compact list of every area we cover (used on brand pages). */
 export default function ServiceAreasList() {
   return (
-    <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -34,7 +34,7 @@ export default function ServiceAreasList() {
           whileInView={{ opacity: 1 }}
           viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.8 }}
-          className="mt-12 flex flex-wrap justify-center gap-2"
+          className="mt-8 sm:mt-12 flex flex-wrap justify-center gap-2"
           aria-label="Areas we cover"
         >
           {SERVICE_AREAS.map((a) => (

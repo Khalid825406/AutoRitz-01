@@ -45,7 +45,7 @@ export default function BrandsIndexPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
@@ -59,7 +59,7 @@ export default function BrandsIndexPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.02 } } }}
-            className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+            className="mt-8 sm:mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
           >
             {BRAND_PAGES.map((b) => {
               const ready = !!b.detail;

@@ -66,15 +66,15 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       </PageHero>
 
       {/* ================= PROCESS ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
               <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
                 <Icon size={26} />
               </span>
               <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{process.title}</TextReveal>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">{process.intro}</p>
+              <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600">{process.intro}</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
@@ -92,7 +92,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-            className="mt-14 grid gap-5 md:grid-cols-3"
+            className="mt-10 sm:mt-14 grid gap-5 md:grid-cols-3"
           >
             {process.steps.map((st, i) => (
               <motion.li
@@ -120,7 +120,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-[#082F59]">{st.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{st.text}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{st.text}</p>
                 </div>
               </motion.li>
             ))}
@@ -129,8 +129,8 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
-        <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

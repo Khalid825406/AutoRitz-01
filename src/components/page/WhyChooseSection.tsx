@@ -30,8 +30,8 @@ export default function WhyChooseSection({
   highlight = "Quality Services.",
 }: WhyChooseSectionProps) {
   return (
-    <section className="w-full bg-white py-20 sm:py-24">
-      <div className={`site-container grid gap-14 ${images ? "lg:grid-cols-2 lg:items-center lg:gap-16" : ""}`}>
+    <section className="w-full bg-white py-12 sm:py-24">
+      <div className={`site-container grid gap-10 sm:gap-14 ${images ? "lg:grid-cols-2 lg:items-center lg:gap-16" : ""}`}>
         <div>
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -48,7 +48,7 @@ export default function WhyChooseSection({
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-            className="mt-10 grid gap-4 sm:grid-cols-2"
+            className="mt-8 sm:mt-10 grid gap-4 sm:grid-cols-2"
           >
             {items.map((it, i) => {
               const Icon = ICONS[i % ICONS.length];

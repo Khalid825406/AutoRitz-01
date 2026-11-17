@@ -70,7 +70,7 @@ export default function RoadsideSupportPage() {
           </a>
         </div>
 
-        <ul className="mt-12 grid gap-4 md:grid-cols-3">
+        <ul className="mt-8 sm:mt-12 grid gap-4 md:grid-cols-3">
           {HIGHLIGHTS.map((h, i) => {
             const Icon = HIGHLIGHT_ICONS[i];
             return (
@@ -87,7 +87,7 @@ export default function RoadsideSupportPage() {
       </PageHero>
 
       {/* ================= EXPERT ROADSIDE ASSISTANCE ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -104,7 +104,7 @@ export default function RoadsideSupportPage() {
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {ROADSIDE_SERVICES.map((name, i) => {
               const Icon = SERVICE_ICONS[name];

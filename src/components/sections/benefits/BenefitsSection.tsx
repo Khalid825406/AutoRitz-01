@@ -45,7 +45,7 @@ const JOURNEY = [
 
 export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
   return (
-      <section id="benefits" className="w-full scroll-mt-32 bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
+      <section id="benefits" className="w-full scroll-mt-32 bg-[#F7FAFD] py-12 sm:py-24 lg:py-28">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -63,27 +63,27 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
+            className="mt-10 sm:mt-14 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3"
           >
             {BENEFITS.map(({ icon: Icon, title, text }, i) => (
               <motion.li
                 key={title}
                 variants={fadeUp}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-12px_rgba(8,47,89,0.18)]"
+                className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(8,47,89,0.04)] sm:p-7 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-12px_rgba(8,47,89,0.18)]"
               >
-                <span className="pointer-events-none absolute right-6 top-5 text-5xl font-bold leading-none text-slate-100 tabular-nums transition-colors group-hover:text-[#EAF4FC]">
+                <span className="pointer-events-none absolute right-5 top-4 text-4xl font-bold leading-none text-slate-100 tabular-nums sm:right-6 sm:top-5 sm:text-5xl transition-colors group-hover:text-[#EAF4FC]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white shadow-[0_10px_20px_-6px_rgba(23,102,174,0.6)]">
+                <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-[#1766AE] to-[#082F59] sm:h-14 sm:w-14 text-white shadow-[0_10px_20px_-6px_rgba(23,102,174,0.6)]">
                   <Icon size={24} strokeWidth={1.8} />
                 </span>
-                <span className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-[#0872BB]/20 bg-[#EAF4FC] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0872BB]">
+                <span className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-[#0872BB]/20 sm:mt-6 bg-[#EAF4FC] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0872BB]">
                   <Check size={12} strokeWidth={3} />
                   Complimentary
                 </span>
-                <h3 className="mt-4 text-lg font-semibold text-[#082F59]">{title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{text}</p>
-                <span className="mt-6 block h-[2px] w-8 bg-[#0872BB] transition-all duration-500 group-hover:w-16" />
+                <h3 className="mt-3 text-base font-semibold text-[#082F59] sm:mt-4 sm:text-lg">{title}</h3>
+                <p className="mt-1.5 text-[14px] leading-normal text-slate-600 sm:mt-2 sm:leading-relaxed">{text}</p>
+                <span className="mt-4 block h-[2px] w-8 bg-[#0872BB] sm:mt-6 transition-all duration-500 group-hover:w-16" />
               </motion.li>
             ))}
           </motion.ul>
@@ -94,11 +94,11 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate mt-8 overflow-hidden rounded-3xl bg-linear-to-br from-[#0b1424] via-[#0d1b30] to-[#0B2F55] p-6 shadow-[0_30px_60px_-20px_rgba(8,47,89,0.55)] sm:p-10 lg:p-12"
+            className="relative isolate mt-6 overflow-hidden rounded-3xl sm:mt-8 bg-linear-to-br from-[#0b1424] via-[#0d1b30] to-[#0B2F55] p-6 shadow-[0_30px_60px_-20px_rgba(8,47,89,0.55)] sm:p-10 lg:p-12"
           >
             <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/30 to-transparent to-70%" />
 
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">
                 <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4B9DE0]">
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-[#7cc0f5]">
@@ -109,7 +109,7 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
                 <h3 className="mt-5 text-2xl font-bold text-white sm:text-3xl">
                   How We Care <span className="text-[#4B9DE0]">For Your Car</span>
                 </h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-[#DCE8F2]/80">
+                <p className="mt-3 text-[14px] leading-relaxed text-[#DCE8F2]/80">
                   Added care with your service booking. Premium care, every time. Your convenience is our priority.
                 </p>
               </div>
@@ -134,7 +134,7 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
             </div>
 
             {/* journey */}
-            <ol className="relative mt-12 grid grid-cols-2 gap-y-10 md:grid-cols-4">
+            <ol className="relative mt-8 sm:mt-12 grid grid-cols-2 gap-y-8 sm:gap-y-10 md:grid-cols-4">
               <span
                 aria-hidden
                 className="absolute left-[12.5%] right-[12.5%] top-7 hidden border-t border-dashed border-white/20 md:block"
@@ -147,9 +147,9 @@ export default function BenefitsSection({ onBook }: BenefitsSectionProps) {
                       {i + 1}
                     </span>
                   </span>
-                  <p className="mt-5 text-sm font-semibold text-white">{title}</p>
+                  <p className="mt-3.5 text-sm font-semibold text-white sm:mt-5">{title}</p>
                   <p className="mt-1 text-xs text-[#DCE8F2]/70">{text}</p>
-                  <p className="mt-3 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#4B9DE0]">
+                  <p className="mt-2 flex items-center gap-1 text-[10px] sm:mt-3 font-semibold uppercase tracking-[0.14em] text-[#4B9DE0]">
                     <Check size={12} strokeWidth={3} />
                     Included
                   </p>

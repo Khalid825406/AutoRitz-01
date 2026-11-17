@@ -47,7 +47,7 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
           />
           <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
 
-          <div className={aside ? "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12" : undefined}>
+          <div className={aside ? "grid items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12" : undefined}>
           <motion.div variants={stagger} initial="hidden" animate="show" className="min-w-0">
             {breadcrumbs && breadcrumbs.length > 0 && (
               <motion.nav variants={item} aria-label="Breadcrumb">
@@ -92,7 +92,7 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
             </TextReveal>
 
             {description && (
-              <motion.p variants={item} className="mt-5 max-w-2xl text-base leading-relaxed text-[#DCE8F2]/85 sm:text-lg">
+              <motion.p variants={item} className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#DCE8F2]/85 sm:text-base">
                 {description}
               </motion.p>
             )}

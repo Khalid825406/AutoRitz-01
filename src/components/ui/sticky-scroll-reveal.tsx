@@ -46,7 +46,7 @@ export function StickyScroll({ content, backgrounds = DEFAULT_BACKGROUNDS, class
   });
 
   return (
-    <div ref={ref} className={`relative grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16 ${className}`}>
+    <div ref={ref} className={`relative grid gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16 ${className}`}>
       {/* text column with progress rail */}
       <div className="relative lg:pl-14">
         <div aria-hidden className="absolute bottom-[25vh] left-[19px] top-[25vh] hidden w-[2px] rounded-full bg-slate-200 lg:block">
@@ -57,7 +57,7 @@ export function StickyScroll({ content, backgrounds = DEFAULT_BACKGROUNDS, class
           const isActive = i === active;
           const done = i < active;
           return (
-            <div key={item.title} className="relative flex flex-col justify-center py-10 lg:min-h-[50vh] lg:py-12">
+            <div key={item.title} className="relative flex flex-col justify-center py-3 lg:min-h-[50vh] lg:py-12">
               {/* rail dot */}
               <span
                 aria-hidden
@@ -78,14 +78,14 @@ export function StickyScroll({ content, backgrounds = DEFAULT_BACKGROUNDS, class
                 className="max-lg:!translate-x-0 max-lg:!opacity-100"
               >
                 {item.eyebrow}
-                <h3 className="mt-3 text-2xl font-bold tracking-tight text-[#082F59] sm:text-[28px]">{item.title}</h3>
-                <div className="mt-3 max-w-md text-[16px] leading-relaxed text-slate-600">{item.description}</div>
+                <h3 className="mt-2.5 text-2xl font-bold tracking-tight text-[#082F59] sm:text-[28px] lg:mt-3">{item.title}</h3>
+                <div className="mt-2 max-w-md text-[14px] leading-normal text-slate-600 lg:mt-3 lg:text-[15px] lg:leading-relaxed">{item.description}</div>
                 {item.footer}
               </motion.div>
 
               {/* mobile: panel content inline */}
               <div
-                className="relative mt-6 aspect-[16/11] overflow-hidden rounded-3xl lg:hidden"
+                className="relative mt-4 aspect-[16/10] overflow-hidden rounded-3xl lg:hidden"
                 style={{ background: backgrounds[i % backgrounds.length] }}
               >
                 {item.content}

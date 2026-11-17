@@ -13,7 +13,7 @@ const ICONS = [CalendarCheck, KeyRound, ClipboardCheck, ThumbsUp, Wrench, Car];
 /** "HOW IT WORKS — Easy Steps to Make Your Car Shine" (6 steps, from the original service pages). */
 export default function HowItWorksSection() {
   return (
-    <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -24,7 +24,7 @@ export default function HowItWorksSection() {
           <SectionHeading eyebrow="How it works" icon={CalendarCheck} title="Easy Steps to Make" highlight="Your Car Shine." />
         </motion.div>
 
-        <ol className="relative mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="relative mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {HOW_IT_WORKS.map((s, i) => {
             const Icon = ICONS[i];
             return (
@@ -44,7 +44,7 @@ export default function HowItWorksSection() {
                 </span>
                 <p className="relative mt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">Step {i + 1}</p>
                 <h3 className="relative mt-1.5 text-lg font-semibold text-[#082F59]">{s.title}</h3>
-                <p className="relative mt-2 text-[15px] leading-relaxed text-slate-600">{s.text}</p>
+                <p className="relative mt-2 text-[14px] leading-relaxed text-slate-600">{s.text}</p>
               </motion.li>
             );
           })}

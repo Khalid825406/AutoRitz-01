@@ -37,11 +37,11 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
       description: s.description,
       footer: (
         <>
-          <ul className="mt-5 flex flex-wrap gap-2">
+          <ul className="mt-3.5 flex flex-wrap gap-1.5 lg:mt-5 lg:gap-2">
             {s.features.map((f) => (
               <li
                 key={f}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[13px] font-medium text-[#082F59]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[12px] font-medium text-[#082F59] lg:px-3 lg:py-1.5 lg:text-[13px]"
               >
                 <Check size={13} strokeWidth={3} className="text-[#0872BB]" />
                 {f}
@@ -51,7 +51,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
           <button
             type="button"
             onClick={() => onBook(s.title)}
-            className="group mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
+            className="group mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#082F59] px-5 text-sm lg:mt-7 lg:h-11 lg:px-6 font-semibold text-white transition-colors hover:bg-[#0872BB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
           >
             Book this service
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -68,7 +68,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             </span>
             {/* title + text are already shown next to the photo on mobile — show them on the card only on desktop */}
             <p className="mt-4 text-[28px] font-bold leading-tight max-lg:hidden">{s.title}</p>
-            <p className="mt-2 max-w-md text-[15px] text-white/80 max-lg:hidden">{s.description}</p>
+            <p className="mt-2 max-w-md text-[14px] text-white/80 max-lg:hidden">{s.description}</p>
           </div>
         </>
       ),
@@ -76,7 +76,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
   });
 
   return (
-      <section id="services" className="relative w-full scroll-mt-32 overflow-clip bg-[#F7FAFD] py-20 sm:py-24 lg:py-28">
+      <section id="services" className="relative w-full scroll-mt-32 overflow-clip bg-[#F7FAFD] py-12 sm:py-24 lg:py-28">
         {/* subtle background accent */}
         <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-radial from-[#0872BB]/[0.06] to-transparent to-70%" />
 
@@ -87,7 +87,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
-            className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end"
+            className="grid gap-8 sm:gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end"
           >
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0872BB]">
@@ -97,7 +97,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
               <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
                 Everything your car needs, <span className="text-[#0872BB]">under one roof</span>
               </TextReveal>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
                 From routine maintenance to emergency roadside support, our certified technicians keep your
                 vehicle safe, reliable and ready for the road.
               </p>
@@ -124,7 +124,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
           </motion.div>
 
           {/* ============ STICKY SCROLL ============ */}
-          <StickyScroll content={items} className="mt-10 lg:mt-14" />
+          <StickyScroll content={items} className="mt-8 sm:mt-10 lg:mt-14" />
 
           {/* ============ BOTTOM CTA ============ */}
           <motion.div
@@ -132,11 +132,11 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
-            className="mt-14 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl bg-linear-to-r from-[#082F59] to-[#0B477D] px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10"
+            className="mt-10 sm:mt-14 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl bg-linear-to-r from-[#082F59] to-[#0B477D] px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10"
           >
             <div>
               <p className="text-xl font-semibold">Not sure which service you need?</p>
-              <p className="mt-1.5 text-[15px] text-[#DCE8F2]">
+              <p className="mt-1.5 text-[14px] text-[#DCE8F2]">
                 Book a free vehicle inspection and we will recommend what your car actually needs.
               </p>
             </div>

@@ -62,11 +62,11 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </PageHero>
 
       {/* ================= INTRO + CAR ================= */}
-      <section className="w-full overflow-hidden bg-white py-20 sm:py-24">
-        <div className="site-container grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <section className="w-full overflow-hidden bg-white py-12 sm:py-24">
+        <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{detail.heading}</TextReveal>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{detail.intro}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{detail.intro}</p>
             <a
               href="https://www.instagram.com/ritzautocare/"
               target="_blank"
@@ -91,7 +91,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
         </div>
 
         {/* models */}
-        <div className="site-container mt-16">
+        <div className="site-container mt-10 sm:mt-16">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -115,7 +115,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </section>
 
       {/* ================= FEATURES + GALLERY ================= */}
-      <section className="w-full bg-[#F7FAFD] py-20 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <motion.ul
             initial="hidden"
@@ -166,7 +166,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </section>
 
       {/* ================= EXCLUSIVE OFFER ================= */}
-      <section className="w-full bg-white py-20 sm:py-24">
+      <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container">
           <motion.div
             variants={fadeUp}
@@ -185,7 +185,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
                   Claim Your Free <span className="text-[#4B9DE0]">{detail.fullName} Benefits</span>
                 </TextReveal>
-                <p className="mt-4 text-[15px] text-[#DCE8F2]/80">Three complimentary perks with every service booking.</p>
+                <p className="mt-4 text-[14px] text-[#DCE8F2]/80">Three complimentary perks with every service booking.</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -206,7 +206,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 </Link>
               </div>
             </div>
-            <ul className="mt-10 grid gap-4 md:grid-cols-3">
+            <ul className="mt-8 sm:mt-10 grid gap-4 md:grid-cols-3">
               {FREE_BENEFITS.map((b, i) => {
                 const Icon = BENEFIT_ICONS[i];
                 return (

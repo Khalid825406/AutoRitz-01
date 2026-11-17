@@ -8,19 +8,15 @@ import { SITE_CONTACT } from "@/config/site";
 import { Sparkle } from "./illustrations";
 
 /* ------------------------------------------------------------------ */
-/* Timeline (~4.5 s)                                                   */
+/* Timeline (~8 s, unhurried so every clip can be seen)                */
 /*  stage 0 (advisor) shows for ADVISOR_MS; stages 1–4 each play their  */
-/*  ~1.1 s clip and move on as it ends; then WhatsApp opens in a NEW    */
-/*  TAB. Browsers only let a page open a tab by itself within ~5 s of   */
-/*  the click, so the whole journey is kept under that.                 */
+/*  2 s clip and move on as it ends; then WhatsApp opens in this tab.   */
 /* ------------------------------------------------------------------ */
-const ADVISOR_MS = 400;
+const ADVISOR_MS = 900;
 /** Move to the next stage this many seconds before the clip ends (so the cut feels continuous). */
-const NEAR_END_S = 0.15;
+const NEAR_END_S = 0.2;
 /** Safety net: if a clip can't load/play (slow network, data saver), move on after this long anyway. */
-const MAX_STAGE_MS = 1500;
-/** Hard stop: by now the journey ends and WhatsApp opens, so the new tab is still allowed (< 5 s after the click). */
-const NEW_TAB_DEADLINE_MS = 4500;
+const MAX_STAGE_MS = 3000;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -28,7 +24,7 @@ type Stage = 0 | 1 | 2 | 3 | 4;
 type View = Stage | "error";
 
 /**
- * Ritz Auto Care's own clips on Cloudinary for the four car stages. Cloudinary cuts the best ~1.1 s of
+ * Ritz Auto Care's own clips on Cloudinary for the four car stages. Cloudinary cuts the best 2 s of
  * every 5 s clip (so_/eo_ = start/end second), sizes it to 960 px, strips the audio and picks the quality
  * (q_auto). Each clip loops if its stage is held (e.g. while a booking confirms).
  *   1 first  — blue car driving with speed trails
@@ -43,10 +39,10 @@ const clip = (id: string, start: number, end: number) => ({
   poster: `${CLOUDINARY_VIDEO}/so_${start},q_auto,w_960/${id}.jpg`,
 });
 const CLIPS: Partial<Record<View, ReturnType<typeof clip>>> = {
-  1: clip("first_d5ajyf", 0, 1.1),
-  2: clip("second_xcno7r", 1.7, 2.8), // truck carrying the car through the middle of the frame
-  3: clip("third_wgq9ms", 0.6, 1.7),
-  4: clip("forth_ssftbh", 1.2, 2.3), // car already on screen
+  1: clip("first_d5ajyf", 0, 2),
+  2: clip("second_xcno7r", 1.4, 3.4), // truck carrying the car through the middle of the frame
+  3: clip("third_wgq9ms", 0.5, 2.5),
+  4: clip("forth_ssftbh", 0.8, 2.8), // car already on screen
 };
 
 const COPY: Record<View, { title: string; text: string }> = {
@@ -93,12 +89,7 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
 
   useEffect(() => {
     const t = window.setTimeout(() => advance(0), ADVISOR_MS);
-    // never run past the new-tab window, even if a clip is slow to load
-    const deadline = window.setTimeout(() => setAnimDone(true), NEW_TAB_DEADLINE_MS);
-    return () => {
-      window.clearTimeout(t);
-      window.clearTimeout(deadline);
-    };
+    return () => window.clearTimeout(t);
   }, [advance]);
 
   useEffect(() => {
@@ -143,16 +134,13 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
   const waiting = animDone && submitState === "pending";
   const redirecting = animDone && submitState === "ok";
 
-  // Open WhatsApp automatically in a NEW TAB — the website (and this animation) stay in the visitor's tab.
-  // The journey ends within ~4.5 s of the click, inside the window in which browsers allow it. If a browser
-  // still refuses (stricter pop-up settings, or a booking that took too long to confirm), WhatsApp opens
-  // in this tab instead — the visitor never has to click.
+  // Open WhatsApp automatically in this tab — no click needed. (A new tab is not possible here: browsers
+  // only let a page open one by itself within ~5 s of the click, and this journey takes ~8 s.)
+  // On phones the WhatsApp app opens on top of the site, so the popup closes itself shortly afterwards.
   useEffect(() => {
     if (!redirecting) return;
-    const tab = window.open(whatsappUrl, "_blank");
-    if (tab) tab.opener = null; // the WhatsApp tab gets no access back to this page
-    else window.location.assign(whatsappUrl);
-    const t = window.setTimeout(onClose, tab ? 800 : 1500);
+    window.location.assign(whatsappUrl);
+    const t = window.setTimeout(onClose, 1500);
     return () => window.clearTimeout(t);
   }, [redirecting, whatsappUrl, onClose]);
 
@@ -244,7 +232,7 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
               <h2 id="journey-title" className={`text-xl font-bold tracking-tight sm:text-2xl ${view === "error" ? "text-red-600" : "text-[#082F59]"}`}>
                 {copy.title}
               </h2>
-              <p id="journey-text" className="mx-auto mt-1.5 max-w-sm text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
+              <p id="journey-text" className="mx-auto mt-1.5 max-w-sm text-[14px] leading-relaxed text-slate-600 sm:text-[14px]">
                 {view === "error" ? error : copy.text}
               </p>
           </motion.div>
