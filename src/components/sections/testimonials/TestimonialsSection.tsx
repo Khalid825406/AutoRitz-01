@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, motion, type AnimationPlaybackControls } from "motion/react";
-import { MessageCircle, Star } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
 import { REVIEW_SUMMARY, testimonials, type Testimonial } from "@/data/testimonials";
@@ -28,28 +28,60 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
   );
 }
 
-function ReviewCard({ t }: { t: Testimonial }) {
+/** Google "G" mark. */
+function GoogleG({ size = 14 }: { size?: number }) {
   return (
-    <figure className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-[box-shadow,border-color] duration-300 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-16px_rgba(8,47,89,0.2)] sm:p-7">
-      <div className="flex items-center justify-between">
+    <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden>
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
+    </svg>
+  );
+}
+
+/** One review — the whole card opens the Google reviews page in a new tab. */
+function ReviewCard({ t, hidden }: { t: Testimonial; hidden: boolean }) {
+  const { url } = REVIEW_SUMMARY;
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      tabIndex={hidden ? -1 : undefined}
+      aria-label={`Read ${t.name}'s review on Google`}
+      className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-[box-shadow,border-color,translate] duration-300 hover:-translate-y-0.5 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-16px_rgba(8,47,89,0.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] sm:p-7"
+    >
+      <div className="flex items-center justify-between gap-3">
         <Stars value={t.rating} />
         <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          <GoogleG />
           Google Review
         </span>
       </div>
-      <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-slate-700">&ldquo;{t.text}&rdquo;</blockquote>
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EAF4FC] text-sm font-bold text-[#0872BB]">
-          {t.name.charAt(0).toUpperCase()}
+      {/* long reviews are trimmed to 4 lines — the full text is on Google */}
+      <blockquote className="mt-4 line-clamp-4 flex-1 text-[14px] leading-relaxed text-slate-700 sm:mt-5 sm:text-[15px]">
+        &ldquo;{t.text}&rdquo;
+      </blockquote>
+      <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4 sm:mt-6 sm:pt-5">
+        {t.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element -- small avatar, already optimised webp
+          <img src={t.photo} alt="" width={44} height={44} loading="lazy" className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-[#EAF4FC]" />
+        ) : (
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-sm font-bold text-[#0872BB]">
+            {t.name.charAt(0).toUpperCase()}
+          </span>
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[15px] font-semibold text-[#082F59]">{t.name}</span>
+          <span className="block text-xs text-slate-500">Customer review</span>
         </span>
-        <span className="flex-1">
-          <span className="block text-[15px] font-semibold text-[#082F59]">{t.name}</span>
-          <span className="block text-xs text-slate-500">Customer Review</span>
+        <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-[#0872BB]">
+          <span className="max-sm:hidden">Read on Google</span>
+          <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
-        <MessageCircle size={20} className="text-[#0872BB]" />
-      </figcaption>
-    </figure>
+      </div>
+    </a>
   );
 }
 
@@ -85,7 +117,7 @@ function MarqueeRow({ items, direction }: { items: Testimonial[]; direction: "le
           <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-stretch gap-6 pr-6">
             {row.map((t, i) => (
               <li key={`${copy}-${i}`} className="w-[300px] shrink-0 sm:w-[410px]">
-                <ReviewCard t={t} />
+                <ReviewCard t={t} hidden={copy === 1} />
               </li>
             ))}
           </ul>
@@ -143,8 +175,8 @@ export default function TestimonialsSection() {
         </motion.div>
 
         <div className="mt-10 sm:mt-14 flex flex-col gap-6">
-          <MarqueeRow items={testimonials} direction="left" />
-          <MarqueeRow items={[...testimonials.slice(1), testimonials[0]]} direction="right" />
+          <MarqueeRow items={testimonials.slice(0, Math.ceil(testimonials.length / 2))} direction="left" />
+          <MarqueeRow items={testimonials.slice(Math.ceil(testimonials.length / 2))} direction="right" />
         </div>
       </section>
   );
