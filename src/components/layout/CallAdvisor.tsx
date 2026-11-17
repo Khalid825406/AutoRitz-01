@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { Phone } from "lucide-react";
 
@@ -18,9 +17,6 @@ const ROUND = "h-14 w-14 sm:h-16 sm:w-16";
  *  - "Call Advisor" pill + round button with the waving Ritz advisor inside — dials the toll-free number
  */
 export default function CallAdvisor() {
-  // the /connect/ tab only shows the booking journey
-  if (usePathname()?.startsWith("/connect")) return null;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
