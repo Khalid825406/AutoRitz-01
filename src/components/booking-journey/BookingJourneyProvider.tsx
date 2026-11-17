@@ -3,11 +3,17 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { AnimatePresence } from "motion/react";
 
-import BookingJourneyModal, { type JourneyOptions } from "./BookingJourneyModal";
+import { submitAppointment } from "@/lib/appointments";
+import BookingJourneyModal from "./BookingJourneyModal";
+import { WHATSAPP_LINK, connectHref, type JourneyRequest } from "./connect-link";
 
 interface BookingJourneyApi {
-  /** Opens the animated booking popup; ends on a "Chat on WhatsApp" button for `whatsappUrl`. */
-  startJourney: (options: JourneyOptions) => void;
+  /**
+   * Starts the booking journey in a NEW TAB (/connect/): the animation plays there and WhatsApp then
+   * opens in that same tab, so the website stays open in the visitor's original tab.
+   * Must be called from a click handler (browsers only allow new tabs straight after a click).
+   */
+  startJourney: (request: JourneyRequest) => void;
 }
 
 const BookingJourneyContext = createContext<BookingJourneyApi | null>(null);
@@ -18,20 +24,22 @@ export function useBookingJourney() {
   return ctx;
 }
 
-const WHATSAPP_LINK = /^https:\/\/(wa\.me|api\.whatsapp\.com)\//i;
-
 /**
  * Site-wide booking journey.
- *  - Every WhatsApp link (wa.me) on the site plays the journey first instead of jumping straight to WhatsApp.
- *    Ctrl/⌘/middle-click still open it directly, and links marked `data-direct-whatsapp` are left alone.
- *  - Components can also open it with `useBookingJourney().startJourney(...)` (the appointment form does,
- *    passing the real booking request as `submit`).
+ *  - Every WhatsApp link (wa.me) on the site opens the journey in a new tab instead of jumping straight to
+ *    WhatsApp. Ctrl/⌘/middle-click still open WhatsApp directly; links marked `data-direct-whatsapp` are left alone.
+ *  - The appointment form calls `startJourney({ whatsappUrl, appointment })`; the new tab sends the booking.
+ *  - If the browser refuses the new tab, the journey plays in this page instead (fallback).
  */
 export default function BookingJourneyProvider({ children }: { children: ReactNode }) {
-  const [journey, setJourney] = useState<(JourneyOptions & { id: number }) | null>(null);
+  const [fallback, setFallback] = useState<(JourneyRequest & { id: number }) | null>(null);
 
-  const startJourney = useCallback((options: JourneyOptions) => setJourney({ ...options, id: Date.now() }), []);
-  const close = useCallback(() => setJourney(null), []);
+  const startJourney = useCallback((request: JourneyRequest) => {
+    // Opened synchronously inside the click, so pop-up blockers allow it.
+    const tab = window.open(connectHref(request), "_blank");
+    if (!tab) setFallback({ ...request, id: Date.now() });
+  }, []);
+  const close = useCallback(() => setFallback(null), []);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -48,13 +56,21 @@ export default function BookingJourneyProvider({ children }: { children: ReactNo
   }, [startJourney]);
 
   const api = useMemo(() => ({ startJourney }), [startJourney]);
+  const appointment = fallback?.appointment;
+  // stable function — the popup sends the booking once per journey
+  const fallbackSubmit = useMemo(() => (appointment ? () => submitAppointment(appointment) : undefined), [appointment]);
 
   return (
     <BookingJourneyContext.Provider value={api}>
       {children}
       <AnimatePresence>
-        {journey && (
-          <BookingJourneyModal key={journey.id} whatsappUrl={journey.whatsappUrl} submit={journey.submit} onClose={close} />
+        {fallback && (
+          <BookingJourneyModal
+            key={fallback.id}
+            whatsappUrl={fallback.whatsappUrl}
+            submit={fallbackSubmit}
+            onClose={close}
+          />
         )}
       </AnimatePresence>
     </BookingJourneyContext.Provider>

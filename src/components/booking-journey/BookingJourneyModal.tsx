@@ -70,11 +70,22 @@ const DONE_BY_VIEW: Record<View, number> = { 0: 0, 1: 0, 2: 2, 3: 3, 4: 4, error
 export interface JourneyOptions {
   /** wa.me link (with the prefilled message) opened by the final "Chat on WhatsApp" button. */
   whatsappUrl: string;
-  /** Real booking request. The WhatsApp screen only appears after it resolves; a rejection shows the error + retry. */
+  /** Real booking request. WhatsApp only opens after it resolves; a rejection shows the error + retry. */
   submit?: () => Promise<void>;
+  /**
+   * Close the popup ~1.5 s after sending the visitor to WhatsApp (in-page use: on phones the app opens
+   * on top and the site stays behind). Off in the /connect/ tab, where closing would close the tab
+   * before WhatsApp Web has loaded.
+   */
+  closeAfterRedirect?: boolean;
 }
 
-export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: JourneyOptions & { onClose: () => void }) {
+export default function BookingJourneyModal({
+  whatsappUrl,
+  submit,
+  closeAfterRedirect = true,
+  onClose,
+}: JourneyOptions & { onClose: () => void }) {
   const [stage, setStage] = useState<Stage>(0);
   const [animDone, setAnimDone] = useState(false);
   const [submitState, setSubmitState] = useState<"pending" | "ok" | "error">(submit ? "pending" : "ok");
@@ -140,9 +151,10 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
   useEffect(() => {
     if (!redirecting) return;
     window.location.assign(whatsappUrl);
+    if (!closeAfterRedirect) return;
     const t = window.setTimeout(onClose, 1500);
     return () => window.clearTimeout(t);
-  }, [redirecting, whatsappUrl, onClose]);
+  }, [redirecting, whatsappUrl, onClose, closeAfterRedirect]);
 
   // Esc to close, lock page scroll, focus the dialog (and give focus back afterwards).
   useEffect(() => {

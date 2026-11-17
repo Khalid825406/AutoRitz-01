@@ -6,7 +6,6 @@ import { CalendarCheck, Clock3, Mail, MapPin, MessageCircle, Phone, Send } from 
 
 import { useBookingJourney } from "@/components/booking-journey/BookingJourneyProvider";
 import { SITE_CONTACT, waLink } from "@/config/site";
-import { submitAppointment } from "@/lib/appointments";
 import { BRAND_PAGES } from "@/data/pages/brands";
 import { APPOINTMENT_SERVICES } from "@/data/pages/appointment";
 
@@ -68,8 +67,8 @@ export default function AppointmentSection({
     ]
       .filter(Boolean)
       .join("\n");
-    // Animated booking journey: sends the request to /api/appointments while it plays, then hands the
-    // visitor over to WhatsApp with all the details filled in (or shows an error + "Try again").
+    // Animated booking journey in a new tab: it sends the request to /api/appointments while it plays, then
+    // opens WhatsApp with all the details filled in (or shows an error + "Try again").
     const request = {
       name: form.name.trim(),
       phone: form.phone.trim(),
@@ -78,7 +77,7 @@ export default function AppointmentSection({
       message: form.message.trim(),
       source: window.location.pathname,
     };
-    startJourney({ whatsappUrl: waLink(SITE_CONTACT.whatsapp, text), submit: () => submitAppointment(request) });
+    startJourney({ whatsappUrl: waLink(SITE_CONTACT.whatsapp, text), appointment: request });
   };
 
   const contacts = [
