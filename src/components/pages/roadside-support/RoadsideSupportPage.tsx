@@ -54,7 +54,7 @@ export default function RoadsideSupportPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <a
             href={`tel:${SITE_CONTACT.phone}`}
-            className="group inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="group inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <Phone size={16} />
             Call {SITE_CONTACT.phone}
@@ -75,11 +75,11 @@ export default function RoadsideSupportPage() {
             const Icon = HIGHLIGHT_ICONS[i];
             return (
               <li key={h.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1766AE]/40 text-[#7cc0f5]">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0B6FC2]/40 text-[#7cc0f5]">
                   <Icon size={20} />
                 </span>
                 <h2 className="mt-4 text-lg font-semibold text-white">{h.title}</h2>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#DCE8F2]/75">{h.text}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-[#D9DEE5]/75">{h.text}</p>
               </li>
             );
           })}
@@ -112,25 +112,25 @@ export default function RoadsideSupportPage() {
                 <motion.li
                   key={name}
                   variants={fadeUp}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-7 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-16px_rgba(8,47,89,0.25)]"
+                  className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-7 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_24px_48px_-16px_rgba(14, 17, 22,0.25)]"
                 >
                   <span className="pointer-events-none absolute right-6 top-5 text-5xl font-bold leading-none text-slate-100 tabular-nums transition-colors group-hover:text-[#EAF4FC]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
+                  <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white">
                     <Icon size={26} strokeWidth={1.8} />
                   </span>
-                  <h3 className="relative mt-6 text-xl font-semibold text-[#082F59]">{name}</h3>
+                  <h3 className="relative mt-6 text-xl font-semibold text-[#0E1116]">{name}</h3>
                   <a
                     href={waLink(SITE_CONTACT.whatsappRoadside, `Hi Ritz Auto Care, I need ${name}.`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#0872BB] transition-colors hover:text-[#082F59]"
+                    className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#0563B4] transition-colors hover:text-[#0E1116]"
                   >
                     Book Now
                     <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0872BB] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
                 </motion.li>
               );
             })}

@@ -1,7 +1,8 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import { Suspense, useState } from "react";
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { useSearchParams } from "next/navigation";
 import { motion, type Variants } from "motion/react";
 import {
@@ -51,8 +52,11 @@ const SOCIAL_ICONS = { Facebook, Instagram, TikTok, YouTube: Youtube } as const;
 interface HelpOption {
   icon: LucideIcon;
   title: string;
+  titleAr: string;
   text: string;
+  textAr: string;
   cta: string;
+  ctaAr: string;
   href: string;
   external?: boolean;
   /** Red accent for the emergency option. */
@@ -63,15 +67,21 @@ const HELP_OPTIONS: HelpOption[] = [
   {
     icon: CalendarCheck,
     title: "Book a service",
+    titleAr: "احجز خدمة",
     text: "Choose your car brand and the service you need — our team confirms your appointment on WhatsApp.",
+    textAr: "اختر علامة سيارتك والخدمة التي تحتاجها، وسيؤكد فريقنا موعدك عبر واتساب.",
     cta: "Fill the booking form",
+    ctaAr: "املأ نموذج الحجز",
     href: "#appointment",
   },
   {
     icon: Truck,
     title: "Roadside emergency",
+    titleAr: "طوارئ الطريق",
     text: "Breakdown, flat tyre or dead battery? Our roadside team arrives within 30–45 minutes.",
+    textAr: "عطل، إطار مثقوب أو بطارية فارغة؟ يصل فريقنا خلال 30–45 دقيقة.",
     cta: "Get roadside help",
+    ctaAr: "اطلب المساعدة على الطريق",
     href: waLink(SITE_CONTACT.whatsappRoadside, "Hi Ritz Auto Care, I need roadside assistance."),
     external: true,
     urgent: true,
@@ -79,55 +89,62 @@ const HELP_OPTIONS: HelpOption[] = [
   {
     icon: Package,
     title: "Spare parts",
+    titleAr: "قطع الغيار",
     text: "Looking for a part for your car? Tell us the model and the part and we will source it for you.",
+    textAr: "تبحث عن قطعة لسيارتك؟ أخبرنا بالطراز والقطعة وسنوفرها لك.",
     cta: "Auto spare parts",
+    ctaAr: "قطع غيار السيارات",
     href: "/service/auto-spare-parts-trading/",
   },
   {
     icon: Briefcase,
     title: "Join our team",
+    titleAr: "انضم إلى فريقنا",
     text: "Skilled technician or service advisor? We are always happy to hear from people who love cars.",
+    textAr: "فني ماهر أو مستشار خدمة؟ يسعدنا دائماً التواصل مع محبي السيارات.",
     cta: "View careers",
+    ctaAr: "عرض الوظائف",
     href: "/careers/",
   },
 ];
 
 export default function ContactUsPage() {
+  const { t } = useLang();
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(SITE_CONTACT.mapQuery)}&output=embed`;
 
   return (
     <PageShell>
       {/* ================= HERO ================= */}
       <PageHero
-        breadcrumbs={[{ label: "Contact Us" }]}
-        eyebrow="Get in touch"
-        title="Contact Us"
-        description="Call, WhatsApp, email or visit our workshop in Dubai Investment Park — we are here to help with every part of your car's care."
+        breadcrumbs={[{ label: t("Contact Us", "اتصل بنا") }]}
+        eyebrow={t("Get in touch", "تواصل معنا")}
+        title={t("Contact Us", "اتصل بنا")}
+        description={t("Call, WhatsApp, email or visit our workshop in Dubai Investment Park — we are here to help with every part of your car's care.", "اتصل بنا أو راسلنا عبر واتساب أو البريد الإلكتروني أو زر ورشتنا في مجمع دبي للاستثمار — نحن هنا لمساعدتك في كل ما تحتاجه سيارتك.")}
         aside={<ContactWorldMap />}
       >
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={`tel:${SITE_CONTACT.phone}`}
-            className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <Phone size={17} />
-            Call {SITE_CONTACT.phone}
+            {t("Call", "اتصل")} <span dir="ltr">{SITE_CONTACT.phone}</span>
           </a>
           <a
-            href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I have a question.")}
+            href={waLink(SITE_CONTACT.whatsapp, t("Hi Ritz Auto Care, I have a question.", "مرحباً ريتز أوتو كير، لدي سؤال."))}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border border-white/25 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <MessageCircle size={17} />
-            Chat on WhatsApp
+            {t("Chat on WhatsApp", "تحدث معنا على واتساب")}
           </a>
         </div>
 
-        <ul className="mt-7 flex flex-col gap-2.5 text-[14px] text-[#DCE8F2]/80 sm:flex-row sm:flex-wrap sm:gap-x-6">
+        <ul className="mt-7 flex flex-col gap-2.5 text-[14px] text-[#D9DEE5]/80 sm:flex-row sm:flex-wrap sm:gap-x-6">
           <li className="flex items-center gap-2">
             <Clock3 size={15} className="text-[#7cc0f5]" />
-            We respond within 7 minutes
+            {t("We respond within 7 minutes", "نرد خلال 7 دقائق")}
           </li>
           <li>
             <a href={`mailto:${SITE_CONTACT.email}`} className="flex items-center gap-2 transition-colors hover:text-white">
@@ -148,11 +165,11 @@ export default function ContactUsPage() {
             transition={{ duration: 0.7, ease: EASE }}
           >
             <SectionHeading
-              eyebrow="How can we help?"
+              eyebrow={t("How can we help?", "كيف يمكننا مساعدتك؟")}
               icon={MessageCircle}
-              title="Tell us what you need,"
-              highlight="we'll take it from there."
-              description="Pick the option that fits — each one takes you straight to the right team."
+              title={t("Tell us what you need,", "أخبرنا بما تحتاجه،")}
+              highlight={t("we'll take it from there.", "وسنتولى الباقي.")}
+              description={t("Pick the option that fits — each one takes you straight to the right team.", "اختر الخيار المناسب — كل خيار يوصلك مباشرة إلى الفريق المختص.")}
             />
           </motion.div>
 
@@ -179,7 +196,7 @@ export default function ContactUsPage() {
       </Suspense>
 
       {/* ================= FAQ ================= */}
-      <FaqSection items={GENERAL_FAQS} eyebrow="Before you visit" title="Questions we hear often" />
+      <FaqSection items={GENERAL_FAQS} eyebrow={t("Before you visit", "قبل زيارتك")} title={t("Questions we hear often", "أسئلة نسمعها كثيراً")} />
 
       {/* ================= VISIT US ================= */}
       <section className="w-full bg-white py-12 sm:py-24">
@@ -189,22 +206,22 @@ export default function ContactUsPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate flex flex-col overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-7 text-white sm:p-10"
+            className="relative isolate flex flex-col overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-7 text-white sm:p-10"
           >
-            <div className="pointer-events-none absolute -right-20 -top-20 -z-10 h-72 w-72 rounded-full bg-radial from-[#1766AE]/45 to-transparent to-70%" />
+            <div className="pointer-events-none absolute -end-20 -top-20 -z-10 h-72 w-72 rounded-full bg-radial from-[#0B6FC2]/45 to-transparent to-70%" />
 
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
               <MapPin size={14} />
-              Visit our workshop
+              {t("Visit our workshop", "زر ورشتنا")}
             </span>
             <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
-              Find us in <span className="block text-[#4B9DE0]">Dubai Investment Park.</span>
+              {t("Find us in", "تجدنا في")} <span className="block text-[#4B9DE0]">{t("Dubai Investment Park.", "مجمع دبي للاستثمار.")}</span>
             </TextReveal>
 
-            <p className="mt-5 text-[14px] leading-relaxed text-[#DCE8F2]/85">{SITE_CONTACT.address}</p>
-            <p className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-white/[0.07] px-3 py-2 text-[13px] text-[#DCE8F2]/90 ring-1 ring-white/10">
+            <p className="mt-5 text-[14px] leading-relaxed text-[#D9DEE5]/85">{t(SITE_CONTACT.address, SITE_CONTACT.addressAr)}</p>
+            <p className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-white/[0.07] px-3 py-2 text-[13px] text-[#D9DEE5]/90 ring-1 ring-white/10">
               <Landmark size={15} className="text-[#7cc0f5]" />
-              Landmark: near AIKO Mall, DIP 1
+              {t("Landmark: near AIKO Mall, DIP 1", "معلم قريب: بالقرب من آيكو مول، مجمع دبي للاستثمار 1")}
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -212,17 +229,17 @@ export default function ContactUsPage() {
                 href={SITE_CONTACT.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <Navigation size={16} />
-                Get directions
+                {t("Get directions", "احصل على الاتجاهات")}
               </a>
               <CopyAddressButton />
             </div>
 
             <div className="mt-auto pt-10">
               <div className="border-t border-white/10 pt-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55">Follow us</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55">{t("Follow us", "تابعنا")}</p>
                 <ul className="mt-4 flex gap-3">
                   {SOCIAL_LINKS.map((s) => {
                     const Icon = SOCIAL_ICONS[s.name];
@@ -233,7 +250,7 @@ export default function ContactUsPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={s.name}
-                          className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] text-white transition-colors hover:bg-white hover:text-[#082F59]"
+                          className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] text-white transition-colors hover:bg-white hover:text-[#0E1116]"
                         >
                           <Icon size={18} />
                         </a>
@@ -250,10 +267,10 @@ export default function ContactUsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
-            className="relative min-h-[380px] overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100 shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
+            className="relative min-h-[380px] overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100 shadow-[0_20px_40px_-24px_rgba(14, 17, 22,0.25)]"
           >
             <iframe
-              title="Ritz Auto Care location on Google Maps"
+              title={t("Ritz Auto Care location on Google Maps", "موقع ريتز أوتو كير على خرائط Google")}
               src={mapSrc}
               className="absolute inset-0 h-full w-full"
               loading="lazy"
@@ -269,28 +286,29 @@ export default function ContactUsPage() {
 
 /** One "How can we help?" option. */
 function HelpCard({ option: o }: { option: HelpOption }) {
+  const { t } = useLang();
   const Icon = o.icon;
   const accent = o.urgent
     ? { icon: "bg-red-50 text-[#E10600] group-hover:bg-[#E10600] group-hover:text-white", cta: "text-[#E10600]", line: "from-[#E10600] to-[#FF6B5E]" }
-    : { icon: "bg-[#EAF4FC] text-[#0872BB] group-hover:bg-[#0872BB] group-hover:text-white", cta: "text-[#0872BB]", line: "from-[#0872BB] to-[#3FA9F5]" };
-  const cls = `group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] ${
-    o.urgent ? "border-red-200 hover:border-red-300" : "border-slate-200/80 hover:border-[#0872BB]/30"
+    : { icon: "bg-[#EAF4FC] text-[#0563B4] group-hover:bg-[#0563B4] group-hover:text-white", cta: "text-[#0563B4]", line: "from-[#0563B4] to-[#3FA9F5]" };
+  const cls = `group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] ${
+    o.urgent ? "border-red-200 hover:border-red-300" : "border-slate-200/80 hover:border-[#0563B4]/30"
   }`;
   const body = (
     <>
       {o.urgent && (
-        <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#E10600]">
+        <span className="absolute end-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#E10600]">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E10600]" />
-          Urgent
+          {t("Urgent", "عاجل")}
         </span>
       )}
       <span className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-300 ${accent.icon}`}>
         <Icon size={22} strokeWidth={1.8} />
       </span>
-      <h3 className="mt-5 text-[17px] font-semibold text-[#082F59]">{o.title}</h3>
-      <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{o.text}</p>
+      <h3 className="mt-5 text-[17px] font-semibold text-[#0E1116]">{t(o.title, o.titleAr)}</h3>
+      <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{t(o.text, o.textAr)}</p>
       <span className={`mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold ${accent.cta}`}>
-        {o.cta}
+        {t(o.cta, o.ctaAr)}
         {o.external ? (
           <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         ) : (
@@ -322,14 +340,15 @@ function HelpCard({ option: o }: { option: HelpOption }) {
 
 /** Copies the workshop address (handy for taxi / delivery apps). */
 function CopyAddressButton() {
+  const { t } = useLang();
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(SITE_CONTACT.address);
+      await navigator.clipboard.writeText(t(SITE_CONTACT.address, SITE_CONTACT.addressAr));
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      window.prompt("Copy the address:", SITE_CONTACT.address);
+      window.prompt(t("Copy the address:", "انسخ العنوان:"), t(SITE_CONTACT.address, SITE_CONTACT.addressAr));
     }
   };
   return (
@@ -340,7 +359,7 @@ function CopyAddressButton() {
       className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/25 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
     >
       {copied ? <Check size={16} className="text-emerald-300" /> : <Copy size={16} />}
-      {copied ? "Address copied" : "Copy address"}
+      {copied ? t("Address copied", "تم نسخ العنوان") : t("Copy address", "نسخ العنوان")}
     </button>
   );
 }

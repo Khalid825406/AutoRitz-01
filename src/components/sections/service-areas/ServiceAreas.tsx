@@ -1,11 +1,13 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useLang } from "@/i18n/LangProvider";
+import { useCallback, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
   AnimatePresence,
   motion,
   type Variants,
+  useInView,
 } from "motion/react";
 import {
   ArrowRight,
@@ -18,13 +20,14 @@ import {
   X,
 } from "lucide-react";
 import { CONTACT } from "@/config/site";
-import { POPULAR_AREAS, REGIONS, SERVICE_AREAS } from "@/data/service-areas";
+import { POPULAR_AREAS, REGION_AR, REGIONS, SERVICE_AREAS } from "@/data/service-areas";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import AreaDirectory from "./AreaDirectory";
 import AreaSearchResults from "./AreaSearchResults";
 
 import TextReveal from "@/components/motion/TextReveal";
 import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
+import CountUp from "@/components/motion/CountUp";
 // Browser-only widgets (Leaflet needs window; the globe needs WebGL).
 const AreasMap = dynamic(() => import("./AreasMap"), {
   ssr: false,
@@ -55,7 +58,7 @@ const heroItemV: Variants = {
 };
 
 const focusRing =
-  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]";
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]";
 
 /* ---------------------------------------------------------
    COMPONENT
@@ -66,6 +69,9 @@ interface ServiceAreasProps {
 }
 
 export default function ServiceAreas({ onBook }: ServiceAreasProps) {
+  const { t } = useLang();
+  const mapBox = useRef<HTMLDivElement>(null);
+  const mapNear = useInView(mapBox, { margin: "800px", once: true });
   const [query, setQuery] = useState("");
   const [tab, setTab] = useState<string>(ALL);
   const [selected, setSelected] = useState<string | null>(null);
@@ -97,10 +103,10 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
     {
       icon: MapPin,
       value: `${Math.floor(SERVICE_AREAS.length / 10) * 10}+`,
-      label: "Areas covered",
+      label: t("Areas covered", "منطقة نغطيها"),
     },
-    { icon: BadgeCheck, value: "Free", label: "Vehicle inspection" },
-    { icon: CalendarDays, value: "7 days", label: "Open every week" },
+    { icon: BadgeCheck, value: t("Free", "مجاني"), label: t("Vehicle inspection", "فحص السيارة") },
+    { icon: CalendarDays, value: t("7 days", "7 أيام"), label: t("Open every week", "مفتوح طوال الأسبوع") },
   ];
 
   return (
@@ -110,7 +116,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
       >
         <div className="site-container">
           {/* ================= HERO PANEL ================= */}
-          <div className="relative overflow-hidden rounded-3xl bg-[#082F59] px-6 pb-24 pt-12 sm:px-12 sm:pt-14 lg:px-16 lg:pb-28 lg:pt-16">
+          <div className="relative overflow-hidden rounded-3xl bg-[#0E1116] px-6 pb-24 pt-12 sm:px-12 sm:pt-14 lg:px-16 lg:pb-28 lg:pt-16">
             {/* subtle dotted "map" texture */}
             <div
               aria-hidden="true"
@@ -136,44 +142,42 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-white"
                 >
                   <MapPin size={14} />
-                  Service areas
+                  {t("Service areas", "مناطق الخدمة")}
                 </motion.span>
 
                 <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[46px]">
-                  Wherever you are in Dubai, we come to you.
+                  {t("Wherever you are in Dubai, we come to you.", "أينما كنت في دبي، نأتي إليك.")}
                 </TextReveal>
 
                 <motion.p
                   variants={heroItemV}
                   className="mt-4 max-w-[500px] text-[15px] leading-relaxed text-white/75"
                 >
-                  Professional car repair, maintenance and roadside assistance
-                  across Dubai. Search your area to check coverage and book in
-                  a minute.
+                  {t("Professional car repair, maintenance and roadside assistance across Dubai. Search your area to check coverage and book in a minute.", "إصلاح وصيانة احترافية للسيارات ومساعدة على الطريق في جميع أنحاء دبي. ابحث عن منطقتك للتحقق من التغطية واحجز خلال دقيقة.")}
                 </motion.p>
               </div>
 
               {/* search + popular */}
               <motion.div variants={heroItemV}>
                 <label htmlFor="area-search" className="sr-only">
-                  Search your area
+                  {t("Search your area", "ابحث عن منطقتك")}
                 </label>
                 <div className="flex h-14 items-center gap-3 rounded-xl bg-white px-4 shadow-[0_12px_30px_rgba(0,0,0,0.18)] ring-2 ring-transparent transition focus-within:ring-[#3FA9F5]">
-                  <Search size={20} className="shrink-0 text-[#0872BB]" />
+                  <Search size={20} className="shrink-0 text-[#0563B4]" />
                   <input
                     id="area-search"
                     type="text"
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}
-                    placeholder="Search your area, e.g. Business Bay"
+                    placeholder={t("Search your area, e.g. Business Bay", "ابحث عن منطقتك، مثل Business Bay")}
                     autoComplete="off"
-                    className="w-full min-w-0 bg-transparent text-[15px] text-[#082F59] outline-hidden placeholder:text-slate-400"
+                    className="w-full min-w-0 bg-transparent text-[15px] text-[#0E1116] outline-hidden placeholder:text-slate-400"
                   />
                   {query && (
                     <button
                       type="button"
                       onClick={() => setQuery("")}
-                      aria-label="Clear search"
+                      aria-label={t("Clear search", "مسح البحث")}
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 ${focusRing}`}
                     >
                       <X size={16} />
@@ -209,7 +213,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                       className="mt-5"
                     >
                     <p className="text-[13px] font-medium text-white/60">
-                      Popular areas
+                      {t("Popular areas", "المناطق الشائعة")}
                     </p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {POPULAR.map((area) => {
@@ -223,7 +227,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                             whileTap={{ scale: 0.95 }}
                             className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                               active
-                                ? "bg-white text-[#082F59]"
+                                ? "bg-white text-[#0E1116]"
                                 : "bg-white/10 text-white hover:bg-white/20"
                             }`}
                           >
@@ -246,16 +250,16 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.6, ease: EASE }}
-            className="relative z-10 mx-4 -mt-12 grid divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(8,47,89,0.12)] sm:mx-10 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:mx-20"
+            className="relative z-10 mx-4 -mt-12 grid divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(14, 17, 22,0.12)] sm:mx-10 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:mx-20"
           >
             {stats.map(({ icon: Icon, value, label }) => (
               <li key={label} className="flex items-center gap-4 px-6 py-5">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4]">
                   <Icon size={22} />
                 </span>
                 <span className="leading-tight">
-                  <span className="block text-2xl font-semibold tracking-tight text-[#082F59]">
-                    {value}
+                  <span className="block text-2xl font-semibold tracking-tight text-[#0E1116]">
+                    <CountUp value={value} />
                   </span>
                   <span className="mt-0.5 block text-[14px] text-slate-600">
                     {label}
@@ -269,7 +273,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div
               role="group"
-              aria-label="Filter areas by region"
+              aria-label={t("Filter areas by region", "تصفية المناطق حسب المنطقة")}
               className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
             >
               {TABS.map((name) => {
@@ -288,7 +292,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                     className={`relative shrink-0 whitespace-nowrap rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors ${focusRing} ${
                       active
                         ? "border-transparent text-white"
-                        : "border-slate-200 bg-white text-slate-600 hover:border-[#0872BB] hover:text-[#0872BB]"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-[#0563B4] hover:text-[#0563B4]"
                     }`}
                   >
                     {active && (
@@ -299,13 +303,13 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                           stiffness: 420,
                           damping: 34,
                         }}
-                        className="absolute inset-0 rounded-full bg-[#0872BB]"
+                        className="absolute inset-0 rounded-full bg-[#0563B4]"
                       />
                     )}
                     <span className="relative z-10">
-                      {name}
+                      {name === ALL ? t(ALL, "جميع المناطق") : t(name, REGION_AR[name])}
                       <span
-                        className={`ml-2 text-[12px] ${
+                        className={`ms-2 text-[12px] ${
                           active ? "text-white/80" : "text-slate-400"
                         }`}
                       >
@@ -321,7 +325,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               className="shrink-0 text-[13px] text-slate-500"
               aria-live="polite"
             >
-              Showing {list.length} of {SERVICE_AREAS.length} areas
+              {t(`Showing ${list.length} of ${SERVICE_AREAS.length} areas`, `عرض ${list.length} من ${SERVICE_AREAS.length} منطقة`)}
             </p>
           </div>
 
@@ -334,7 +338,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
             className={`mt-6 grid gap-6 ${globeOk ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]" : ""}`}
           >
             {globeOk && (
-              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-6">
+              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-6">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0"
@@ -349,30 +353,30 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               </div>
             )}
 
-            <div id="areas-map" className="relative h-[420px] scroll-mt-32 overflow-hidden rounded-2xl border border-slate-200 shadow-[0_20px_50px_rgba(8,47,89,0.10)] sm:h-[520px]">
+            <div ref={mapBox} id="areas-map" className="relative h-[420px] scroll-mt-32 overflow-hidden rounded-2xl border border-slate-200 shadow-[0_20px_50px_rgba(14, 17, 22,0.10)] sm:h-[520px]">
               {list.length > 0 ? (
                 <>
-                  <AreasMap areas={list} selected={selected} onSelect={toggleArea} />
+                  {/* Leaflet + its map tiles load only when the visitor scrolls near the map */}
+                  {mapNear ? <AreasMap areas={list} selected={selected} onSelect={toggleArea} /> : <div className="h-full w-full rounded-2xl bg-[#EAF4FC]" />}
                   {/* touch screens: one finger scrolls the page, so explain how to move the map */}
-                  <p className="pointer-events-none absolute bottom-7 left-1/2 z-[500] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#082F59]/85 px-3 py-1.5 text-[11px] font-medium text-white [@media(hover:hover)]:hidden">
-                    Use two fingers to move the map
+                  <p className="pointer-events-none absolute bottom-7 left-1/2 z-[500] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#0E1116]/85 px-3 py-1.5 text-[11px] font-medium text-white [@media(hover:hover)]:hidden">
+                    {t("Use two fingers to move the map", "استخدم إصبعين لتحريك الخريطة")}
                   </p>
                 </>
               ) : (
                   <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
-                    <p className="text-[15px] font-semibold text-[#082F59]">
-                      No area matches “{query}”
+                    <p className="text-[15px] font-semibold text-[#0E1116]">
+                      {t("No area matches", "لا توجد منطقة تطابق")} “{query}”
                     </p>
                     <p className="mt-1 text-[14px] text-slate-600">
-                      We may still reach you. Call us and we will confirm
-                      availability for your location.
+                      {t("We may still reach you. Call us and we will confirm availability for your location.", "قد نصل إليك رغم ذلك. اتصل بنا وسنؤكد توفر الخدمة في موقعك.")}
                     </p>
                     <a
                       href={`tel:${PHONE}`}
-                      className={`mt-4 inline-flex h-11 items-center gap-2 rounded-md bg-[#0872BB] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                      className={`mt-4 inline-flex h-11 items-center gap-2 rounded-md bg-[#0563B4] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
                     >
                       <Phone size={16} />
-                      Call {PHONE}
+                      {t("Call", "اتصل")} <span dir="ltr">{PHONE}</span>
                     </a>
                   </div>
               )}
@@ -399,17 +403,17 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 24, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: EASE }}
-                  className="pointer-events-auto flex w-full max-w-[720px] flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(8,47,89,0.22)] sm:flex-row sm:items-center sm:justify-between"
+                  className="pointer-events-auto flex w-full max-w-[720px] flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(14, 17, 22,0.22)] sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB]">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4]">
                       <Check size={20} />
                     </span>
                     <p className="text-[14px] leading-snug text-slate-600">
-                      <span className="block font-semibold text-[#082F59]">
-                        We serve {selected}
+                      <span className="block font-semibold text-[#0E1116]">
+                        {t("We serve", "نخدم")} {selected}
                       </span>
-                      Book a technician to your location.
+                      {t("Book a technician to your location.", "احجز فنياً يأتي إلى موقعك.")}
                     </p>
                   </div>
 
@@ -417,15 +421,15 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                     <button
                       type="button"
                       onClick={() => onBook?.(`Service in ${selected}`)}
-                      className={`inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-[#0872BB] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] sm:flex-none ${focusRing}`}
+                      className={`inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-[#0563B4] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] sm:flex-none ${focusRing}`}
                     >
-                      Book now
+                      {t("Book now", "احجز الآن")}
                       <ArrowRight size={16} />
                     </button>
                     <button
                       type="button"
                       onClick={() => setSelected(null)}
-                      aria-label="Clear selected area"
+                      aria-label={t("Clear selected area", "إلغاء المنطقة المحددة")}
                       className={`flex h-11 w-11 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-slate-100 ${focusRing}`}
                     >
                       <X size={18} />
@@ -439,12 +443,11 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           {/* ================= BOTTOM CTA ================= */}
           <div className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#EAF4FC] px-6 py-7 sm:flex-row sm:items-center sm:px-8">
             <div>
-              <p className="text-base font-semibold text-[#082F59]">
-                Can’t find your area?
+              <p className="text-base font-semibold text-[#0E1116]">
+                {t("Can’t find your area?", "لم تجد منطقتك؟")}
               </p>
               <p className="mt-1 text-[14px] text-slate-600">
-                Tell us where your vehicle is and we will confirm if we can
-                reach you today.
+                {t("Tell us where your vehicle is and we will confirm if we can reach you today.", "أخبرنا بمكان سيارتك وسنؤكد إن كان بإمكاننا الوصول إليك اليوم.")}
               </p>
             </div>
 
@@ -453,18 +456,18 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                 type="button"
                 onClick={() => onBook?.()}
                 whileTap={{ scale: 0.97 }}
-                className={`inline-flex h-12 items-center gap-2 rounded-md bg-[#0872BB] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                className={`inline-flex h-12 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
               >
-                Get a free quote
+                {t("Get a free quote", "احصل على عرض سعر مجاني")}
                 <ArrowRight size={16} />
               </motion.button>
 
               <a
                 href={`tel:${PHONE}`}
-                className={`inline-flex h-12 items-center gap-2 rounded-md border border-[#082F59] px-5 text-[14px] font-semibold text-[#082F59] transition-colors hover:bg-[#082F59] hover:text-white ${focusRing}`}
+                className={`inline-flex h-12 items-center gap-2 rounded-md border border-[#0E1116] px-5 text-[14px] font-semibold text-[#0E1116] transition-colors hover:bg-[#0E1116] hover:text-white ${focusRing}`}
               >
                 <Phone size={16} />
-                {PHONE}
+                <span dir="ltr">{PHONE}</span>
               </a>
             </div>
           </div>

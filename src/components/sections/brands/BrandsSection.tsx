@@ -1,5 +1,6 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import { motion, type Variants } from "motion/react";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 
@@ -31,7 +32,7 @@ const ROWS: { items: Brand[]; direction: "left" | "right"; duration: number }[] 
 /** Text logo — last resort when no logo image loads. */
 function Wordmark({ name }: { name: string }) {
   return (
-    <span className="px-1.5 text-center text-[11px] font-extrabold uppercase leading-tight tracking-wide text-[#082F59] sm:text-xs">
+    <span className="px-1.5 text-center text-[11px] font-extrabold uppercase leading-tight tracking-wide text-[#0E1116] sm:text-xs">
       {name}
     </span>
   );
@@ -40,7 +41,7 @@ function Wordmark({ name }: { name: string }) {
 /** Logo tile from /public/images/brands — the brand name shows as text only if the file is missing. */
 function BrandLogo({ brand }: { brand: Brand }) {
   return (
-    <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_8px_24px_-12px_rgba(8,47,89,0.25)] sm:h-24 sm:w-24">
+    <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_8px_24px_-12px_rgba(14, 17, 22,0.25)] sm:h-24 sm:w-24">
       <span className="relative flex h-14 w-14 items-center justify-center sm:h-[72px] sm:w-[72px]">
         <SafeImage
           src={brand.logo}
@@ -78,6 +79,7 @@ function BrandPill({ brand }: { brand: Brand }) {
 }
 
 export default function BrandsSection({ onBook }: BrandsSectionProps) {
+  const { t } = useLang();
   return (
     <section
       id="brands"
@@ -94,17 +96,16 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
           viewport={REVEAL_VIEWPORT}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0563B4] shadow-xs">
             <BadgeCheck size={14} />
-            Our automotive brands
+            {t("Our automotive brands", "العلامات التي نخدمها")}
           </span>
-          <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
-            Experts in Every
-            <span className="block text-[#0872BB]">Automotive Brand.</span>
+          <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl lg:text-5xl">
+            {t("Experts in Every", "خبراء في كل")}
+            <span className="block text-[#0563B4]">{t("Automotive Brand.", "علامة تجارية للسيارات.")}</span>
           </TextReveal>
           <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
-            From luxury European vehicles to Japanese and American automobiles, our experts deliver professional care
-            for all leading automotive brands.
+            {t("From luxury European vehicles to Japanese and American automobiles, our Dubai experts deliver professional care for all leading automotive brands.", "من السيارات الأوروبية الفاخرة إلى السيارات اليابانية والأمريكية، يقدم خبراؤنا في دبي عناية احترافية لجميع العلامات الرائدة.")}
           </p>
         </motion.div>
       </div>
@@ -116,7 +117,8 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
         viewport={REVEAL_VIEWPORT}
         transition={{ duration: 0.8 }}
         className="relative mt-10 sm:mt-14 flex flex-col gap-6 sm:gap-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
-        aria-label="Car brands we service"
+        aria-label={t("Car brands we service", "علامات السيارات التي نخدمها")}
+        dir="ltr"
       >
         {ROWS.map((row, i) => (
           <Marquee key={i} direction={row.direction} duration={row.duration} gap={40}>
@@ -136,15 +138,15 @@ export default function BrandsSection({ onBook }: BrandsSectionProps) {
           className="mt-10 sm:mt-14 flex flex-col items-center gap-4 text-center"
         >
           <p className="text-[14px] text-slate-600">
-            Your vehicle deserves professional attention.{" "}
-            <span className="font-semibold text-[#082F59]">Don&apos;t see your brand? Just ask us.</span>
+            {t("Your vehicle deserves professional attention.", "سيارتك تستحق عناية احترافية.")}{" "}
+            <span className="font-semibold text-[#0E1116]">{t("Don't see your brand? Just ask us.", "لا ترى علامة سيارتك؟ اسألنا فقط.")}</span>
           </p>
           <button
             type="button"
             onClick={() => onBook()}
-            className="group inline-flex h-12 items-center gap-2 rounded-full bg-[#0872BB] px-7 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(8,114,187,0.7)] transition-colors hover:bg-[#082F59] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
+            className="group inline-flex h-12 items-center gap-2 rounded-full bg-[#0563B4] px-7 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(5, 99, 180,0.7)] transition-colors hover:bg-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
           >
-            Book a service for your car
+            {t("Book a service for your car", "احجز خدمة لسيارتك")}
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </button>
         </motion.div>

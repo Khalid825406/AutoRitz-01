@@ -49,7 +49,7 @@ export default function CustomerReviewsPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <a
             href={`tel:+${SITE_CONTACT.whatsapp}`}
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <Phone size={16} />
             {displayWhatsapp}
@@ -69,8 +69,8 @@ export default function CustomerReviewsPage() {
       <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <TextReveal className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#082F59] sm:text-3xl">
-              Customer reviews <Heart size={24} className="fill-[#0872BB] text-[#0872BB]" />
+            <TextReveal className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#0E1116] sm:text-3xl">
+              Customer reviews <Heart size={24} className="fill-[#0563B4] text-[#0563B4]" />
             </TextReveal>
             <p className="flex items-center gap-1.5 text-[14px] font-medium text-slate-600">
               <span className="flex text-amber-400">
@@ -91,7 +91,7 @@ export default function CustomerReviewsPage() {
           >
             {CUSTOMER_REVIEWS.map((r) => (
               <motion.li key={r.name} variants={fadeUp} className="mb-6 break-inside-avoid">
-                <figure className="relative rounded-3xl border border-slate-200/80 bg-white p-7 shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-shadow hover:shadow-[0_24px_48px_-24px_rgba(8,47,89,0.3)]">
+                <figure className="relative rounded-3xl border border-slate-200/80 bg-white p-7 shadow-[0_1px_2px_rgba(14, 17, 22,0.04)] transition-shadow hover:shadow-[0_24px_48px_-24px_rgba(14, 17, 22,0.3)]">
                   <Quote size={40} className="absolute right-6 top-6 text-[#EAF4FC]" fill="currentColor" strokeWidth={0} />
                   <span className="flex text-amber-400" aria-label={`${r.rating} out of 5 stars`}>
                     {Array.from({ length: 5 }, (_, i) => (
@@ -109,12 +109,12 @@ export default function CustomerReviewsPage() {
                         <Image src={r.photo} alt={r.name} fill sizes="48px" className="object-cover" />
                       </span>
                     ) : (
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#1766AE] to-[#082F59] text-lg font-bold text-white">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-lg font-bold text-white">
                         {r.name.charAt(0).toUpperCase()}
                       </span>
                     )}
                     <span>
-                      <span className="block text-[15px] font-semibold text-[#082F59]">{r.name}</span>
+                      <span className="block text-[15px] font-semibold text-[#0E1116]">{r.name}</span>
                       <span className="block text-xs text-slate-500">Customer</span>
                     </span>
                   </figcaption>
@@ -135,7 +135,7 @@ export default function CustomerReviewsPage() {
               href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I'd like to share my feedback.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB]"
+              className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#0E1116] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0563B4]"
             >
               <MessageCircle size={16} />
               Share your feedback

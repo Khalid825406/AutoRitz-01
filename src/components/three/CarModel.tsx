@@ -8,8 +8,8 @@ const PAINT = "#19c5cf";
 /** Built-in procedural SUV (no external asset needed). Replace by setting NEXT_PUBLIC_CAR_MODEL_URL to a GLB. */
 function ProceduralSUV() {
   const paint = <meshPhysicalMaterial color={PAINT} metalness={0.75} roughness={0.22} clearcoat={1} clearcoatRoughness={0.05} envMapIntensity={1.4} />;
-  const dark = <meshStandardMaterial color="#0c1220" metalness={0.4} roughness={0.35} />;
-  const glass = <meshPhysicalMaterial color="#0a1a2a" metalness={0.9} roughness={0.05} envMapIntensity={1.6} />;
+  const dark = <meshStandardMaterial color="#0A0C10" metalness={0.4} roughness={0.35} />;
+  const glass = <meshPhysicalMaterial color="#0B0E13" metalness={0.9} roughness={0.05} envMapIntensity={1.6} />;
   const chrome = <meshStandardMaterial color="#e8eef2" metalness={1} roughness={0.12} />;
   return (
     <group>

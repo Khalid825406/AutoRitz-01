@@ -1,7 +1,9 @@
 "use client";
 
+import { stripLang } from "@/i18n/LangProvider";
+import { useLocalizedRouter } from "@/i18n/useLocalizedRouter";
 import { useCallback } from "react";
-import { useRouter } from "next/navigation";
+
 
 /** Contact-page URL that opens the appointment form, pre-filled with `service` when given. */
 export const bookingHref = (service?: string) =>
@@ -12,11 +14,11 @@ export const bookingHref = (service?: string) =>
  * on the Contact page, with the chosen service already filled in.
  */
 export function useBookService() {
-  const router = useRouter();
+  const router = useLocalizedRouter();
   return useCallback(
     (service?: string) => {
       // Already on the Contact page: update the pre-filled service and glide to the form.
-      if (window.location.pathname === "/contact-us/") {
+      if (stripLang(window.location.pathname) === "/contact-us/") {
         router.replace(bookingHref(service), { scroll: false });
         document.getElementById("appointment")?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;

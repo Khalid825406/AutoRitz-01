@@ -50,7 +50,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
             href={waLink(SITE_CONTACT.whatsapp, `Hi Ritz Auto Care, I'd like to book: ${title}.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <MessageCircle size={16} />
             Book on WhatsApp
@@ -70,10 +70,10 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
         <div className="site-container">
           <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
                 <Icon size={26} />
               </span>
-              <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{process.title}</TextReveal>
+              <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">{process.title}</TextReveal>
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600">{process.intro}</p>
             </motion.div>
             <motion.div
@@ -81,7 +81,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.8, ease: EASE }}
-              className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
+              className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(14, 17, 22,0.45)]"
             >
               <RevealImage src={process.image} alt={process.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
             </motion.div>
@@ -98,9 +98,9 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
               <motion.li
                 key={st.title}
                 variants={fadeUp}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(8,47,89,0.3)]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(14, 17, 22,0.3)]"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-linear-to-br from-[#0B477D] to-[#061E3B]">
+                <div className="relative aspect-[16/10] overflow-hidden bg-linear-to-br from-[#1B2029] to-[#07090C]">
                   {st.image ? (
                     <RevealImage
                       src={st.image}
@@ -114,12 +114,12 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
                       <Check size={64} strokeWidth={1.4} />
                     </span>
                   )}
-                  <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-[#082F59] shadow-md">
+                  <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-[#0E1116] shadow-md">
                     {i + 1}
                   </span>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-[#082F59]">{st.title}</h3>
+                  <h3 className="text-lg font-semibold text-[#0E1116]">{st.title}</h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{st.text}</p>
                 </div>
               </motion.li>
@@ -136,7 +136,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
-            className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
+            className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(14, 17, 22,0.45)]"
           >
             <RevealImage src={features.image} alt={features.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </motion.div>
@@ -154,11 +154,11 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
             >
               {features.items.map((f) => (
                 <motion.li key={f.title} variants={fadeUp} className="flex gap-3 rounded-2xl border border-slate-200/80 bg-white p-5">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0872BB] text-white">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0563B4] text-white">
                     <Check size={14} strokeWidth={3} />
                   </span>
                   <span>
-                    <span className="block text-[15px] font-semibold text-[#082F59]">{f.title}</span>
+                    <span className="block text-[15px] font-semibold text-[#0E1116]">{f.title}</span>
                     <span className="mt-1 block text-[14px] leading-relaxed text-slate-600">{f.text}</span>
                   </span>
                 </motion.li>
@@ -168,7 +168,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
               href="https://www.instagram.com/ritzautocare/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB]"
+              className="group mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-[#0E1116] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0563B4]"
             >
               <Camera size={16} />
               Check Our Instagram Portfolio

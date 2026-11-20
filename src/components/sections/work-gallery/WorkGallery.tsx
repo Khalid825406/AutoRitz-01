@@ -1,5 +1,6 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import { useEffect, useRef, useState } from "react";
 import {
   animate,
@@ -19,17 +20,23 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const WORKS = [
   {
     tag: "Detailing",
+    tagAr: "تنظيف وتلميع",
     title: "Paint correction",
+    titleAr: "تصحيح الطلاء",
     text: "Swirl marks and scratches removed to bring back a deep, glossy finish.",
-    before: "/before.png",
-    after: "/after.png",
+    textAr: "إزالة الخدوش والعلامات الدائرية لاستعادة لمعان عميق.",
+    before: "/images/home/gallery-before.webp",
+    after: "/images/home/gallery-after.webp",
   },
   {
     tag: "Restoration",
+    tagAr: "ترميم",
     title: "Headlight restoration",
+    titleAr: "تجديد المصابيح الأمامية",
     text: "Yellowed, hazy lenses polished back to clear for safer night driving.",
-    before: "/Bumper-before.png",
-    after: "/Bumper-after.png",
+    textAr: "تلميع العدسات المصفرة والباهتة لتعود واضحة لقيادة ليلية أكثر أماناً.",
+    before: "/images/home/bumper-before.webp",
+    after: "/images/home/bumper-after.webp",
   },
 ];
 
@@ -46,7 +53,7 @@ const riseV: Variants = {
 };
 
 const focusRing =
-  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]";
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]";
 
 /* ---------------------------------------------------------
    BEFORE / AFTER SLIDER
@@ -61,6 +68,7 @@ function BeforeAfter({
   after: string;
   label: string;
 }) {
+  const { t } = useLang();
   const box = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
   const touched = useRef(false);
@@ -118,7 +126,7 @@ function BeforeAfter({
       ref={box}
       role="slider"
       tabIndex={0}
-      aria-label={`${label}: drag to compare before and after`}
+      aria-label={t(`${label}: drag to compare before and after`, `${label}: اسحب للمقارنة بين قبل وبعد`)}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(pos)}
@@ -132,14 +140,16 @@ function BeforeAfter({
       onPointerMove={(e) => dragging.current && moveTo(e.clientX)}
       onPointerUp={() => (dragging.current = false)}
       onPointerCancel={() => (dragging.current = false)}
-      className={`relative aspect-[4/3] w-full cursor-ew-resize select-none touch-pan-y overflow-hidden bg-slate-200 ${focusRing} focus-visible:-outline-offset-2`}
+      dir="ltr"
+      className={`relative aspect-[16/9] w-full cursor-ew-resize select-none touch-pan-y overflow-hidden bg-slate-200 ${focusRing} focus-visible:-outline-offset-2`}
     >
       {/* BEFORE (base layer) */}
       <img
         src={before}
-        alt={`${label} — before`}
+        alt={`${label} — ${t("before", "قبل")}`}
         draggable={false}
         loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
 
@@ -150,19 +160,20 @@ function BeforeAfter({
       >
         <img
           src={after}
-          alt={`${label} — after`}
+          alt={`${label} — ${t("after", "بعد")}`}
           draggable={false}
           loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
       </div>
 
       {/* LABELS */}
-      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[12px] font-semibold text-[#082F59] shadow-xs">
-        Before
+      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[12px] font-semibold text-[#0E1116] shadow-xs">
+        {t("Before", "قبل")}
       </span>
-      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-[#0872BB] px-3 py-1 text-[12px] font-semibold text-white shadow-xs">
-        After
+      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-[#0563B4] px-3 py-1 text-[12px] font-semibold text-white shadow-xs">
+        {t("After", "بعد")}
       </span>
 
       {/* HANDLE */}
@@ -170,7 +181,7 @@ function BeforeAfter({
         className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-1/2 bg-white shadow-[0_0_12px_rgba(0,0,0,0.35)]"
         style={{ left: `${pos}%` }}
       >
-        <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-[#0872BB] text-white shadow-[0_8px_20px_rgba(8,47,89,0.35)]">
+        <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-[#0563B4] text-white shadow-[0_8px_20px_rgba(14, 17, 22,0.35)]">
           <ChevronsLeftRight size={20} />
         </span>
       </div>
@@ -192,6 +203,7 @@ export default function WorkGallery({
   onBook,
   galleryHref = "/our-work-gallery/",
 }: WorkGalleryProps) {
+  const { t, href } = useLang();
   return (
       <section
         id="gallery"
@@ -209,16 +221,16 @@ export default function WorkGallery({
             <div className="max-w-[640px]">
               <motion.span
                 variants={riseV}
-                className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0872BB]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0563B4]"
               >
                 <Images size={14} />
-                Our work
+                {t("Our work", "أعمالنا")}
               </motion.span>
 
-              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]">
-                Visible results.
-                <span className="block text-[#0872BB]">
-                  Real transformations.
+              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#0E1116] sm:text-4xl lg:text-[44px]">
+                {t("Visible results.", "نتائج واضحة.")}
+                <span className="block text-[#0563B4]">
+                  {t("Real transformations.", "تحولات حقيقية.")}
                 </span>
               </TextReveal>
 
@@ -226,18 +238,16 @@ export default function WorkGallery({
                 variants={riseV}
                 className="mt-4 text-[15px] leading-relaxed text-slate-600"
               >
-                Real before-and-after results from diagnostics, detailing and
-                car restoration. Drag the slider on each photo to see the
-                difference we make.
+                {t("Real before-and-after results from diagnostics, detailing and car restoration. Drag the slider on each photo to see the difference we make.", "نتائج حقيقية قبل وبعد من التشخيص والتلميع وترميم السيارات. اسحب المؤشر على كل صورة لترى الفرق الذي نصنعه.")}
               </motion.p>
             </div>
 
             <motion.div variants={riseV}>
               <a
-                href={galleryHref}
-                className={`group inline-flex h-12 items-center gap-2 rounded-md border border-[#082F59] px-6 text-[14px] font-semibold text-[#082F59] transition-colors duration-300 hover:bg-[#082F59] hover:text-white ${focusRing}`}
+                href={href(galleryHref)}
+                className={`group inline-flex h-12 items-center gap-2 rounded-md border border-[#0E1116] px-6 text-[14px] font-semibold text-[#0E1116] transition-colors duration-300 hover:bg-[#0E1116] hover:text-white ${focusRing}`}
               >
-                View full gallery
+                {t("View full gallery", "عرض المعرض الكامل")}
                 <ArrowRight
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -255,31 +265,31 @@ export default function WorkGallery({
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-8 sm:mt-12 grid gap-6 md:grid-cols-2"
+            className="mt-8 grid gap-6 sm:mt-12 md:grid-cols-2"
           >
             {WORKS.map((work) => (
               <motion.li
                 key={work.title}
                 variants={riseV}
-                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(8,47,89,0.08)]"
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(14, 17, 22,0.08)]"
               >
                 <BeforeAfter
                   before={work.before}
                   after={work.after}
-                  label={work.title}
+                  label={t(work.title, work.titleAr)}
                 />
 
-                <div className="flex items-start justify-between gap-4 px-6 py-5">
+                <div className="flex items-start justify-between gap-3 px-4 py-3.5 sm:px-5 sm:py-4">
                   <div>
-                    <h3 className="text-lg font-semibold tracking-tight text-[#082F59]">
-                      {work.title}
+                    <h3 className="text-base font-semibold tracking-tight text-[#0E1116]">
+                      {t(work.title, work.titleAr)}
                     </h3>
-                    <p className="mt-1 max-w-[440px] text-[14px] leading-relaxed text-slate-600">
-                      {work.text}
+                    <p className="mt-1 max-w-[440px] text-[13px] leading-normal text-slate-600">
+                      {t(work.text, work.textAr)}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-full bg-[#EAF4FC] px-3 py-1 text-[12px] font-semibold text-[#0872BB]">
-                    {work.tag}
+                  <span className="shrink-0 rounded-full bg-[#EAF4FC] px-3 py-1 text-[12px] font-semibold text-[#0563B4]">
+                    {t(work.tag, work.tagAr)}
                   </span>
                 </div>
               </motion.li>
@@ -295,21 +305,20 @@ export default function WorkGallery({
             className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-[#EAF4FC] px-6 py-6 sm:flex-row sm:items-center sm:px-8"
           >
             <div>
-              <p className="text-base font-semibold text-[#082F59]">
-                Want results like these for your car?
+              <p className="text-base font-semibold text-[#0E1116]">
+                {t("Want results like these for your car?", "تريد نتائج مثل هذه لسيارتك؟")}
               </p>
               <p className="mt-1 text-[14px] text-slate-600">
-                Book a free inspection and we will tell you exactly what your
-                vehicle needs.
+                {t("Book a free inspection and we will tell you exactly what your vehicle needs.", "احجز فحصاً مجانياً وسنخبرك بالضبط بما تحتاجه سيارتك.")}
               </p>
             </div>
             <motion.button
               type="button"
               onClick={() => onBook?.("Free vehicle inspection")}
               whileTap={{ scale: 0.97 }}
-              className={`group inline-flex h-12 shrink-0 items-center gap-2 rounded-md bg-[#0872BB] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+              className={`group inline-flex h-12 shrink-0 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
             >
-              Get a free quote
+              {t("Get a free quote", "احصل على عرض سعر مجاني")}
               <ArrowRight
                 size={16}
                 className="transition-transform duration-300 group-hover:translate-x-1"

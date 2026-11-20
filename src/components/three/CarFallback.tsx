@@ -32,10 +32,10 @@ export default function CarFallback() {
       <svg viewBox="0 0 400 220" className="w-full max-w-xl" role="img" aria-label="Luxury SUV, front view (3D view unavailable)">
         <ellipse cx="200" cy="200" rx="150" ry="10" fill="rgba(11,27,77,.2)" />
         <rect x="70" y="95" width="260" height="85" rx="26" fill="#19c5cf" />
-        <path d="M105 95 L125 45 H275 L295 95Z" fill="#19c5cf" /><path d="M120 92 L135 55 H265 L280 92Z" fill="#0a1a2a" />
-        <rect x="165" y="125" width="70" height="24" rx="6" fill="#0c1220" />
+        <path d="M105 95 L125 45 H275 L295 95Z" fill="#19c5cf" /><path d="M120 92 L135 55 H265 L280 92Z" fill="#0B0E13" />
+        <rect x="165" y="125" width="70" height="24" rx="6" fill="#0A0C10" />
         <rect x="95" y="118" width="52" height="14" rx="6" fill="#fff" /><rect x="253" y="118" width="52" height="14" rx="6" fill="#fff" />
-        <rect x="55" y="140" width="34" height="62" rx="10" fill="#0c1220" /><rect x="311" y="140" width="34" height="62" rx="10" fill="#0c1220" />
+        <rect x="55" y="140" width="34" height="62" rx="10" fill="#0A0C10" /><rect x="311" y="140" width="34" height="62" rx="10" fill="#0A0C10" />
       </svg>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Center,
   ContactShadows,
   Bounds,
+  Lightformer,
   OrbitControls,
 } from "@react-three/drei";
 
@@ -24,7 +25,7 @@ const useIsMobile = () =>
   useSyncExternalStore(subscribeMobile, () => window.matchMedia(MOBILE_QUERY).matches, () => false);
 
 function CarModel() {
-  const { scene } = useGLTF("/models/scene.gltf");
+  const { scene } = useGLTF("/models/car.glb");
   const isMobile = useIsMobile();
 
   return (
@@ -116,7 +117,18 @@ export default function Car3DViewer() {
         <Suspense fallback={<Loader />}>
           <CarModel />
 
-          <Environment preset="city" />
+          {/* Studio reflections built in the browser from light panels (rendered once) — replaces
+              the "city" preset, a 1.5 MB HDR image downloaded from an external CDN on every visit. */}
+          <Environment resolution={256} frames={1}>
+            <Lightformer intensity={1.4} rotation-x={Math.PI / 2} position={[0, 4, -9]} scale={[10, 1, 1]} />
+            <Lightformer intensity={1.4} rotation-x={Math.PI / 2} position={[0, 4, -6]} scale={[10, 1, 1]} />
+            <Lightformer intensity={1.4} rotation-x={Math.PI / 2} position={[0, 4, -3]} scale={[10, 1, 1]} />
+            <Lightformer intensity={1.4} rotation-x={Math.PI / 2} position={[0, 4, 0]} scale={[10, 1, 1]} />
+            <Lightformer intensity={1.4} rotation-x={Math.PI / 2} position={[0, 4, 3]} scale={[10, 1, 1]} />
+            <Lightformer intensity={1.4} rotation-y={Math.PI / 2} position={[-50, 2, 0]} scale={[100, 2, 1]} />
+            <Lightformer intensity={1.4} rotation-y={-Math.PI / 2} position={[50, 2, 0]} scale={[100, 2, 1]} />
+            <Lightformer form="ring" color="#dbeaff" intensity={4} scale={2} position={[10, 5, 10]} target={[0, 0, 0]} />
+          </Environment>
 
           <ContactShadows
             position={[0, -0.6, 0]}
@@ -125,7 +137,7 @@ export default function Car3DViewer() {
             blur={2}
             far={4}
             resolution={512}
-            color="#082F59"
+            color="#0E1116"
           />
 
           {/* Manual Mouse / Touch Rotation Only */}
@@ -145,4 +157,4 @@ export default function Car3DViewer() {
   );
 }
 
-useGLTF.preload("/models/scene.gltf");
+useGLTF.preload("/models/car.glb");

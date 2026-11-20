@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "@/i18n/Link";
+import { usePathname } from "next/navigation";
 import { animate, stagger } from "motion/react";
 
 import {
@@ -16,10 +16,16 @@ import {
   Globe,
 } from "lucide-react";
 import { CONTACT, NAV_LINKS, isActiveLink } from "@/config/site";
+import { stripLang, useLang } from "@/i18n/LangProvider";
 
 
 import AnnouncementBar from "./AnnouncementBar";
+import BrandLogo from "./BrandLogo";
+import BrandsMegaMenu from "./BrandsMegaMenu";
+import ServicesMegaMenu from "./ServicesMegaMenu";
 import MobileMenu from "./MobileMenu";
+import SiteSearch from "@/components/search/SiteSearch";
+import SearchOverlay from "@/components/search/SearchOverlay";
 
 /* ---------------------------------------------------------
    DATA
@@ -39,9 +45,16 @@ export default function Header({ onBook }: { onBook: () => void }) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname() ?? "/";
-  const router = useRouter();
-  const [lang, setLang] = useState<"ar" | "en">("en");
-  const [search, setSearch] = useState("");
+  const { lang, t } = useLang();
+  /** Same page in the other language (full navigation so <html lang/dir> and the fonts switch too). */
+  const switchLang = (code: "en" | "ar") => {
+    if (code === lang) return;
+    const bare = stripLang(window.location.pathname);
+    const rest = window.location.search + window.location.hash;
+    window.location.assign((code === "ar" ? (bare === "/" ? "/ar/" : `/ar${bare}`) : bare) + rest);
+  };
+  /** Full-screen search on phones / tablets. */
+  const [searchOpen, setSearchOpen] = useState(false);
 
   /* Sticky state (the active item comes from the current page URL) */
   useEffect(() => {
@@ -99,22 +112,20 @@ export default function Header({ onBook }: { onBook: () => void }) {
     onBook();
   };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!search.trim()) return;
+  const openSearch = () => {
     closeMenus();
-    router.push(`/service/?q=${encodeURIComponent(search.trim())}#all-services`);
+    setSearchOpen(true);
   };
 
   const focusRing =
-    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]";
+    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]";
 
   return (
     <>
       <header
         ref={root}
         className={`fixed inset-x-0 top-0 z-[9999] w-full bg-white transition-shadow duration-300 ${
-          isSticky ? "shadow-[0_4px_20px_rgba(8,47,89,0.12)]" : "shadow-xs"
+          isSticky ? "shadow-[0_4px_20px_rgba(14, 17, 22,0.12)]" : "shadow-xs"
         }`}
       >
         <AnnouncementBar />
@@ -130,17 +141,12 @@ export default function Header({ onBook }: { onBook: () => void }) {
             <Link
               href="/"
               onClick={closeMenus}
-              aria-label="Ritz Auto Care home"
+              aria-label={t("Ritz Auto Care home", "الصفحة الرئيسية لريتز أوتو كير")}
               className={`header-logo flex shrink-0 items-center rounded-sm ${focusRing}`}
             >
-              <img
-                src="/Rits-Auto-Care-Logo-2-1536x448.webp"
-                alt="Ritz Auto Care LLC"
-                className={`h-auto object-contain transition-all duration-300 ${
-                  isSticky
-                    ? "w-[118px] min-[360px]:w-[130px] sm:w-[145px] lg:w-[155px]"
-                    : "w-[124px] min-[360px]:w-[150px] sm:w-[175px] lg:w-[195px]"
-                }`}
+              <BrandLogo
+                size={isSticky ? "sm" : "md"}
+                stackOnPhone
               />
             </Link>
 
@@ -151,14 +157,14 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 href={`tel:${PHONE}`}
                 className={`header-top-item group flex shrink-0 items-center gap-3 rounded-sm ${focusRing}`}
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB] transition-colors group-hover:bg-[#0872BB] group-hover:text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4] transition-colors group-hover:bg-[#0563B4] group-hover:text-white">
                   <Phone size={17} />
                 </span>
                 <span className="leading-tight">
                   <span className="block text-[11px] text-slate-500">
-                    Call us
+                    {t("Call us", "اتصل بنا")}
                   </span>
-                  <span className="block text-[14px] font-semibold text-[#082F59]">
+                  <span className="block text-[14px] font-semibold text-[#0E1116]">
                     {PHONE}
                   </span>
                 </span>
@@ -169,54 +175,40 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 href={`mailto:${EMAIL}`}
                 className={`header-top-item group hidden shrink-0 items-center gap-3 rounded-sm xl:flex ${focusRing}`}
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB] transition-colors group-hover:bg-[#0872BB] group-hover:text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4] transition-colors group-hover:bg-[#0563B4] group-hover:text-white">
                   <Mail size={17} />
                 </span>
                 <span className="leading-tight">
                   <span className="block text-[11px] text-slate-500">
-                    Email us
+                    {t("Email us", "راسلنا")}
                   </span>
-                  <span className="block text-[14px] font-semibold text-[#082F59]">
+                  <span className="block text-[14px] font-semibold text-[#0E1116]">
                     {EMAIL}
                   </span>
                 </span>
               </a>
 
               {/* Search */}
-              <form
-                onSubmit={handleSearch}
-                role="search"
-                className="header-top-item flex h-10 w-full min-w-[150px] max-w-[240px] shrink items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 transition-colors focus-within:border-[#0872BB] focus-within:bg-white"
-              >
-                <Search size={17} className="shrink-0 text-[#0872BB]" />
-                <input
-                  type="search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search services"
-                  aria-label="Search website"
-                  className="w-full min-w-0 bg-transparent text-[13px] text-[#082F59] outline-hidden placeholder:text-slate-400"
-                />
-              </form>
+              <SiteSearch className="header-top-item w-full min-w-[170px] max-w-[260px] shrink" />
 
               {/* Language */}
               <div
-                className="header-top-item flex shrink-0 items-center gap-2 text-[#082F59]"
+                className="header-top-item flex shrink-0 items-center gap-2 text-[#0E1116]"
                 role="group"
-                aria-label="Language"
+                aria-label={t("Language", "اللغة")}
               >
-                <Globe size={17} className="text-[#0872BB]" />
+                <Globe size={17} className="text-[#0563B4]" />
                 <div className="flex rounded-full bg-slate-100 p-0.5">
                   {(["en", "ar"] as const).map((code) => (
                     <button
                       key={code}
                       type="button"
-                      onClick={() => setLang(code)}
+                      onClick={() => switchLang(code)}
                       aria-pressed={lang === code}
                       className={`rounded-full px-3 py-1 text-[12px] font-semibold transition-colors ${focusRing} ${
                         lang === code
-                          ? "bg-[#082F59] text-white"
-                          : "text-[#082F59] hover:text-[#0872BB]"
+                          ? "bg-[#0E1116] text-white"
+                          : "text-[#0E1116] hover:text-[#0563B4]"
                       }`}
                     >
                       {code === "en" ? "EN" : "AR"}
@@ -229,9 +221,9 @@ export default function Header({ onBook }: { onBook: () => void }) {
               <button
                 type="button"
                 onClick={handleBook}
-                className={`header-top-item flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#0872BB] px-6 text-[13px] font-bold text-white shadow-xs transition-colors duration-300 hover:bg-[#082F59] ${focusRing}`}
+                className={`header-top-item flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#0563B4] px-6 text-[13px] font-bold text-white shadow-xs transition-colors duration-300 hover:bg-[#0E1116] ${focusRing}`}
               >
-                Get a free quote
+                {t("Get a free quote", "احصل على عرض سعر مجاني")}
               </button>
             </div>
 
@@ -239,10 +231,11 @@ export default function Header({ onBook }: { onBook: () => void }) {
             <div className="flex items-center gap-2 lg:hidden">
               <button
                 type="button"
-                onClick={handleBook}
-                className={`flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-[#0872BB] px-2.5 min-[360px]:px-3.5 text-[12px] font-bold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                onClick={openSearch}
+                aria-label={t("Search cars & services", "ابحث عن سيارة أو خدمة")}
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[#0563B4] transition-colors hover:border-[#0563B4] ${focusRing}`}
               >
-                Free quote
+                <Search size={19} />
               </button>
             </div>
 
@@ -250,9 +243,9 @@ export default function Header({ onBook }: { onBook: () => void }) {
             <button
               type="button"
               onClick={() => setMenu(!menu)}
-              aria-label={menu ? "Close menu" : "Open menu"}
+              aria-label={menu ? t("Close menu", "إغلاق القائمة") : t("Open menu", "فتح القائمة")}
               aria-expanded={menu}
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#082F59] text-white xl:hidden ${focusRing}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#0E1116] text-white xl:hidden ${focusRing}`}
             >
               {menu ? <X size={21} /> : <Menu size={21} />}
             </button>
@@ -260,10 +253,11 @@ export default function Header({ onBook }: { onBook: () => void }) {
         </div>
 
         {/* ================= NAV BAR (xl and up) ================= */}
-        <div className="relative hidden w-full bg-[#082F59] xl:block">
+        <div className="relative hidden w-full bg-[#0E1116] xl:block">
           <nav
-            aria-label="Main navigation"
-            className="site-container flex items-stretch justify-between"
+            aria-label={t("Main navigation", "القائمة الرئيسية")}
+            data-label={t("Main navigation", "القائمة الرئيسية")}
+            className="site-container relative flex items-stretch justify-between"
           >
             {NAV_LINKS.map((item) => {
               const dropdown = item.children ?? null;
@@ -283,12 +277,32 @@ export default function Header({ onBook }: { onBook: () => void }) {
 
               return (
                 <div
-                  key={item.label}
-                  className="relative flex shrink-0 items-stretch"
+                  key={t(item.label, item.labelAr)}
+                  // mega menus are positioned against the whole nav bar, normal dropdowns against their item
+                  className={`${item.megaBrands || item.megaServices ? "" : "relative "}flex shrink-0 items-stretch`}
                   onMouseEnter={() => dropdown && setActiveDropdown(item.label)}
                   onMouseLeave={() => dropdown && setActiveDropdown(null)}
                 >
-                  {dropdown ? (
+                  {item.megaBrands || item.megaServices ? (
+                    // Brands: a click opens the /brands/ page; hovering (or keyboard focus) shows the brands menu
+                    <Link
+                      href={item.href}
+                      onClick={closeMenus}
+                      onFocus={() => setActiveDropdown(item.label)}
+                      aria-haspopup="true"
+                      aria-expanded={isOpen}
+                      aria-current={isActive ? "page" : undefined}
+                      className={itemClass}
+                    >
+                      {t(item.label, item.labelAr)}
+                      <ChevronDown
+                        size={14}
+                        strokeWidth={2.5}
+                        className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                      />
+                      {underline}
+                    </Link>
+                  ) : dropdown ? (
                     <button
                       type="button"
                       onClick={() => setActiveDropdown((cur) => (cur === item.label ? null : item.label))}
@@ -297,7 +311,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                       aria-current={isActive ? "true" : undefined}
                       className={itemClass}
                     >
-                      {item.label}
+                      {t(item.label, item.labelAr)}
                       <ChevronDown
                         size={14}
                         strokeWidth={2.5}
@@ -307,19 +321,41 @@ export default function Header({ onBook }: { onBook: () => void }) {
                     </button>
                   ) : (
                     <Link href={item.href} onClick={closeMenus} aria-current={isActive ? "page" : undefined} className={itemClass}>
-                      {item.label}
+                      {t(item.label, item.labelAr)}
                       {underline}
                     </Link>
                   )}
 
+                  {/* Brands mega-menu */}
+                  {/* Services mega-menu */}
+                  {item.megaServices && (
+                    <div
+                      className={`absolute inset-x-0 top-full z-[10001] transition-all duration-200 ease-out ${
+                        isOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
+                      }`}
+                    >
+                      <ServicesMegaMenu onNavigate={closeMenus} focusRing={focusRing} />
+                    </div>
+                  )}
+
+                  {item.megaBrands && (
+                    <div
+                      className={`absolute inset-x-0 top-full z-[10001] transition-all duration-200 ease-out ${
+                        isOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
+                      }`}
+                    >
+                      <BrandsMegaMenu onNavigate={closeMenus} focusRing={focusRing} />
+                    </div>
+                  )}
+
                   {/* Dropdown */}
-                  {dropdown && (
+                  {dropdown && !item.megaBrands && !item.megaServices && (
                     <div
                       className={`absolute left-0 top-full z-[10001] w-[300px] transition-all duration-200 ease-out ${
                         isOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
                       }`}
                     >
-                      <div className="overflow-hidden rounded-b-lg border border-t-0 border-slate-100 bg-white shadow-[0_16px_40px_rgba(8,47,89,0.18)]">
+                      <div className="overflow-hidden rounded-b-lg border border-t-0 border-slate-100 bg-white shadow-[0_16px_40px_rgba(14, 17, 22,0.18)]">
                         <div className="p-2">
                           {dropdown.map((sub) => (
                             <Link
@@ -329,16 +365,16 @@ export default function Header({ onBook }: { onBook: () => void }) {
                               className={`group flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left transition-colors hover:bg-[#EFF7FF] ${focusRing}`}
                             >
                               <span>
-                                <span className="block text-[14px] font-semibold text-[#082F59] group-hover:text-[#0872BB]">
-                                  {sub.label}
+                                <span className="block text-[14px] font-semibold text-[#0E1116] group-hover:text-[#0563B4]">
+                                  {t(sub.label, sub.labelAr)}
                                 </span>
                                 {sub.description && (
-                                  <span className="mt-0.5 block text-[12px] text-slate-500">{sub.description}</span>
+                                  <span className="mt-0.5 block text-[12px] text-slate-500">{t(sub.description, sub.descriptionAr)}</span>
                                 )}
                               </span>
                               <ArrowRight
                                 size={15}
-                                className="shrink-0 text-[#0872BB] opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                                className="shrink-0 text-[#0563B4] opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
                               />
                             </Link>
                           ))}
@@ -353,7 +389,8 @@ export default function Header({ onBook }: { onBook: () => void }) {
         </div>
       </header>
 
-      <MobileMenu open={menu} onClose={() => setMenu(false)} onBook={handleBook} />
+      <MobileMenu open={menu} onClose={() => setMenu(false)} onBook={handleBook} onSearch={openSearch} />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

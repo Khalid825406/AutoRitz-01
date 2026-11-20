@@ -31,6 +31,37 @@ export const APPOINTMENT_SERVICES = [
 
 type AppointmentService = (typeof APPOINTMENT_SERVICES)[number];
 
+/** Arabic labels for the form options (Arabic site). */
+export const APPOINTMENT_SERVICES_AR: Record<AppointmentService, string> = {
+  "Oil Change": "تغيير الزيت",
+  "Oil Filter Replacement": "تغيير فلتر الزيت",
+  "Brake Repair": "إصلاح الفرامل",
+  "Brake Pad Replacement": "تغيير فحمات الفرامل",
+  "AC Repair": "إصلاح المكيف",
+  "Battery Replacement": "تغيير البطارية",
+  "Gearbox Repair": "إصلاح علبة التروس",
+  "Transmission Service": "صيانة ناقل الحركة",
+  "Engine Repair": "إصلاح المحرك",
+  "Engine Diagnostics": "تشخيص المحرك",
+  "Wheel Alignment": "ضبط زوايا العجلات",
+  "Wheel Balancing": "موازنة العجلات",
+  "Suspension Repair": "إصلاح نظام التعليق",
+  "Tyre Replacement": "تغيير الإطارات",
+  "Coolant Replacement": "تغيير سائل التبريد",
+  "Spark Plug Replacement": "تغيير شمعات الإشعال",
+  "Air Filter Replacement": "تغيير فلتر الهواء",
+  "Fuel Filter Replacement": "تغيير فلتر الوقود",
+  "Car Inspection": "فحص السيارة",
+  "Computer Diagnostics": "الفحص بالكمبيوتر",
+  "Timing Belt Replacement": "تغيير سير التوقيت",
+  "Steering Repair": "إصلاح التوجيه",
+  "Electrical Repair": "إصلاح الكهرباء",
+  "AC Gas Refill": "تعبئة غاز المكيف",
+  "Major Service": "صيانة شاملة",
+  "Minor Service": "صيانة بسيطة",
+  "Other Service": "خدمة أخرى",
+};
+
 /** Homepage service names → closest option of the appointment form. */
 const SERVICE_ALIASES: Record<string, AppointmentService> = {
   "battery services": "Battery Replacement",

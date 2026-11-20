@@ -10,8 +10,8 @@ export const HIGHLIGHTS = [
     text: "We collect your vehicle from your location and return it safely after professional roadside assistance or repair.",
   },
   {
-    title: "All Emirates in UAE",
-    text: "Reliable roadside assistance available across all Emirates with fast response and trusted service whenever needed.",
+    title: "All Across Dubai",
+    text: "Reliable roadside assistance available across every area of Dubai with fast response and trusted service whenever needed.",
   },
   {
     title: "30–45 Minute Arrival",

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { motion, useScroll, useSpring } from "motion/react";
 import { ArrowLeft, ArrowUpRight, CalendarDays, MessageCircle, Phone, Tag } from "lucide-react";
 
@@ -24,7 +24,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
       <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-[10001] h-1 origin-left bg-[#3FA9F5]" />
 
       <PageHero breadcrumbs={[{ label: "Blog", href: "/blog/" }, { label: post.category }]} eyebrow={post.category} title={post.title}>
-        <p className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#DCE8F2]/80">
+        <p className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#D9DEE5]/80">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays size={15} className="text-[#4B9DE0]" />
             <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -44,14 +44,14 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
             transition={{ duration: 0.7, ease: EASE }}
             className="min-w-0"
           >
-            <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(8,47,89,0.45)]">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(14, 17, 22,0.45)]">
               <RevealImage src={post.image} alt={post.title} fill priority sizes="(min-width: 1024px) 60vw, 92vw" className="object-cover" />
             </div>
 
             <div className="mx-auto mt-8 sm:mt-10 max-w-3xl">
               {post.content?.map((b, i) =>
                 b.type === "h2" ? (
-                  <h2 key={i} className="mt-8 sm:mt-10 scroll-mt-32 text-2xl font-bold tracking-tight text-[#082F59]">
+                  <h2 key={i} className="mt-8 sm:mt-10 scroll-mt-32 text-2xl font-bold tracking-tight text-[#0E1116]">
                     {b.text}
                   </h2>
                 ) : (
@@ -63,7 +63,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
               <Link
                 href="/blog/"
-                className="mt-8 sm:mt-12 inline-flex items-center gap-2 text-sm font-semibold text-[#0872BB] hover:text-[#082F59]"
+                className="mt-8 sm:mt-12 inline-flex items-center gap-2 text-sm font-semibold text-[#0563B4] hover:text-[#0E1116]"
               >
                 <ArrowLeft size={16} />
                 Back to all posts
@@ -73,8 +73,8 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
           {/* sidebar */}
           <aside className="space-y-6 lg:sticky lg:top-36 lg:self-start">
-            <div className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-7 text-white">
-              <div className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
+            <div className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-7 text-white">
+              <div className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7cc0f5]">Need help?</p>
               <p className="mt-3 text-xl font-bold leading-snug">Talk to our technicians today.</p>
               <div className="mt-6 flex flex-col gap-3">
@@ -82,7 +82,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
                   href={waLink(SITE_CONTACT.whatsapp, `Hi Ritz Auto Care, I read "${post.title}" and need help.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white text-sm font-semibold text-[#082F59] hover:bg-[#DCE8F2]"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white text-sm font-semibold text-[#0E1116] hover:bg-[#D9DEE5]"
                 >
                   <MessageCircle size={16} />
                   WhatsApp Us
@@ -99,16 +99,16 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
             {post.related && post.related.length > 0 && (
               <div className="rounded-3xl border border-slate-200/80 bg-white p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">Related services</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0563B4]">Related services</p>
                 <ul className="mt-4 space-y-1">
                   {post.related.map((r) => (
                     <li key={r.href}>
                       <Link
                         href={r.href}
-                        className="group flex items-center justify-between rounded-xl px-3 py-2.5 text-[15px] font-medium text-[#082F59] hover:bg-[#F2F8FD] hover:text-[#0872BB]"
+                        className="group flex items-center justify-between rounded-xl px-3 py-2.5 text-[15px] font-medium text-[#0E1116] hover:bg-[#F2F8FD] hover:text-[#0563B4]"
                       >
                         {r.label}
-                        <ArrowUpRight size={15} className="text-slate-300 transition-colors group-hover:text-[#0872BB]" />
+                        <ArrowUpRight size={15} className="text-slate-300 transition-colors group-hover:text-[#0563B4]" />
                       </Link>
                     </li>
                   ))}
@@ -118,11 +118,11 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
             {more.length > 0 && (
               <div className="rounded-3xl border border-slate-200/80 bg-white p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">More posts</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0563B4]">More posts</p>
                 <ul className="mt-4 space-y-4">
                   {more.map((m) => (
                     <li key={m.slug}>
-                      <Link href={`/blog/${m.slug}/`} className="text-[15px] font-medium leading-snug text-[#082F59] hover:text-[#0872BB]">
+                      <Link href={`/blog/${m.slug}/`} className="text-[15px] font-medium leading-snug text-[#0E1116] hover:text-[#0563B4]">
                         {m.title}
                       </Link>
                     </li>

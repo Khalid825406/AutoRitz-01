@@ -36,7 +36,7 @@ export default function ServiceAreasPage() {
             href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, do you cover my area?")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <MessageCircle size={16} />
             Check my area on WhatsApp
@@ -60,12 +60,12 @@ export default function ServiceAreasPage() {
               viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0563B4] shadow-xs">
                 <MapPin size={14} />
                 {PAGE_AREAS.length} areas
               </span>
-              <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
-                We Serve <span className="text-[#0872BB]">Across Dubai.</span>
+              <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl lg:text-5xl">
+                We Serve <span className="text-[#0563B4]">Across Dubai.</span>
               </TextReveal>
             </motion.div>
 
@@ -74,15 +74,15 @@ export default function ServiceAreasPage() {
               <label htmlFor="area-page-search" className="sr-only">
                 Search your area
               </label>
-              <div className="flex h-12 items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 shadow-xs transition focus-within:border-[#0872BB] focus-within:ring-4 focus-within:ring-[#0872BB]/10">
-                <Search size={18} className="shrink-0 text-[#0872BB]" />
+              <div className="flex h-12 items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 shadow-xs transition focus-within:border-[#0563B4] focus-within:ring-4 focus-within:ring-[#0563B4]/10">
+                <Search size={18} className="shrink-0 text-[#0563B4]" />
                 <input
                   id="area-page-search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search your area, e.g. Mudon"
                   autoComplete="off"
-                  className="w-full min-w-0 bg-transparent text-[15px] text-[#082F59] outline-hidden placeholder:text-slate-400"
+                  className="w-full min-w-0 bg-transparent text-[15px] text-[#0E1116] outline-hidden placeholder:text-slate-400"
                 />
                 {query && (
                   <button
@@ -119,15 +119,15 @@ export default function ServiceAreasPage() {
                         type="button"
                         onClick={() => setSelected(active ? null : a)}
                         aria-pressed={active}
-                        className={`group flex h-full min-h-[64px] w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] ${
+                        className={`group flex h-full min-h-[64px] w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] ${
                           active
-                            ? "border-[#082F59] bg-[#082F59] text-white shadow-[0_12px_24px_-12px_rgba(8,47,89,0.6)]"
-                            : "border-slate-200/80 bg-white text-[#082F59] hover:border-[#0872BB]/40 hover:bg-[#F2F8FD]"
+                            ? "border-[#0E1116] bg-[#0E1116] text-white shadow-[0_12px_24px_-12px_rgba(14, 17, 22,0.6)]"
+                            : "border-slate-200/80 bg-white text-[#0E1116] hover:border-[#0563B4]/40 hover:bg-[#F2F8FD]"
                         }`}
                       >
                         <span
                           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${
-                            active ? "bg-white/15 text-white" : "bg-[#EAF4FC] text-[#0872BB] group-hover:bg-[#0872BB] group-hover:text-white"
+                            active ? "bg-white/15 text-white" : "bg-[#EAF4FC] text-[#0563B4] group-hover:bg-[#0563B4] group-hover:text-white"
                           }`}
                         >
                           {active ? <Check size={15} /> : <MapPin size={15} />}
@@ -141,11 +141,11 @@ export default function ServiceAreasPage() {
             </motion.ul>
           ) : (
             <div className="mt-8 sm:mt-10 rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center" role="status">
-              <p className="text-[15px] font-semibold text-[#082F59]">No area matches &ldquo;{query}&rdquo;</p>
+              <p className="text-[15px] font-semibold text-[#0E1116]">No area matches &ldquo;{query}&rdquo;</p>
               <p className="mt-1 text-[14px] text-slate-600">We may still reach you — call us and we will confirm your location.</p>
               <a
                 href={`tel:${SITE_CONTACT.phone}`}
-                className="mt-4 inline-flex h-11 items-center gap-2 rounded-xl bg-[#0872BB] px-5 text-sm font-semibold text-white hover:bg-[#082F59]"
+                className="mt-4 inline-flex h-11 items-center gap-2 rounded-xl bg-[#0563B4] px-5 text-sm font-semibold text-white hover:bg-[#0E1116]"
               >
                 <Phone size={16} />
                 Call {SITE_CONTACT.phone}
@@ -161,12 +161,12 @@ export default function ServiceAreasPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3, ease: EASE }}
-                className="sticky bottom-4 z-[9995] mx-auto mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(8,47,89,0.22)] sm:flex-row sm:items-center sm:justify-between"
+                className="sticky bottom-4 z-[9995] mx-auto mt-8 flex max-w-2xl flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-3 pl-5 shadow-[0_20px_50px_rgba(14, 17, 22,0.22)] sm:flex-row sm:items-center sm:justify-between"
               >
                 <p className="flex items-center gap-3 text-[14px] text-slate-600">
-                  <Truck size={20} className="shrink-0 text-[#0872BB]" />
+                  <Truck size={20} className="shrink-0 text-[#0563B4]" />
                   <span>
-                    <span className="block font-semibold text-[#082F59]">We serve {selected}</span>
+                    <span className="block font-semibold text-[#0E1116]">We serve {selected}</span>
                     Free pick-up & drop-off from your location.
                   </span>
                 </p>
@@ -174,7 +174,7 @@ export default function ServiceAreasPage() {
                   href={waLink(SITE_CONTACT.whatsapp, `Hi Ritz Auto Care, I'd like to book a service in ${selected}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0872BB] px-5 text-sm font-semibold text-white hover:bg-[#082F59]"
+                  className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0563B4] px-5 text-sm font-semibold text-white hover:bg-[#0E1116]"
                 >
                   <MessageCircle size={16} />
                   Book in {selected}

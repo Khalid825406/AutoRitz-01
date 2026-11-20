@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { motion, type Variants } from "motion/react";
 import {
   ArrowUpRight,
@@ -57,7 +57,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
           <span className="relative h-12 w-12">
             <Image src={logo} alt={`${detail.fullName} logo`} fill sizes="48px" className="object-contain" />
           </span>
-          <span className="text-sm font-semibold text-[#082F59]">{detail.fullName} service & repair</span>
+          <span className="text-sm font-semibold text-[#0E1116]">{detail.fullName} service & repair</span>
         </div>
       </PageHero>
 
@@ -65,13 +65,13 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       <section className="w-full overflow-hidden bg-white py-12 sm:py-24">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
-            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">{detail.heading}</TextReveal>
+            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">{detail.heading}</TextReveal>
             <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{detail.intro}</p>
             <a
               href="https://www.instagram.com/ritzautocare/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB]"
+              className="group mt-8 inline-flex h-12 items-center gap-2 rounded-xl bg-[#0E1116] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0563B4]"
             >
               <Camera size={16} />
               Check Our Instagram Portfolio
@@ -85,7 +85,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             transition={{ duration: 1, ease: EASE }}
             className="relative aspect-[3/2]"
           >
-            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-radial from-[#082F59]/20 to-transparent to-70%" />
+            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-radial from-[#0E1116]/20 to-transparent to-70%" />
             <Image src={detail.heroImage} alt={`${detail.fullName}`} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-contain" />
           </motion.div>
         </div>
@@ -99,13 +99,13 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             viewport={REVEAL_VIEWPORT}
             className="rounded-3xl border border-slate-200/80 bg-[#F7FAFD] p-6 sm:p-8"
           >
-            <h3 className="flex items-center gap-2 text-lg font-semibold text-[#082F59]">
-              <Car size={20} className="text-[#0872BB]" />
+            <h3 className="flex items-center gap-2 text-lg font-semibold text-[#0E1116]">
+              <Car size={20} className="text-[#0563B4]" />
               {detail.fullName} models we service
             </h3>
             <ul className="mt-5 flex flex-wrap gap-2.5">
               {detail.models.map((m) => (
-                <li key={m} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-[#082F59]">
+                <li key={m} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-[#0E1116]">
                   {m}
                 </li>
               ))}
@@ -130,12 +130,12 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 <motion.li
                   key={f.title}
                   variants={fadeUp}
-                  className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)]"
+                  className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0872BB] transition-colors group-hover:bg-[#0872BB] group-hover:text-white">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0563B4] transition-colors group-hover:bg-[#0563B4] group-hover:text-white">
                     <Icon size={22} />
                   </span>
-                  <h3 className="mt-5 text-[16px] font-semibold text-[#082F59]">{f.title}</h3>
+                  <h3 className="mt-5 text-[16px] font-semibold text-[#0E1116]">{f.title}</h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{f.text}</p>
                 </motion.li>
               );
@@ -150,7 +150,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
-                className="relative aspect-square overflow-hidden rounded-3xl shadow-[0_20px_40px_-20px_rgba(8,47,89,0.35)]"
+                className="relative aspect-square overflow-hidden rounded-3xl shadow-[0_20px_40px_-20px_rgba(14, 17, 22,0.35)]"
               >
                 <RevealImage
                   src={src}
@@ -173,9 +173,9 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-8 text-white sm:p-12"
+            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-8 text-white sm:p-12"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
+            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
@@ -185,14 +185,14 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
                   Claim Your Free <span className="text-[#4B9DE0]">{detail.fullName} Benefits</span>
                 </TextReveal>
-                <p className="mt-4 text-[14px] text-[#DCE8F2]/80">Three complimentary perks with every service booking.</p>
+                <p className="mt-4 text-[14px] text-[#D9DEE5]/80">Three complimentary perks with every service booking.</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <a
                   href={waLink(SITE_CONTACT.whatsappRoadside, `Hi Ritz Auto Care, I'd like to book a service for my ${detail.fullName}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+                  className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
                 >
                   <Phone size={16} />
                   Call Us
@@ -211,11 +211,11 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
                 const Icon = BENEFIT_ICONS[i];
                 return (
                   <li key={b.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1766AE]/40 text-[#7cc0f5]">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0B6FC2]/40 text-[#7cc0f5]">
                       <Icon size={20} />
                     </span>
                     <h3 className="mt-4 text-lg font-semibold">{b.title}</h3>
-                    <p className="mt-1.5 text-[14px] text-[#DCE8F2]/75">{b.text}</p>
+                    <p className="mt-1.5 text-[14px] text-[#D9DEE5]/75">{b.text}</p>
                   </li>
                 );
               })}

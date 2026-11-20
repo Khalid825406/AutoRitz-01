@@ -40,9 +40,9 @@ export default function ServiceAreasList() {
           {SERVICE_AREAS.map((a) => (
             <li
               key={a.name}
-              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[13px] font-medium text-[#082F59]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-[13px] font-medium text-[#0E1116]"
             >
-              <MapPin size={13} className="text-[#0872BB]" />
+              <MapPin size={13} className="text-[#0563B4]" />
               {a.name}
             </li>
           ))}

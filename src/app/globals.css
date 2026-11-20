@@ -2,9 +2,9 @@
 
 @theme {
   --color-royal: #1d4ed8;
-  --color-navy: #0b1b4d;
+  --color-navy: #0E1116;
   --color-aqua: #7fe7ee;
-  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  --font-sans: var(--font-montserrat), var(--font-arabic), system-ui, sans-serif;
 }
 
 /* Site-wide layout container: 90% of the viewport, centered. */
@@ -35,7 +35,7 @@ body {
 
 body {
   font-family: var(--font-sans);
-  color: #0b1b4d;
+  color: #0E1116;
   background: #fff;
   /* long words / URLs wrap instead of pushing the layout wider */
   overflow-wrap: break-word;
@@ -147,10 +147,10 @@ body {
   ================================= */
 
   :root {
-    --brand-navy: #082F59;
-    --brand-blue: #1766AE;
+    --brand-navy: #0E1116;
+    --brand-blue: #0B6FC2;
     --brand-light-blue: #4B9DE0;
-    --brand-silver: #DCE8F2;
+    --brand-silver: #D9DEE5;
     --brand-white: #FFFFFF;
   }
 
@@ -165,14 +165,14 @@ body {
       radial-gradient(
         ellipse at 50% 48%,
         rgba(36, 117, 190, 0.55) 0%,
-        rgba(16, 75, 133, 0.25) 35%,
+        rgba(27, 32, 41, 0.25) 35%,
         transparent 68%
       ),
       linear-gradient(
         135deg,
-        #082F59 0%,
-        #0B477D 48%,
-        #061E3B 100%
+        #0E1116 0%,
+        #1B2029 48%,
+        #07090C 100%
       );
 
     overflow: hidden;
@@ -210,7 +210,7 @@ body {
     height: 300px;
     background: radial-gradient(
       ellipse,
-      rgba(220, 232, 242, 0.18),
+      rgba(217, 222, 229, 0.18),
       transparent 70%
     );
     pointer-events: none;
@@ -227,7 +227,7 @@ body {
   }
 
   .hero-sub {
-    color: #DCE8F2;
+    color: #D9DEE5;
   }
 
   /* =================================
@@ -244,7 +244,7 @@ body {
   }
 
   .indicator svg {
-    stroke: #DCE8F2;
+    stroke: #D9DEE5;
   }
 
   /* =================================
@@ -253,9 +253,9 @@ body {
 
   .info-card {
     background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(220, 232, 242, 0.8);
+    border: 1px solid rgba(217, 222, 229, 0.8);
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
-    color: #082F59;
+    color: #0E1116;
     backdrop-filter: blur(20px);
   }
 
@@ -292,9 +292,9 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50% 50% 50% 0;
-  background: #0872bb;
+  background: #0563B4;
   transform: rotate(-45deg);
-  box-shadow: 0 6px 14px rgba(8, 47, 89, 0.35);
+  box-shadow: 0 6px 14px rgba(14, 17, 22, 0.35);
   border: 2px solid #fff;
   transition: background 0.2s, transform 0.2s;
 }
@@ -307,7 +307,7 @@ body {
 }
 
 .area-pin--active {
-  background: #082f59;
+  background: #0E1116;
   transform: rotate(-45deg) scale(1.25);
 }
 
@@ -316,10 +316,10 @@ body {
   border: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.95);
-  color: #082f59;
+  color: #0E1116;
   font-size: 11px;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(8, 47, 89, 0.18);
+  box-shadow: 0 2px 8px rgba(14, 17, 22, 0.18);
 }
 
 .leaflet-tooltip.area-label::before {
@@ -327,7 +327,7 @@ body {
 }
 
 .leaflet-tooltip.area-label--active {
-  background: #082f59;
+  background: #0E1116;
   color: #fff;
   font-size: 13px;
   z-index: 1000;
@@ -362,6 +362,67 @@ body {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
-  color: #082f59;
+  color: #0E1116;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Brand logo wordmark ---------- */
+@layer components {
+  .brand-wordmark {
+    font-family: var(--font-brand), Georgia, serif;
+    font-weight: 900;
+    font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 72;
+    letter-spacing: 0.01em;
+  }
+  /* brushed chrome / silver, like the logo's tagline */
+  .brand-tagline {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    /* on white: deeper steel so it stays readable */
+    background: linear-gradient(90deg, #5d646d 0%, #a9afb7 18%, #6b727b 34%, #b8bec5 50%, #6f767f 66%, #a3a9b1 82%, #5d646d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .brand-tagline-dark {
+    background-image: linear-gradient(90deg, #8e959e 0%, #e6e9ed 18%, #9aa1aa 34%, #f4f6f8 50%, #a2a9b2 66%, #e1e5e9 82%, #8e959e 100%);
+  }
+}
+
+/* ---------- Interaction polish ---------- */
+@layer components {
+  /* buttons give a little "press" when tapped/clicked (uses `scale`, so it combines with any transform) */
+  :where(button, a):where([class~="h-10"], [class~="h-11"], [class~="h-12"], [class~="h-14"]):active {
+    scale: 0.97;
+  }
+  ::selection {
+    background: rgba(5, 99, 180, 0.18);
+    color: #0e1116;
+  }
+}
+
+/* visitors who ask their OS for less motion get a calm site */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Arabic / right-to-left ---------- */
+/* arrows that point "forward" turn around on the Arabic site */
+[dir="rtl"] :is(.lucide-arrow-right, .lucide-chevron-right, .lucide-arrow-up-right, .lucide-move-right) {
+  transform: scaleX(-1);
+}
+[dir="rtl"] body {
+  /* Arabic reads better a touch larger and without Latin tracking */
+  letter-spacing: 0;
+}
+[dir="rtl"] :is(h1, h2, h3, h4, p, li, a, button, span, label) {
+  letter-spacing: 0 !important;
 }

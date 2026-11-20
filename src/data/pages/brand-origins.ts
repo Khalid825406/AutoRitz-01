@@ -15,6 +15,11 @@ export const BRAND_ORIGINS: BrandOrigin[] = [
     brands: ["Mercedes", "BMW", "Audi", "Porsche", "Volkswagen", "Maybach"],
   },
   {
+    country: "United States",
+    city: { name: "Detroit", lat: 42.3314, lng: -83.0458 },
+    brands: ["Cadillac", "Chevrolet", "Ford", "GMC", "Jeep", "Dodge", "Chrysler", "Lincoln", "Hummer", "Mercury"],
+  },
+  {
     country: "United Kingdom",
     city: { name: "Coventry", lat: 52.4068, lng: -1.5197 },
     brands: ["Rolls-Royce", "Bentley", "Land Rover", "Jaguar", "Aston Martin", "McLaren", "Lotus", "Mini"],
@@ -33,11 +38,6 @@ export const BRAND_ORIGINS: BrandOrigin[] = [
     country: "Sweden",
     city: { name: "Gothenburg", lat: 57.7089, lng: 11.9746 },
     brands: ["Volvo"],
-  },
-  {
-    country: "United States",
-    city: { name: "Detroit", lat: 42.3314, lng: -83.0458 },
-    brands: ["Cadillac", "Chevrolet", "Ford", "GMC", "Jeep", "Dodge", "Chrysler", "Lincoln", "Hummer", "Mercury"],
   },
   {
     country: "Japan",

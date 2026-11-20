@@ -1,5 +1,6 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import { motion } from "motion/react";
 import { MapPin } from "lucide-react";
 
@@ -19,17 +20,18 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** World map with a glowing "We are here" pin on our Dubai workshop (contact page hero, right side). */
 export default function ContactWorldMap() {
+  const { t } = useLang();
   return (
     <a
       href={SITE_CONTACT.mapUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Ritz Auto Care is in Dubai, UAE — open our location in Google Maps"
+      aria-label={t("Ritz Auto Care is in Dubai, UAE — open our location in Google Maps", "ريتز أوتو كير في دبي، الإمارات — افتح موقعنا على خرائط Google")}
       // top padding = room for the beam + "We are here" label, which rise above the pin
       className="group relative block w-full rounded-2xl pt-16 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7cc0f5] sm:pt-20"
     >
       {/* map + pin share one box so the percentages line up at every width */}
-      <div className="relative aspect-[1000/383] w-full">
+      <div dir="ltr" className="relative aspect-[1000/383] w-full">
         {/* eslint-disable-next-line @next/next/no-img-element -- static decorative SVG */}
         <img
           src="/images/contact/world-map.svg"
@@ -71,12 +73,12 @@ export default function ContactWorldMap() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE, delay: 1.3 }}
           >
-            <span className="relative whitespace-nowrap rounded-xl border border-white/15 bg-[#0B2747]/95 px-3.5 py-2 text-center shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] transition-colors group-hover:border-[#7cc0f5]/60">
+            <span className="relative whitespace-nowrap rounded-xl border border-white/15 bg-[#151A22]/95 px-3.5 py-2 text-center shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] transition-colors group-hover:border-[#7cc0f5]/60">
               <span className="flex items-center gap-1.5 text-[13px] font-semibold text-white sm:text-sm">
                 <MapPin size={14} className="text-[#7cc0f5]" />
-                We are here
+                {t("We are here", "نحن هنا")}
               </span>
-              <span className="mt-0.5 block text-[11px] text-[#DCE8F2]/70">Dubai Investment Park, UAE</span>
+              <span className="mt-0.5 block text-[11px] text-[#D9DEE5]/70">{t("Dubai Investment Park, UAE", "مجمع دبي للاستثمار، الإمارات")}</span>
               {/* blue underline glow, like the reference */}
               <span aria-hidden className="absolute inset-x-4 -bottom-px h-px bg-linear-to-r from-transparent via-[#7cc0f5] to-transparent" />
             </span>

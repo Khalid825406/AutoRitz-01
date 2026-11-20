@@ -1,14 +1,30 @@
 "use client";
 
-import Link from "next/link";
+import { useLang } from "@/i18n/LangProvider";
+import Link from "@/i18n/Link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CalendarDays, ChevronDown, X } from "lucide-react";
+import { CalendarDays, ChevronDown, Mail, MessageCircle, Phone, Search, X } from "lucide-react";
 
-import { NAV_LINKS, isActiveLink } from "@/config/site";
+import { NAV_LINKS, SITE_CONTACT, isActiveLink, waLink } from "@/config/site";
+import BrandLogo from "./BrandLogo";
+import { BRAND_MENU } from "@/data/pages/brand-menu";
+import { SERVICE_MENU, SERVICE_MENU_EXTRAS } from "@/data/pages/service-menu";
 
-export default function MobileMenu({ open, onClose, onBook }: { open: boolean; onClose: () => void; onBook: () => void }) {
+export default function MobileMenu({
+  open,
+  onClose,
+  onBook,
+  onSearch,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onBook: () => void;
+  /** Opens the full-screen search (closes this menu). */
+  onSearch: () => void;
+}) {
+  const { t } = useLang();
   const pathname = usePathname() ?? "/";
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -23,13 +39,24 @@ export default function MobileMenu({ open, onClose, onBook }: { open: boolean; o
           transition={{ duration: 0.3 }}
         >
           <div className="flex items-center justify-between">
-            <span className="text-lg font-extrabold">Ritz Auto Care</span>
+            <BrandLogo size="sm" tone="dark" />
             <button onClick={onClose} aria-label="Close menu" className="rounded-full bg-white/10 p-2">
               <X size={22} />
             </button>
           </div>
 
-          <nav className="mt-8 flex flex-1 flex-col" aria-label="Mobile navigation">
+          {/* services search (desktop shows this in the header) */}
+          {/* opens the same full-screen search as the header icon (live results for cars + services) */}
+          <button
+            type="button"
+            onClick={onSearch}
+            className="mt-6 flex h-12 w-full items-center gap-2 rounded-full bg-white/10 px-4 text-start text-[15px] text-white/55 ring-1 ring-white/15 transition-colors hover:bg-white/15"
+          >
+            <Search size={18} className="shrink-0 text-[#7cc0f5]" />
+            {t("Search cars & services", "ابحث عن سيارة أو خدمة")}
+          </button>
+
+          <nav className="mt-4 flex flex-1 flex-col" aria-label="Mobile navigation">
             {NAV_LINKS.map((n, i) => {
               const active = isActiveLink(n, pathname);
               const isOpen = expanded === n.label;
@@ -48,13 +75,14 @@ export default function MobileMenu({ open, onClose, onBook }: { open: boolean; o
                       aria-current={active ? "page" : undefined}
                       className={`flex-1 py-3.5 text-xl font-bold ${active ? "text-[#7cc0f5]" : "text-white"}`}
                     >
-                      {n.label}
+                      {t(n.label, n.labelAr)}
                     </Link>
                     {n.children && (
                       <button
                         type="button"
                         onClick={() => setExpanded(isOpen ? null : n.label)}
                         aria-label={`${isOpen ? "Hide" : "Show"} ${n.label} pages`}
+                        title={t(n.label, n.labelAr)}
                         aria-expanded={isOpen}
                         className="rounded-full p-2 hover:bg-white/10"
                       >
@@ -63,7 +91,57 @@ export default function MobileMenu({ open, onClose, onBook }: { open: boolean; o
                     )}
                   </div>
                   <AnimatePresence initial={false}>
-                    {n.children && isOpen && (
+                    {n.megaBrands && isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden pb-4 pl-3"
+                      >
+                        <Link href="/brands/" onClick={onClose} className="block py-2 text-[15px] font-semibold text-[#7cc0f5]">
+                          {t("View all brands", "عرض جميع العلامات")}
+                        </Link>
+                        {BRAND_MENU.map((g) => (
+                          <div key={g.label} className="mt-3">
+                            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">{t(g.label, g.labelAr)}</p>
+                            <ul className="mt-1 grid grid-cols-2 gap-x-4">
+                              {g.brands.map((b) => (
+                                <li key={b.name}>
+                                  <Link href={b.href} onClick={onClose} className="block py-1.5 text-[15px] text-white/80 hover:text-white">
+                                    {b.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                    {n.megaServices && isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden pb-4 pl-3"
+                      >
+                        {SERVICE_MENU_EXTRAS.map((x) => (
+                          <Link key={x.href} href={x.href} onClick={onClose} className="block py-1.5 text-[15px] font-semibold text-[#7cc0f5]">
+                            {t(x.label, x.labelAr)}
+                          </Link>
+                        ))}
+                        <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">{t("All services", "جميع الخدمات")}</p>
+                        <ul className="mt-1 grid grid-cols-2 gap-x-4">
+                          {SERVICE_MENU.map((s) => (
+                            <li key={s.slug}>
+                              <Link href={s.href} onClick={onClose} className="block py-1.5 text-[14px] leading-snug text-white/80 hover:text-white">
+                                {t(s.title, s.titleAr)}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                    {n.children && !n.megaBrands && !n.megaServices && isOpen && (
                       <motion.ul
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
@@ -73,7 +151,7 @@ export default function MobileMenu({ open, onClose, onBook }: { open: boolean; o
                         {n.children.map((c) => (
                           <li key={c.href + c.label}>
                             <Link href={c.href} onClick={onClose} className="block py-2 text-[15px] text-white/75 hover:text-white">
-                              {c.label}
+                              {t(c.label, c.labelAr)}
                             </Link>
                           </li>
                         ))}
@@ -85,14 +163,30 @@ export default function MobileMenu({ open, onClose, onBook }: { open: boolean; o
             })}
           </nav>
 
+          {/* contact details (desktop shows phone + email in the header) */}
+          <ul className="mt-8 grid gap-2 text-[15px]">
+            {[
+              { icon: Phone, label: t(`Toll free ${SITE_CONTACT.phone}`, `الرقم المجاني ${SITE_CONTACT.phone}`), href: `tel:${SITE_CONTACT.phone}` },
+              { icon: MessageCircle, label: t(`WhatsApp +${SITE_CONTACT.whatsapp}`, `واتساب +${SITE_CONTACT.whatsapp}`), href: waLink(SITE_CONTACT.whatsapp) },
+              { icon: Mail, label: SITE_CONTACT.email, href: `mailto:${SITE_CONTACT.email}` },
+            ].map(({ icon: Icon, label, href }) => (
+              <li key={href}>
+                <a href={href} onClick={onClose} className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3 text-white/90 ring-1 ring-white/10 hover:bg-white/10">
+                  <Icon size={18} className="shrink-0 text-[#7cc0f5]" />
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
           <button
             onClick={() => {
               onClose();
               onBook();
             }}
-            className="mb-2 mt-8 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold text-navy"
+            className="mb-2 mt-4 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold text-navy"
           >
-            <CalendarDays size={18} /> Book Service
+            <CalendarDays size={18} /> {t("Book Service", "احجز خدمة")}
           </button>
         </motion.div>
       )}

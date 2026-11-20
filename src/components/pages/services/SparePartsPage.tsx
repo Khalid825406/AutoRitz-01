@@ -57,7 +57,7 @@ export default function SparePartsPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <a
             href={`tel:${SITE_CONTACT.phone}`}
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <Phone size={16} />
             Free Call : {SITE_CONTACT.phone}
@@ -78,8 +78,8 @@ export default function SparePartsPage() {
       <section className="w-full bg-white py-12 sm:py-24">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
-            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl">
-              OEM & Aftermarket Parts <span className="block text-[#0872BB]">for Every Make & Model.</span>
+            <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">
+              OEM & Aftermarket Parts <span className="block text-[#0563B4]">for Every Make & Model.</span>
             </TextReveal>
             <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{SPARE_PARTS.intro}</p>
           </motion.div>
@@ -88,7 +88,7 @@ export default function SparePartsPage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
-            className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
+            className="relative aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(14, 17, 22,0.45)]"
           >
             <RevealImage src={SPARE_PARTS.heroImage} alt={SPARE_PARTS.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
           </motion.div>
@@ -115,13 +115,13 @@ export default function SparePartsPage() {
                 <motion.li
                   key={it.key}
                   variants={fadeUp}
-                  className="group flex gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)]"
+                  className="group flex gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white">
                     <Icon size={22} strokeWidth={1.8} />
                   </span>
                   <span>
-                    <span className="block text-[16px] font-semibold text-[#082F59]">{it.title}</span>
+                    <span className="block text-[16px] font-semibold text-[#0E1116]">{it.title}</span>
                     <span className="mt-1.5 block text-[14px] leading-relaxed text-slate-600">{it.text}</span>
                   </span>
                 </motion.li>
@@ -135,7 +135,7 @@ export default function SparePartsPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-10 sm:mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] text-white md:grid-cols-2"
+            className="mt-10 sm:mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] text-white md:grid-cols-2"
           >
             <div className="relative min-h-[240px]">
               <RevealImage src={SPARE_PARTS.sideImage} alt="Mechanic sorting auto spare parts" fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover" />
@@ -146,7 +146,7 @@ export default function SparePartsPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href={`tel:${SITE_CONTACT.phone}`}
-                  className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+                  className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
                 >
                   <Phone size={16} />
                   Free Call : {SITE_CONTACT.phone}

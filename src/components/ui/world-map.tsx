@@ -34,14 +34,21 @@ interface MapProps {
 
 const { width: W, height: H, x0, kx, y0, ky } = projection;
 
+/**
+ * Rounded to 2 decimals: Math.log / Math.tan can differ in the last digit between Node (server render)
+ * and the browser, which made React report a hydration mismatch on the SVG coordinates.
+ * 0.01 of a 198-unit map is invisible.
+ */
+const round = (n: number) => Math.round(n * 100) / 100;
+
 const projectPoint = (lat: number, lng: number) => ({
-  x: x0 + kx * lng,
-  y: y0 - ky * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360)),
+  x: round(x0 + kx * lng),
+  y: round(y0 - ky * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))),
 });
 
 const createCurvedPath = (start: { x: number; y: number }, end: { x: number; y: number }) => {
-  const midX = (start.x + end.x) / 2;
-  const midY = Math.min(start.y, end.y) - 12; // arc height (original: 50 on an 800-wide map)
+  const midX = round((start.x + end.x) / 2);
+  const midY = round(Math.min(start.y, end.y) - 12); // arc height (original: 50 on an 800-wide map)
   return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
 };
 

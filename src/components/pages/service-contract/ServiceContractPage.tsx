@@ -42,7 +42,7 @@ export default function ServiceContractPage() {
             href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I'd like to know more about your service contracts.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <MessageCircle size={16} />
             Ask on WhatsApp
@@ -82,15 +82,15 @@ export default function ServiceContractPage() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setCyl(c)}
-                    className={`relative rounded-full px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] sm:px-7 ${
-                      active ? "text-white" : "text-slate-600 hover:text-[#082F59]"
+                    className={`relative rounded-full px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] sm:px-7 ${
+                      active ? "text-white" : "text-slate-600 hover:text-[#0E1116]"
                     }`}
                   >
                     {active && (
                       <motion.span
                         layoutId="cylinder-pill"
                         transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                        className="absolute inset-0 rounded-full bg-[#082F59]"
+                        className="absolute inset-0 rounded-full bg-[#0E1116]"
                       />
                     )}
                     <span className="relative">{c} Vehicles</span>
@@ -116,18 +116,18 @@ export default function ServiceContractPage() {
                   variants={fadeUp}
                   className={`relative flex flex-col overflow-hidden rounded-3xl border p-8 sm:p-10 ${
                     premium
-                      ? "border-transparent bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] text-white shadow-[0_30px_60px_-24px_rgba(8,47,89,0.6)]"
-                      : "border-slate-200/80 bg-white text-[#082F59] shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
+                      ? "border-transparent bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] text-white shadow-[0_30px_60px_-24px_rgba(14, 17, 22,0.6)]"
+                      : "border-slate-200/80 bg-white text-[#0E1116] shadow-[0_20px_40px_-24px_rgba(14, 17, 22,0.25)]"
                   }`}
                 >
                   {premium && (
-                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
+                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
                   )}
                   <div className="relative flex items-start justify-between gap-4">
                     <div>
                       <span
                         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
-                          premium ? "bg-[#4B9DE0]/20 text-[#7cc0f5]" : "bg-[#EAF4FC] text-[#0872BB]"
+                          premium ? "bg-[#4B9DE0]/20 text-[#7cc0f5]" : "bg-[#EAF4FC] text-[#0563B4]"
                         }`}
                       >
                         {premium ? <Crown size={12} /> : <ShieldCheck size={12} />}
@@ -138,13 +138,13 @@ export default function ServiceContractPage() {
                         key={cyl}
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`mt-1 text-sm font-medium ${premium ? "text-[#DCE8F2]/80" : "text-slate-500"}`}
+                        className={`mt-1 text-sm font-medium ${premium ? "text-[#D9DEE5]/80" : "text-slate-500"}`}
                       >
                         {cyl} Vehicles
                       </motion.p>
                     </div>
                     <div className="text-right">
-                      <p className={`text-xs uppercase tracking-[0.14em] ${premium ? "text-[#DCE8F2]/60" : "text-slate-400"}`}>Coverage</p>
+                      <p className={`text-xs uppercase tracking-[0.14em] ${premium ? "text-[#D9DEE5]/60" : "text-slate-400"}`}>Coverage</p>
                       <p className="mt-1 whitespace-nowrap text-base font-bold">{p.coverage}</p>
                     </div>
                   </div>
@@ -154,12 +154,12 @@ export default function ServiceContractPage() {
                       <li key={f} className="flex items-start gap-3 text-[15px]">
                         <span
                           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                            premium ? "bg-[#4B9DE0] text-white" : "bg-[#0872BB] text-white"
+                            premium ? "bg-[#4B9DE0] text-white" : "bg-[#0563B4] text-white"
                           }`}
                         >
                           <Check size={12} strokeWidth={3} />
                         </span>
-                        <span className={premium ? "text-[#DCE8F2]" : "text-slate-700"}>{f}</span>
+                        <span className={premium ? "text-[#D9DEE5]" : "text-slate-700"}>{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -170,8 +170,8 @@ export default function ServiceContractPage() {
                     rel="noopener noreferrer"
                     className={`group relative mt-8 sm:mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${
                       premium
-                        ? "bg-white text-[#082F59] hover:bg-[#DCE8F2] focus-visible:outline-white"
-                        : "bg-[#082F59] text-white hover:bg-[#0872BB] focus-visible:outline-[#0872BB]"
+                        ? "bg-white text-[#0E1116] hover:bg-[#D9DEE5] focus-visible:outline-white"
+                        : "bg-[#0E1116] text-white hover:bg-[#0563B4] focus-visible:outline-[#0563B4]"
                     }`}
                   >
                     Book Now
@@ -196,22 +196,22 @@ export default function ServiceContractPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mx-auto mt-8 sm:mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(8,47,89,0.25)]"
+            className="mx-auto mt-8 sm:mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-slate-200/80 bg-white shadow-[0_20px_40px_-24px_rgba(14, 17, 22,0.25)]"
           >
             <table className="w-full min-w-[560px] text-left text-[14px]">
               <thead>
                 <tr className="border-b border-slate-100">
                   <th scope="col" className="px-6 py-5 font-semibold text-slate-500">What&apos;s included</th>
-                  <th scope="col" className="px-6 py-5 font-bold text-[#082F59]">Basic</th>
-                  <th scope="col" className="bg-[#EAF4FC] px-6 py-5 font-bold text-[#0872BB]">Signature</th>
+                  <th scope="col" className="px-6 py-5 font-bold text-[#0E1116]">Basic</th>
+                  <th scope="col" className="bg-[#EAF4FC] px-6 py-5 font-bold text-[#0563B4]">Signature</th>
                 </tr>
               </thead>
               <tbody>
                 {CONTRACT_COMPARISON.map((r) => (
                   <tr key={r.label} className="border-b border-slate-100 last:border-0">
-                    <th scope="row" className="px-6 py-4 font-medium text-[#082F59]">{r.label}</th>
+                    <th scope="row" className="px-6 py-4 font-medium text-[#0E1116]">{r.label}</th>
                     <td className="px-6 py-4 text-slate-600">{r.basic}</td>
-                    <td className="bg-[#F5FAFE] px-6 py-4 font-medium text-[#082F59]">{r.signature}</td>
+                    <td className="bg-[#F5FAFE] px-6 py-4 font-medium text-[#0E1116]">{r.signature}</td>
                   </tr>
                 ))}
               </tbody>

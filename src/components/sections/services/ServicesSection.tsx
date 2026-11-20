@@ -1,5 +1,6 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight, BadgeCheck, Check, Clock3, ShieldCheck } from "lucide-react";
@@ -16,34 +17,35 @@ interface ServicesSectionProps {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const TRUST = [
-  { icon: BadgeCheck, label: "Certified technicians" },
-  { icon: ShieldCheck, label: "Quality parts" },
-  { icon: Clock3, label: "Roadside support" },
+  { icon: BadgeCheck, label: "Certified technicians", labelAr: "فنيون معتمدون" },
+  { icon: ShieldCheck, label: "Quality parts", labelAr: "قطع غيار عالية الجودة" },
+  { icon: Clock3, label: "Roadside support", labelAr: "مساعدة على الطريق" },
 ];
 
 export default function ServicesSection({ onBook }: ServicesSectionProps) {
+  const { t, lang } = useLang();
   const items: StickyScrollItem[] = services.map((s) => {
     const Icon = s.icon;
     return {
-      title: s.title,
+      title: t(s.title, s.ar.title),
       eyebrow: (
-        <p className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] py-1 pl-1 pr-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0872BB]">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0872BB] shadow-xs">
+        <p className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] py-1 pl-1 pr-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0563B4]">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0563B4] shadow-xs">
             <Icon size={15} strokeWidth={2} />
           </span>
-          {s.category}
+          {t(s.category, s.ar.category)}
         </p>
       ),
-      description: s.description,
+      description: t(s.description, s.ar.description),
       footer: (
         <>
           <ul className="mt-3.5 flex flex-wrap gap-1.5 lg:mt-5 lg:gap-2">
-            {s.features.map((f) => (
+            {(lang === "ar" ? s.ar.features : s.features).map((f) => (
               <li
                 key={f}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[12px] font-medium text-[#082F59] lg:px-3 lg:py-1.5 lg:text-[13px]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[12px] font-medium text-[#0E1116] lg:px-3 lg:py-1.5 lg:text-[13px]"
               >
-                <Check size={13} strokeWidth={3} className="text-[#0872BB]" />
+                <Check size={13} strokeWidth={3} className="text-[#0563B4]" />
                 {f}
               </li>
             ))}
@@ -51,24 +53,24 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
           <button
             type="button"
             onClick={() => onBook(s.title)}
-            className="group mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#082F59] px-5 text-sm lg:mt-7 lg:h-11 lg:px-6 font-semibold text-white transition-colors hover:bg-[#0872BB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
+            className="group mt-5 inline-flex h-10 items-center gap-2 rounded-full bg-[#0E1116] px-5 text-sm lg:mt-7 lg:h-11 lg:px-6 font-semibold text-white transition-colors hover:bg-[#0563B4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
           >
-            Book this service
+            {t("Book this service", "احجز هذه الخدمة")}
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </button>
         </>
       ),
       content: (
         <>
-          <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
-          <div className="absolute inset-0 bg-linear-to-t from-[#061E3B]/95 via-[#061E3B]/25 to-transparent" />
+          <Image src={s.image} alt={t(s.title, s.ar.title)} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#07090C]/95 via-[#07090C]/25 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-8 text-white">
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
               <Icon size={22} strokeWidth={1.8} />
             </span>
             {/* title + text are already shown next to the photo on mobile — show them on the card only on desktop */}
-            <p className="mt-4 text-[28px] font-bold leading-tight max-lg:hidden">{s.title}</p>
-            <p className="mt-2 max-w-md text-[14px] text-white/80 max-lg:hidden">{s.description}</p>
+            <p className="mt-4 text-[28px] font-bold leading-tight max-lg:hidden">{t(s.title, s.ar.title)}</p>
+            <p className="mt-2 max-w-md text-[14px] text-white/80 max-lg:hidden">{t(s.description, s.ar.description)}</p>
           </div>
         </>
       ),
@@ -78,7 +80,7 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
   return (
       <section id="services" className="relative w-full scroll-mt-32 overflow-clip bg-[#F7FAFD] py-12 sm:py-24 lg:py-28">
         {/* subtle background accent */}
-        <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-radial from-[#0872BB]/[0.06] to-transparent to-70%" />
+        <div className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-radial from-[#0563B4]/[0.06] to-transparent to-70%" />
 
         <div className="site-container relative">
           {/* ============ HEADER ============ */}
@@ -90,34 +92,33 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             className="grid gap-8 sm:gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end"
           >
             <div>
-              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0872BB]">
-                <span className="h-px w-8 bg-[#0872BB]" />
-                Our services
+              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0563B4]">
+                <span className="h-px w-8 bg-[#0563B4]" />
+                {t("Our services", "خدماتنا")}
               </p>
-              <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#082F59] sm:text-4xl lg:text-5xl">
-                Everything your car needs, <span className="text-[#0872BB]">under one roof</span>
+              <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl lg:text-5xl">
+                {t("Everything your car needs,", "كل ما تحتاجه سيارتك،")} <span className="text-[#0563B4]">{t("under one roof", "تحت سقف واحد")}</span>
               </TextReveal>
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
-                From routine maintenance to emergency roadside support, our certified technicians keep your
-                vehicle safe, reliable and ready for the road.
+                {t("From routine maintenance to emergency roadside support, our certified technicians keep your vehicle safe, reliable and ready for Dubai's roads.", "من الصيانة الدورية إلى المساعدة الطارئة على الطريق، يحافظ فنيونا المعتمدون على سيارتك آمنة وموثوقة وجاهزة لطرق دبي.")}
               </p>
             </div>
 
             <div className="flex flex-col gap-5 lg:items-end">
               <ul className="flex flex-wrap gap-x-6 gap-y-3 lg:justify-end">
-                {TRUST.map(({ icon: Icon, label }) => (
-                  <li key={label} className="flex items-center gap-2 text-sm font-medium text-[#082F59]">
-                    <Icon size={18} className="text-[#0872BB]" />
-                    {label}
+                {TRUST.map(({ icon: Icon, label, labelAr }) => (
+                  <li key={label} className="flex items-center gap-2 text-sm font-medium text-[#0E1116]">
+                    <Icon size={18} className="text-[#0563B4]" />
+                    {t(label, labelAr)}
                   </li>
                 ))}
               </ul>
               <button
                 type="button"
                 onClick={() => onBook()}
-                className="group inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#0872BB] px-7 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(8,114,187,0.6)] transition-colors duration-300 hover:bg-[#082F59] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]"
+                className="group inline-flex h-12 w-fit items-center gap-2.5 rounded-full bg-[#0563B4] px-7 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(5, 99, 180,0.6)] transition-colors duration-300 hover:bg-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
               >
-                Get a free quote
+                {t("Get a free quote", "احصل على عرض سعر مجاني")}
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </div>
@@ -132,20 +133,20 @@ export default function ServicesSection({ onBook }: ServicesSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
-            className="mt-10 sm:mt-14 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl bg-linear-to-r from-[#082F59] to-[#0B477D] px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10"
+            className="mt-10 sm:mt-14 flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl bg-linear-to-r from-[#0E1116] to-[#1B2029] px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10"
           >
             <div>
-              <p className="text-xl font-semibold">Not sure which service you need?</p>
-              <p className="mt-1.5 text-[14px] text-[#DCE8F2]">
-                Book a free vehicle inspection and we will recommend what your car actually needs.
+              <p className="text-xl font-semibold">{t("Not sure which service you need?", "لست متأكداً من الخدمة التي تحتاجها؟")}</p>
+              <p className="mt-1.5 text-[14px] text-[#D9DEE5]">
+                {t("Book a free vehicle inspection and we will recommend what your car actually needs.", "احجز فحصاً مجانياً لسيارتك وسنوصي بما تحتاجه سيارتك فعلاً.")}
               </p>
             </div>
             <button
               type="button"
               onClick={() => onBook("Free Inspection")}
-              className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-[#082F59] transition-colors duration-300 hover:bg-[#DCE8F2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-[#0E1116] transition-colors duration-300 hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              Book a free inspection
+              {t("Book a free inspection", "احجز فحصاً مجانياً")}
               <ArrowRight size={16} />
             </button>
           </motion.div>

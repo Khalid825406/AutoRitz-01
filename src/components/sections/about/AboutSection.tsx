@@ -1,5 +1,7 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
+import { useLocalizedRouter } from "@/i18n/useLocalizedRouter";
 import { useRef } from "react";
 import {
   motion,
@@ -21,7 +23,7 @@ import {
 } from "lucide-react";
 import { CONTACT } from "@/config/site";
 
-import { useRouter } from "next/navigation";
+
 
 import TextReveal from "@/components/motion/TextReveal";
 import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
@@ -32,32 +34,40 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const PHONE = CONTACT.phone;
 
 const CHECKS = [
-  "Professional technicians",
-  "Advanced diagnostics",
-  "Quality workmanship",
-  "Customer-focused service",
+  { en: "Professional technicians", ar: "فنيون محترفون" },
+  { en: "Advanced diagnostics", ar: "تشخيص متطور" },
+  { en: "Quality workmanship", ar: "جودة في العمل" },
+  { en: "Customer-focused service", ar: "خدمة تركز على العميل" },
 ];
 
 const FEATURES = [
   {
     icon: Activity,
     title: "Engine diagnostics",
+    titleAr: "تشخيص المحرك",
     text: "Advanced diagnostic tools to accurately identify and resolve your vehicle’s problems.",
+    textAr: "أدوات تشخيص متطورة لتحديد مشاكل سيارتك بدقة وحلها.",
   },
   {
     icon: BadgeCheck,
     title: "Certified technicians",
+    titleAr: "فنيون معتمدون",
     text: "Highly trained technicians with years of hands-on experience on every make.",
+    textAr: "فنيون مدربون تدريباً عالياً بخبرة عملية طويلة مع جميع أنواع السيارات.",
   },
   {
     icon: Wrench,
     title: "Modern equipment",
+    titleAr: "معدات حديثة",
     text: "State-of-the-art tools that make every repair faster, cleaner and more reliable.",
+    textAr: "أحدث الأدوات التي تجعل كل إصلاح أسرع وأنظف وأكثر موثوقية.",
   },
   {
     icon: Car,
     title: "Complete vehicle care",
+    titleAr: "عناية متكاملة بالسيارة",
     text: "Comprehensive repair and maintenance to keep your vehicle running safely.",
+    textAr: "إصلاح وصيانة شاملة لتبقى سيارتك تعمل بأمان.",
   },
 ];
 
@@ -74,7 +84,7 @@ const riseV: Variants = {
 };
 
 const focusRing =
-  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]";
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]";
 
 /* ---------------------------------------------------------
    COMPONENT
@@ -88,10 +98,11 @@ interface AboutSectionProps {
 
 export default function AboutSection({
   onBook,
-  image = "/about.png",
+  image = "/images/home/about.webp",
 }: AboutSectionProps) {
+  const { t } = useLang();
   const reduce = useReducedMotion();
-  const router = useRouter();
+  const router = useLocalizedRouter();
   const imgBox = useRef<HTMLDivElement>(null);
 
   // gentle parallax inside the photo frame
@@ -127,27 +138,29 @@ export default function AboutSection({
 
               <div
                 ref={imgBox}
-                className="relative aspect-[5/5.4] w-full overflow-hidden rounded-3xl bg-slate-200 shadow-[0_24px_60px_rgba(8,47,89,0.18)]"
+                className="relative aspect-[5/5.4] w-full overflow-hidden rounded-3xl bg-slate-200 shadow-[0_24px_60px_rgba(14, 17, 22,0.18)]"
               >
                 <motion.img
                   src={image}
-                  alt="Technicians working inside the Ritz Auto Care workshop"
+                  alt={t("Technicians working inside the Ritz Auto Care workshop", "فنيون يعملون داخل ورشة ريتز أوتو كير")}
                   loading="lazy"
+                  decoding="async"
+                  width={1000}
+                  height={563}
                   draggable={false}
                   style={{ y: reduce ? 0 : parallaxY, scale: 1.15 }}
                   className="h-full w-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-linear-to-t from-[#082F59]/85 via-[#082F59]/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#0E1116]/85 via-[#0E1116]/10 to-transparent" />
 
                 {/* caption */}
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                   <h3 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-                    Driven by excellence.
+                    {t("Driven by excellence.", "مدفوعون بالتميز.")}
                   </h3>
                   <p className="mt-2 max-w-[360px] text-[14px] leading-relaxed text-white/80">
-                    Every vehicle that enters our workshop gets the same care
-                    we would give our own.
+                    {t("Every vehicle that enters our workshop gets the same care we would give our own.", "كل سيارة تدخل ورشتنا تحظى بنفس العناية التي نمنحها لسياراتنا.")}
                   </p>
                 </div>
               </div>
@@ -158,17 +171,17 @@ export default function AboutSection({
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={REVEAL_VIEWPORT}
                 transition={{ delay: 0.45, type: "spring", stiffness: 220, damping: 18 }}
-                className="absolute left-0 top-8 z-10 flex items-center gap-3 rounded-xl bg-white py-3 pl-3 pr-5 shadow-[0_14px_36px_rgba(8,47,89,0.18)] sm:-left-2"
+                className="absolute left-0 top-8 z-10 flex items-center gap-3 rounded-xl bg-white py-3 pl-3 pr-5 shadow-[0_14px_36px_rgba(14, 17, 22,0.18)] sm:-left-2"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EAF4FC] text-[#0872BB]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EAF4FC] text-[#0563B4]">
                   <ShieldCheck size={20} />
                 </span>
                 <span className="leading-tight">
-                  <span className="block text-[14px] font-semibold text-[#082F59]">
-                    Quality first
+                  <span className="block text-[14px] font-semibold text-[#0E1116]">
+                    {t("Quality first", "الجودة أولاً")}
                   </span>
                   <span className="block text-[12px] text-slate-500">
-                    Every repair double-checked
+                    {t("Every repair double-checked", "كل إصلاح يُفحص مرتين")}
                   </span>
                 </span>
               </motion.div>
@@ -179,7 +192,7 @@ export default function AboutSection({
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={REVEAL_VIEWPORT}
                 transition={{ delay: 0.6, type: "spring", stiffness: 220, damping: 18 }}
-                className="absolute -bottom-0 right-2 z-10 flex items-center gap-3 rounded-xl bg-[#0872BB] py-3 pl-3 pr-5 text-white shadow-[0_14px_36px_rgba(8,114,187,0.4)] sm:-right-4"
+                className="absolute -bottom-0 right-2 z-10 flex items-center gap-3 rounded-xl bg-[#0563B4] py-3 pl-3 pr-5 text-white shadow-[0_14px_36px_rgba(5, 99, 180,0.4)] sm:-right-4"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15">
                   <Users size={20} />
@@ -187,7 +200,7 @@ export default function AboutSection({
                 <span className="leading-tight">
                   <span className="block text-2xl font-semibold">20+</span>
                   <span className="block text-[12px] text-white/80">
-                    Expert mechanics
+                    {t("Expert mechanics", "ميكانيكي خبير")}
                   </span>
                 </span>
               </motion.div>
@@ -202,16 +215,16 @@ export default function AboutSection({
             >
               <motion.span
                 variants={riseV}
-                className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0872BB]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0563B4]"
               >
                 <Wrench size={14} />
-                About Ritz Auto Care
+                {t("About Ritz Auto Care", "عن ريتز أوتو كير")}
               </motion.span>
 
-              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#082F59] sm:text-4xl lg:text-[44px]">
-                More than just car maintenance.
-                <span className="block text-[#0872BB]">
-                  We care about your drive.
+              <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#0E1116] sm:text-4xl lg:text-[44px]">
+                {t("More than just car maintenance.", "أكثر من مجرد صيانة سيارات.")}
+                <span className="block text-[#0563B4]">
+                  {t("We care about your drive.", "نهتم برحلتك.")}
                 </span>
               </TextReveal>
 
@@ -219,17 +232,13 @@ export default function AboutSection({
                 variants={riseV}
                 className="mt-5 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
-                Ritz Auto Care delivers professional maintenance and repair
-                across Dubai, backed by trained technicians and modern
-                diagnostic equipment. We find the real problem and fix it
-                properly the first time.
+                {t("Ritz Auto Care delivers professional maintenance and repair across Dubai, backed by trained technicians and modern diagnostic equipment. We find the real problem and fix it properly the first time.", "تقدم ريتز أوتو كير صيانة وإصلاحاً احترافياً في جميع أنحاء دبي، بفريق من الفنيين المدربين ومعدات تشخيص حديثة. نكتشف المشكلة الحقيقية ونصلحها بشكل صحيح من المرة الأولى.")}
               </motion.p>
               <motion.p
                 variants={riseV}
                 className="mt-3 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
-                From a routine service to a roadside emergency, you get clear
-                advice, fair pricing and work you can trust.
+                {t("From a routine service to a roadside emergency, you get clear advice, fair pricing and work you can trust.", "من الصيانة الدورية إلى طوارئ الطريق، تحصل على نصيحة واضحة وأسعار عادلة وعمل يمكنك الوثوق به.")}
               </motion.p>
 
               {/* CHECKLIST */}
@@ -239,14 +248,14 @@ export default function AboutSection({
               >
                 {CHECKS.map((label) => (
                   <li
-                    key={label}
-                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0872BB]/50 hover:shadow-[0_10px_24px_rgba(8,47,89,0.08)]"
+                    key={label.en}
+                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0563B4]/50 hover:shadow-[0_10px_24px_rgba(14, 17, 22,0.08)]"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0872BB] transition-colors duration-300 group-hover:bg-[#0872BB] group-hover:text-white">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white">
                       <Check size={15} strokeWidth={3} />
                     </span>
-                    <span className="text-[14px] font-semibold text-[#082F59]">
-                      {label}
+                    <span className="text-[14px] font-semibold text-[#0E1116]">
+                      {t(label)}
                     </span>
                   </li>
                 ))}
@@ -261,9 +270,9 @@ export default function AboutSection({
                   type="button"
                   onClick={() => router.push("/contact-us/")}
                   whileTap={{ scale: 0.97 }}
-                  className={`group inline-flex h-12 items-center gap-2 rounded-md bg-[#0872BB] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#082F59] ${focusRing}`}
+                  className={`group inline-flex h-12 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
                 >
-                  Get in touch
+                  {t("Get in touch", "تواصل معنا")}
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -272,10 +281,10 @@ export default function AboutSection({
 
                 <a
                   href={`tel:${PHONE}`}
-                  className={`inline-flex h-12 items-center gap-2 rounded-md border border-slate-200 px-5 text-[14px] font-semibold text-[#082F59] transition-colors hover:border-[#0872BB] hover:text-[#0872BB] ${focusRing}`}
+                  className={`inline-flex h-12 items-center gap-2 rounded-md border border-slate-200 px-5 text-[14px] font-semibold text-[#0E1116] transition-colors hover:border-[#0563B4] hover:text-[#0563B4] ${focusRing}`}
                 >
                   <Phone size={16} />
-                  Call {PHONE}
+                  {t("Call", "اتصل")} <span dir="ltr">{PHONE}</span>
                 </a>
               </motion.div>
             </motion.div>
@@ -284,7 +293,7 @@ export default function AboutSection({
           {/* ===================================================
               PART 2 — WHY CHOOSE US
           =================================================== */}
-          <div className="relative mt-12 sm:mt-20 overflow-hidden rounded-3xl bg-[#082F59] px-6 py-12 sm:px-12 sm:py-14 lg:mt-28 lg:px-16 lg:py-16">
+          <div className="relative mt-12 sm:mt-20 overflow-hidden rounded-3xl bg-[#0E1116] px-6 py-12 sm:px-12 sm:py-14 lg:mt-28 lg:px-16 lg:py-16">
             {/* subtle dotted texture */}
             <div
               aria-hidden="true"
@@ -310,28 +319,27 @@ export default function AboutSection({
                   className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-white"
                 >
                   <BadgeCheck size={14} />
-                  Why choose us
+                  {t("Why choose us", "لماذا تختارنا")}
                 </motion.span>
                 <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[44px]">
-                  The Ritz Auto Care difference.
+                  {t("The Ritz Auto Care difference.", "ما يميز ريتز أوتو كير.")}
                 </TextReveal>
               </div>
 
               <motion.div
                 variants={riseV}
-                className="max-w-[440px] lg:text-right"
+                className="max-w-[440px] lg:text-end"
               >
                 <p className="text-[15px] leading-relaxed text-white/75">
-                  Discover the expertise, technology and commitment that make
-                  your satisfaction our priority.
+                  {t("Discover the expertise, technology and commitment that make your satisfaction our priority.", "اكتشف الخبرة والتقنية والالتزام التي تجعل رضاك أولويتنا.")}
                 </p>
                 <motion.button
                   type="button"
                   onClick={() => onBook?.()}
                   whileTap={{ scale: 0.97 }}
-                  className="group mt-5 inline-flex h-12 items-center gap-2 rounded-md bg-white px-6 text-[14px] font-semibold text-[#082F59] transition-colors hover:bg-[#EAF4FC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="group mt-5 inline-flex h-12 items-center gap-2 rounded-md bg-white px-6 text-[14px] font-semibold text-[#0E1116] transition-colors hover:bg-[#EAF4FC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  Book a service
+                  {t("Book a service", "احجز خدمة")}
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -351,7 +359,7 @@ export default function AboutSection({
               viewport={REVEAL_VIEWPORT}
               className="relative mt-8 sm:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
-              {FEATURES.map(({ icon: Icon, title, text }) => (
+              {FEATURES.map(({ icon: Icon, title, titleAr, text, textAr }) => (
                 <motion.li
                   key={title}
                   variants={riseV}
@@ -359,19 +367,19 @@ export default function AboutSection({
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 transition-colors duration-300 hover:border-[#3FA9F5]/60 hover:bg-white/[0.10]"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0872BB] text-white shadow-[0_10px_24px_rgba(8,114,187,0.45)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0563B4] text-white shadow-[0_10px_24px_rgba(5, 99, 180,0.45)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
                     <Icon size={22} />
                   </span>
 
                   <h3 className="mt-5 text-lg font-semibold tracking-tight text-white">
-                    {title}
+                    {t(title, titleAr)}
                   </h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-white/70">
-                    {text}
+                    {t(text, textAr)}
                   </p>
 
                   {/* accent line on hover */}
-                  <span className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0872BB] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
                 </motion.li>
               ))}
             </motion.ul>

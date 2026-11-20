@@ -2,9 +2,16 @@ export const SERVICE_TYPES = ["Car Service", "Roadside Support", "Battery Replac
 export const TIME_SLOTS = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00"] as const;
 export interface NavLink {
   label: string;
+  /** Arabic label (Arabic site). */
+  labelAr?: string;
   href: string;
   description?: string;
+  descriptionAr?: string;
   children?: NavLink[];
+  /** Show the brands mega-menu (all brands grouped by country) instead of a plain dropdown. */
+  megaBrands?: boolean;
+  /** Show the services mega-menu (all services) instead of a plain dropdown. */
+  megaServices?: boolean;
 }
 
 /**
@@ -12,49 +19,52 @@ export interface NavLink {
  * Used by the header, the mobile menu and the footer.
  */
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Roadside support", href: "/roadside-support/" },
+  { label: "Home", href: "/", labelAr: "الرئيسية" },
+  { label: "Roadside support", href: "/roadside-support/", labelAr: "المساعدة على الطريق" },
   {
     label: "Services",
-    href: "/service/",
+    href: "/service/", labelAr: "الخدمات",
+    megaServices: true,
     children: [
-      { label: "All services", href: "/service/", description: "Complete auto care under one roof" },
-      { label: "Car Battery Change", href: "/service/car-battery-replacement/", description: "Testing, replacement and installation" },
-      { label: "Auto Spare Parts", href: "/service/auto-spare-parts-trading/", description: "OEM & aftermarket parts trading" },
-      { label: "Roadside Support", href: "/roadside-support/", description: "Towing, jump start, fuel delivery" },
+      { label: "All services", href: "/service/", description: "Complete auto care under one roof", labelAr: "جميع الخدمات", descriptionAr: "عناية متكاملة بالسيارة تحت سقف واحد" },
+      { label: "Car Battery Change", href: "/service/car-battery-replacement/", description: "Testing, replacement and installation", labelAr: "تغيير بطارية السيارة", descriptionAr: "فحص واستبدال وتركيب" },
+      { label: "Auto Spare Parts", href: "/service/auto-spare-parts-trading/", description: "OEM & aftermarket parts trading", labelAr: "قطع غيار السيارات", descriptionAr: "تجارة قطع الغيار الأصلية والبديلة" },
+      { label: "Roadside Support", href: "/roadside-support/", description: "Towing, jump start, fuel delivery", labelAr: "المساعدة على الطريق", descriptionAr: "سحب، تشغيل البطارية، توصيل الوقود" },
     ],
   },
   {
     label: "Brands",
-    href: "/brands/",
+    href: "/brands/", labelAr: "العلامات التجارية",
+    megaBrands: true,
     children: [
-      { label: "All brands", href: "/brands/", description: "We serve & repair all brands & models" },
-      { label: "Mercedes-Benz", href: "/brands/mercedes/", description: "Premium Mercedes-Benz specialists" },
+      { label: "All brands", href: "/brands/", description: "We serve & repair all brands & models", labelAr: "جميع العلامات", descriptionAr: "نخدم ونصلح جميع العلامات والموديلات" },
+      { label: "Mercedes-Benz", href: "/brands/mercedes/", description: "Premium Mercedes-Benz specialists", labelAr: "مرسيدس-بنز", descriptionAr: "متخصصون في مرسيدس-بنز" },
     ],
   },
-  { label: "Car batteries", href: "/buy-car-batteries/" },
-  { label: "Car tires", href: "/buy-car-tires/" },
-  { label: "Service contract", href: "/service-contract/" },
-  { label: "Free vehicle inspection", href: "/complimentary-vehicle-inspection/" },
+  { label: "Car batteries", href: "/buy-car-batteries/", labelAr: "بطاريات السيارات" },
+  { label: "Car tires", href: "/buy-car-tires/", labelAr: "إطارات السيارات" },
+  { label: "Service contract", href: "/service-contract/", labelAr: "عقد الصيانة" },
+  { label: "Free vehicle inspection", href: "/complimentary-vehicle-inspection/", labelAr: "فحص مجاني للسيارة" },
   {
     label: "About us",
-    href: "/about-us/",
+    href: "/about-us/", labelAr: "من نحن",
     children: [
-      { label: "About Ritz Auto Care", href: "/about-us/", description: "Who we are and our CEO's message" },
-      { label: "Our Work Gallery", href: "/our-work-gallery/", description: "Photos from our workshop" },
-      { label: "Customer Reviews", href: "/customer-reviews/", description: "What our customers say" },
-      { label: "Service Areas", href: "/service-areas/", description: "Areas we cover across Dubai" },
-      { label: "Blog", href: "/blog/", description: "Car care tips and advice" },
-      { label: "Careers", href: "/careers/", description: "Join our team" },
+      { label: "About Ritz Auto Care", href: "/about-us/", description: "Who we are and our CEO's message", labelAr: "عن ريتز أوتو كير", descriptionAr: "من نحن ورسالة المدير التنفيذي" },
+      { label: "Our Work Gallery", href: "/our-work-gallery/", description: "Photos from our workshop", labelAr: "معرض أعمالنا", descriptionAr: "صور من ورشتنا" },
+      { label: "Customer Reviews", href: "/customer-reviews/", description: "What our customers say", labelAr: "آراء العملاء", descriptionAr: "ماذا يقول عملاؤنا" },
+      { label: "Service Areas", href: "/service-areas/", description: "Areas we cover across Dubai", labelAr: "مناطق الخدمة", descriptionAr: "المناطق التي نغطيها في دبي" },
+      { label: "Blog", href: "/blog/", description: "Car care tips and advice", labelAr: "المدونة", descriptionAr: "نصائح العناية بالسيارة" },
+      { label: "Careers", href: "/careers/", description: "Join our team", labelAr: "الوظائف", descriptionAr: "انضم إلى فريقنا" },
     ],
   },
-  { label: "Contact us", href: "/contact-us/" },
+  { label: "Contact us", href: "/contact-us/", labelAr: "اتصل بنا" },
 ];
 
 /** True when `pathname` is this link's page (or one of its child pages). */
 export const isActiveLink = (link: NavLink, pathname: string) => {
   const clean = (p: string) => (p.endsWith("/") ? p : `${p}/`);
-  const path = clean(pathname);
+  const bare = pathname === "/ar" || pathname === "/ar/" ? "/" : pathname.startsWith("/ar/") ? pathname.slice(3) : pathname;
+  const path = clean(bare);
   if (link.href === "/") return path === "/";
   return path.startsWith(clean(link.href)) || !!link.children?.some((c) => c.href !== "/" && path.startsWith(clean(c.href)));
 };
@@ -82,6 +92,7 @@ export const SITE_CONTACT = {
   whatsappRoadside: "971507860493",
   /** Workshop address as shown on the original contact page. */
   address: "(DIP) 1 - Warehouse 35, Street 59 - near AIKO MALL - Dubai Investment Park First - Dubai",
+  addressAr: "مستودع 35، شارع 59 - بالقرب من آيكو مول - مجمع دبي للاستثمار الأول - دبي",
   /** Google Maps link from the original contact page. */
   mapUrl: "https://maps.app.goo.gl/8u8r6j6437fDvt1L9",
   /** Query used for the embedded map (no API key needed). */

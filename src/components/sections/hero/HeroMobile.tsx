@@ -93,14 +93,14 @@ function Skyline() {
  */
 export default function HeroMobile() {
   return (
-    <div className="relative flex min-h-[92svh] flex-col overflow-hidden bg-linear-to-b from-[#0B4274] via-[#082F59] to-[#041528] pb-12 pt-[clamp(9rem,36vw,10.5rem)] md:hidden">
+    <div className="relative flex min-h-[92svh] flex-col overflow-hidden bg-linear-to-b from-[#12161D] via-[#0E1116] to-[#050608] pb-12 pt-[clamp(9rem,36vw,10.5rem)] md:hidden">
       {/* glows */}
-      <div className="pointer-events-none absolute left-1/2 top-[18%] h-[60vw] w-[120vw] -translate-x-1/2 rounded-full bg-radial from-[#1766AE]/45 to-transparent to-70%" />
+      <div className="pointer-events-none absolute left-1/2 top-[18%] h-[60vw] w-[120vw] -translate-x-1/2 rounded-full bg-radial from-[#0B6FC2]/45 to-transparent to-70%" />
       <div className="pointer-events-none absolute -bottom-[10%] left-1/2 h-[70vw] w-[140vw] -translate-x-1/2 rounded-full bg-radial from-[#2f8fe0]/35 to-transparent to-70%" />
 
       <Skyline />
       {/* fade the skyline into the road */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-linear-to-t from-[#041528] via-[#041528]/85 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-linear-to-t from-[#050608] via-[#050608]/85 to-transparent" />
 
       {/* title + car, kept together and centred in the hero's height (top padding clears the fixed header) */}
       <div className="relative z-10 my-auto">
@@ -109,7 +109,7 @@ export default function HeroMobile() {
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
             className="text-[clamp(3rem,16vw,5.5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)]"
           >
             Ritz Auto
@@ -123,7 +123,7 @@ export default function HeroMobile() {
         <motion.div
           initial={{ opacity: 0, y: 70, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.1, ease: EASE, delay: 0.4 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
           // canvas is wider than the car (transparent sides), so it is 130% wide to keep the car the same size
           className="relative left-1/2 z-10 mt-7 w-[130%] max-w-[700px] -translate-x-1/2"
         >

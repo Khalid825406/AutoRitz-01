@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, Mail, MessageCircle, Phone, Wrench, type LucideIcon } from "lucide-react";
 
@@ -61,7 +61,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
             href={waLink(SITE_CONTACT.whatsapp, enquiry)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <MessageCircle size={16} />
             Buy On WhatsApp
@@ -107,10 +107,10 @@ export default function ProductShopPage(props: ProductShopPageProps) {
               <motion.li
                 key={p.name}
                 variants={fadeUp}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-18px_rgba(8,47,89,0.3)]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_24px_48px_-18px_rgba(14, 17, 22,0.3)]"
               >
                 <div className="relative aspect-square bg-white p-6">
-                  <span className="absolute left-4 top-4 z-10 rounded-full bg-[#082F59] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
+                  <span className="absolute left-4 top-4 z-10 rounded-full bg-[#0E1116] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
                     {p.brand}
                   </span>
                   <div className="relative h-full w-full">
@@ -125,10 +125,10 @@ export default function ProductShopPage(props: ProductShopPageProps) {
                 </div>
                 <div className="flex flex-1 flex-col justify-between border-t border-slate-100 p-5">
                   <div>
-                    <h3 className="text-[15px] font-semibold leading-snug text-[#082F59]">{p.name}</h3>
+                    <h3 className="text-[15px] font-semibold leading-snug text-[#0E1116]">{p.name}</h3>
                     <ul className="mt-3 flex flex-wrap gap-1.5">
                       {p.specs.map((s) => (
-                        <li key={s} className="rounded-md bg-[#EAF4FC] px-2 py-1 text-[11px] font-semibold text-[#0872BB]">
+                        <li key={s} className="rounded-md bg-[#EAF4FC] px-2 py-1 text-[11px] font-semibold text-[#0563B4]">
                           {s}
                         </li>
                       ))}
@@ -153,7 +153,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       {/* ================= BRANDS ================= */}
       <section className="w-full bg-[#F7FAFD] py-12 sm:py-20">
         <div className="site-container">
-          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0872BB]">{brandsLabel}</p>
+          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0563B4]">{brandsLabel}</p>
         </div>
         <div className="mt-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <Marquee duration={Math.max(35, brands.length * 3.5)} gap={24}>
@@ -161,7 +161,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
               <span
                 key={b.name}
                 title={b.name}
-                className="flex h-24 w-40 shrink-0 items-center justify-center rounded-2xl border border-slate-200/80 bg-white p-3 shadow-[0_8px_20px_-14px_rgba(8,47,89,0.3)]"
+                className="flex h-24 w-40 shrink-0 items-center justify-center rounded-2xl border border-slate-200/80 bg-white p-3 shadow-[0_8px_20px_-14px_rgba(14, 17, 22,0.3)]"
               >
                 <span className="relative h-full w-full">
                   <Image src={b.logo} alt={b.name} fill sizes="160px" className="object-contain" />
@@ -180,17 +180,17 @@ export default function ProductShopPage(props: ProductShopPageProps) {
             className="flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200/80 bg-white p-6 sm:flex-row sm:items-center sm:p-8"
           >
             <div className="flex items-center gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
                 <Wrench size={20} />
               </span>
               <div>
-                <p className="text-base font-semibold text-[#082F59]">{fitting.title}</p>
+                <p className="text-base font-semibold text-[#0E1116]">{fitting.title}</p>
                 <p className="text-[14px] text-slate-600">{fitting.text}</p>
               </div>
             </div>
             <FittingLink
               href={fitting.href}
-              className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-xl bg-[#082F59] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0872BB]"
+              className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-xl bg-[#0E1116] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0563B4]"
             >
               {fitting.label}
               <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

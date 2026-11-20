@@ -1,18 +1,21 @@
 "use client";
 
+import { useLang } from "@/i18n/LangProvider";
 import { useEffect, useRef } from "react";
 import { animate, motion, type AnimationPlaybackControls } from "motion/react";
 import { ArrowUpRight, Star } from "lucide-react";
 
 import SectionHeading from "@/components/ui/SectionHeading";
+import CountUp from "@/components/motion/CountUp";
 import { REVIEW_SUMMARY, testimonials, type Testimonial } from "@/data/testimonials";
 
 import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Stars({ value, size = 16 }: { value: number; size?: number }) {
+  const { t } = useLang();
   return (
-    <span className="flex items-center gap-0.5" aria-label={`${value} out of 5 stars`}>
+    <span className="flex items-center gap-0.5" aria-label={t(`${value} out of 5 stars`, `${value} من 5 نجوم`)}>
       {Array.from({ length: 5 }, (_, i) => {
         const fill = Math.max(0, Math.min(1, value - i)); // 0, partial, or 1
         return (
@@ -43,41 +46,42 @@ function GoogleG({ size = 14 }: { size?: number }) {
 /** One review — the whole card opens the Google reviews page in a new tab. */
 function ReviewCard({ t, hidden }: { t: Testimonial; hidden: boolean }) {
   const { url } = REVIEW_SUMMARY;
+  const { t: tr } = useLang();
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       tabIndex={hidden ? -1 : undefined}
-      aria-label={`Read ${t.name}'s review on Google`}
-      className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(8,47,89,0.04)] transition-[box-shadow,border-color,translate] duration-300 hover:-translate-y-0.5 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-16px_rgba(8,47,89,0.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB] sm:p-7"
+      aria-label={tr(`Read ${t.name}'s review on Google`, `اقرأ تقييم ${t.name} على Google`)}
+      className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_1px_2px_rgba(14, 17, 22,0.04)] transition-[box-shadow,border-color,translate] duration-300 hover:-translate-y-0.5 hover:border-[#0563B4]/30 hover:shadow-[0_20px_40px_-16px_rgba(14, 17, 22,0.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] sm:p-5"
     >
       <div className="flex items-center justify-between gap-3">
         <Stars value={t.rating} />
         <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
           <GoogleG />
-          Google Review
+          {tr("Google Review", "تقييم Google")}
         </span>
       </div>
       {/* long reviews are trimmed to 4 lines — the full text is on Google */}
-      <blockquote className="mt-4 line-clamp-4 flex-1 text-[14px] leading-relaxed text-slate-700 sm:mt-5 sm:text-[15px]">
+      <blockquote dir="ltr" className="mt-3 text-start line-clamp-3 flex-1 text-[13px] leading-relaxed text-slate-700 sm:text-[14px]">
         &ldquo;{t.text}&rdquo;
       </blockquote>
-      <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4 sm:mt-6 sm:pt-5">
+      <div className="mt-4 flex items-center gap-2.5 border-t border-slate-100 pt-3">
         {t.photo ? (
           // eslint-disable-next-line @next/next/no-img-element -- small avatar, already optimised webp
-          <img src={t.photo} alt="" width={44} height={44} loading="lazy" className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-[#EAF4FC]" />
+          <img src={t.photo} alt="" width={44} height={44} loading="lazy" className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-[#EAF4FC]" />
         ) : (
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-sm font-bold text-[#0872BB]">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[13px] font-bold text-[#0563B4]">
             {t.name.charAt(0).toUpperCase()}
           </span>
         )}
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[15px] font-semibold text-[#082F59]">{t.name}</span>
-          <span className="block text-xs text-slate-500">Customer review</span>
+          <span className="block truncate text-[14px] font-semibold text-[#0E1116]">{t.name}</span>
+          <span className="block text-xs text-slate-500">{tr("Customer review", "تقييم عميل")}</span>
         </span>
-        <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-[#0872BB]">
-          <span className="max-sm:hidden">Read on Google</span>
+        <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-[#0563B4]">
+          <span className="max-sm:text-[11px]">{tr("Read on Google", "اقرأه على Google")}</span>
           <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </div>
@@ -108,15 +112,16 @@ function MarqueeRow({ items, direction }: { items: Testimonial[]; direction: "le
 
   return (
     <div
+      dir="ltr"
       className="flex overflow-hidden"
       onMouseEnter={() => controls.current?.pause()}
       onMouseLeave={() => controls.current?.play()}
     >
       <div ref={track} className="flex w-max shrink-0">
         {[0, 1].map((copy) => (
-          <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-stretch gap-6 pr-6">
+          <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-stretch gap-4 pr-4">
             {row.map((t, i) => (
-              <li key={`${copy}-${i}`} className="w-[300px] shrink-0 sm:w-[410px]">
+              <li key={`${copy}-${i}`} className="w-[270px] shrink-0 sm:w-[340px]">
                 <ReviewCard t={t} hidden={copy === 1} />
               </li>
             ))}
@@ -128,14 +133,17 @@ function MarqueeRow({ items, direction }: { items: Testimonial[]; direction: "le
 }
 
 export default function TestimonialsSection() {
+  const { t } = useLang();
   const { rating, count, url } = REVIEW_SUMMARY;
 
   const summary = (
     <>
       <Stars value={rating} size={18} />
-      <span className="text-base font-bold text-[#082F59]">{rating}/5</span>
+      <span className="text-base font-bold text-[#0E1116]">
+        <CountUp value={rating.toFixed(1)} />/5
+      </span>
       <span className="h-5 w-px bg-slate-200" />
-      <span className="text-sm text-slate-600">Based on {count} Google reviews</span>
+      <span className="text-sm text-slate-600">{t("Based on", "بناءً على")} <CountUp value={count} /> {t("Google reviews", "تقييم على Google")}</span>
     </>
   );
 
@@ -152,18 +160,18 @@ export default function TestimonialsSection() {
           className="site-container flex flex-col items-center"
         >
           <SectionHeading
-            eyebrow="Customer testimonials"
+            eyebrow={t("Customer testimonials", "آراء العملاء")}
             icon={Star}
-            title="Trusted by Car Owners"
-            highlight="Loved by Customers."
-            description="Discover what our customers say about their experience with Ritz Auto Care and our automotive services."
+            title={t("Trusted by Car Owners", "موثوق من مالكي السيارات")}
+            highlight={t("Loved by Customers.", "ومحبوب من العملاء.")}
+            description={t("Discover what our customers say about their experience with Ritz Auto Care and our automotive services.", "اكتشف ما يقوله عملاؤنا عن تجربتهم مع ريتز أوتو كير وخدماتنا.")}
           />
           {url ? (
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex items-center gap-3 rounded-full border border-slate-200 bg-white px-6 py-3 shadow-xs transition hover:border-[#0872BB]/40"
+              className="mt-8 flex items-center gap-3 rounded-full border border-slate-200 bg-white px-6 py-3 shadow-xs transition hover:border-[#0563B4]/40"
             >
               {summary}
             </a>

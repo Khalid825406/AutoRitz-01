@@ -56,12 +56,12 @@ export default function WhyChooseSection({
                 <motion.li
                   key={it.title}
                   variants={fadeUp}
-                  className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)]"
+                  className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
                     <Icon size={20} />
                   </span>
-                  <h3 className="mt-4 text-[16px] font-semibold text-[#082F59]">{it.title}</h3>
+                  <h3 className="mt-4 text-[16px] font-semibold text-[#0E1116]">{it.title}</h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{it.text}</p>
                 </motion.li>
               );
@@ -78,7 +78,7 @@ export default function WhyChooseSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 0.8, ease: EASE, delay: i * 0.15 }}
-                className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-[0_24px_50px_-20px_rgba(8,47,89,0.4)] ${
+                className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-[0_24px_50px_-20px_rgba(14, 17, 22,0.4)] ${
                   i === 1 ? "mt-12" : ""
                 }`}
               >

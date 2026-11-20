@@ -38,7 +38,7 @@ export default function RotationIndicator() {
         onPointerMove={(e) => dragging.current && fromPointer(e)}
         onPointerUp={() => { dragging.current = false; rot.dragging = false; rot.idleSince = performance.now(); }}
         onPointerCancel={() => { dragging.current = false; rot.dragging = false; }}>
-        <text x="180" y="22" textAnchor="middle" fontSize="15" fontWeight="800" fill="#0b1b4d" fontStyle="italic">360°</text>
+        <text x="180" y="22" textAnchor="middle" fontSize="15" fontWeight="800" fill="#0E1116" fontStyle="italic">360°</text>
         <path d="M20 20 Q180 66 340 20" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="6" strokeLinecap="round" />
         <path d="M20 20 Q180 66 340 20" fill="none" stroke="rgba(11,27,77,.25)" strokeWidth="1.5" strokeLinecap="round" />
         <circle ref={thumb} cx="180" cy="43" r="11" fill="#1d4ed8" stroke="#fff" strokeWidth="4" style={{ cursor: "grab", filter: "drop-shadow(0 4px 8px rgba(29,78,216,.5))" }} />

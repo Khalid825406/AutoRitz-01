@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { motion, type Variants } from "motion/react";
 import {
   ArrowUpRight,
@@ -50,7 +50,7 @@ export default function VehicleInspectionPage() {
             href={waLink(SITE_CONTACT.whatsapp, BOOK_TEXT)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
           >
             <MessageCircle size={16} />
             Book Free Inspection
@@ -70,11 +70,11 @@ export default function VehicleInspectionPage() {
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0872BB] shadow-xs">
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0563B4] shadow-xs">
                 <ScanSearch size={14} />
                 What we check
               </span>
-              <TextReveal className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight text-[#082F59] sm:text-4xl">{INSPECTION.heading}</TextReveal>
+              <TextReveal className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight text-[#0E1116] sm:text-4xl">{INSPECTION.heading}</TextReveal>
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">{INSPECTION.intro}</p>
             </motion.div>
 
@@ -91,13 +91,13 @@ export default function VehicleInspectionPage() {
                   <motion.li
                     key={c.title}
                     variants={fadeUp}
-                    className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 transition-[translate,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-16px_rgba(8,47,89,0.25)]"
+                    className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 transition-[translate,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-16px_rgba(14, 17, 22,0.25)]"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0872BB] transition-colors group-hover:bg-[#0872BB] group-hover:text-white">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAF4FC] text-[#0563B4] transition-colors group-hover:bg-[#0563B4] group-hover:text-white">
                       <Icon size={20} />
                     </span>
                     <span>
-                      <span className="block text-[15px] font-semibold text-[#082F59]">{c.title}</span>
+                      <span className="block text-[15px] font-semibold text-[#0E1116]">{c.title}</span>
                       {c.text && <span className="block text-[13px] text-slate-500">{c.text}</span>}
                     </span>
                   </motion.li>
@@ -111,11 +111,11 @@ export default function VehicleInspectionPage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE }}
-            className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
+            className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(14, 17, 22,0.45)]"
           >
             <RevealImage src={INSPECTION.image} alt="Technician running a computer inspection on a car" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
-            <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-[#082F59] shadow-lg">
-              <ScanSearch size={14} className="text-[#0872BB]" />
+            <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-[#0E1116] shadow-lg">
+              <ScanSearch size={14} className="text-[#0563B4]" />
               Full View Inspection
             </span>
           </motion.div>
@@ -149,12 +149,12 @@ export default function VehicleInspectionPage() {
                   <motion.li
                     key={b.title}
                     variants={fadeUp}
-                    className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(8,47,89,0.25)]"
+                    className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                   >
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#1766AE] to-[#082F59] text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
                       <Icon size={22} />
                     </span>
-                    <h3 className="mt-5 text-[16px] font-semibold text-[#082F59]">{b.title}</h3>
+                    <h3 className="mt-5 text-[16px] font-semibold text-[#0E1116]">{b.title}</h3>
                     <p className="mt-2 text-[14px] leading-relaxed text-slate-600">{b.text}</p>
                   </motion.li>
                 );
@@ -165,7 +165,7 @@ export default function VehicleInspectionPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.8, ease: EASE }}
-              className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(8,47,89,0.45)]"
+              className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_30px_60px_-28px_rgba(14, 17, 22,0.45)]"
             >
               <RevealImage src={BENEFITS.image} alt="Computer diagnostics screen showing a car health report" fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover" />
             </motion.div>
@@ -181,9 +181,9 @@ export default function VehicleInspectionPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#061E3B] via-[#082F59] to-[#0B477D] p-8 text-white sm:p-12 lg:p-14"
+            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-8 text-white sm:p-12 lg:p-14"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
+            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
             <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
@@ -191,12 +191,12 @@ export default function VehicleInspectionPage() {
                   {AI_INSPECTION.subheading}
                 </span>
                 <TextReveal className="mt-5 text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">{AI_INSPECTION.heading}</TextReveal>
-                <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-[#DCE8F2]/85">{AI_INSPECTION.text}</p>
+                <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-[#D9DEE5]/85">{AI_INSPECTION.text}</p>
               </div>
               <div className="flex lg:justify-end">
                 <Link
                   href="/contact-us/"
-                  className="group inline-flex h-12 items-center gap-2 rounded-xl bg-white px-7 text-sm font-semibold text-[#082F59] transition-colors hover:bg-[#DCE8F2]"
+                  className="group inline-flex h-12 items-center gap-2 rounded-xl bg-white px-7 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5]"
                 >
                   {AI_INSPECTION.cta}
                   <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, CalendarDays, Tag } from "lucide-react";
 
@@ -47,21 +47,21 @@ export default function BlogIndexPage() {
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#082F59] shadow-xs">
+                    <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0E1116] shadow-xs">
                       <Tag size={11} />
                       {p.category}
                     </span>
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <p className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                      <CalendarDays size={13} className="text-[#0872BB]" />
+                      <CalendarDays size={13} className="text-[#0563B4]" />
                       <time dateTime={p.date}>{formatDate(p.date)}</time>
                     </p>
-                    <h2 className="mt-3 text-lg font-semibold leading-snug text-[#082F59]">{p.title}</h2>
+                    <h2 className="mt-3 text-lg font-semibold leading-snug text-[#0E1116]">{p.title}</h2>
                     <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">{p.excerpt}</p>
                     <span
                       className={`mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold ${
-                        ready ? "text-[#0872BB]" : "text-slate-400"
+                        ready ? "text-[#0563B4]" : "text-slate-400"
                       }`}
                     >
                       {ready ? "Read More" : "Post coming soon"}
@@ -73,13 +73,13 @@ export default function BlogIndexPage() {
                 </>
               );
               const cls =
-                "group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0872BB]/30 hover:shadow-[0_24px_48px_-20px_rgba(8,47,89,0.3)]";
+                "group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_24px_48px_-20px_rgba(14, 17, 22,0.3)]";
               return (
                 <motion.li key={p.slug} variants={fadeUp}>
                   {ready ? (
                     <Link
                       href={`/blog/${p.slug}/`}
-                      className={`${cls} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0872BB]`}
+                      className={`${cls} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]`}
                     >
                       {card}
                     </Link>

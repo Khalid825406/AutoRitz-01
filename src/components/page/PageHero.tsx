@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useLang } from "@/i18n/LangProvider";
+import Link from "@/i18n/Link";
 import type { ReactNode } from "react";
 import { motion, type Variants } from "motion/react";
 import { ChevronRight, Home } from "lucide-react";
@@ -33,10 +34,11 @@ const item: Variants = {
 
 /** Navy banner used at the top of every inner page. */
 export default function PageHero({ eyebrow, title, highlight, description, breadcrumbs, children, aside }: PageHeroProps) {
+  const { t } = useLang();
   return (
     <section className="w-full bg-white pt-6 sm:pt-8">
       <div className="site-container">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-[#082F59] px-6 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-[#0E1116] px-6 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 -z-10"
@@ -45,22 +47,22 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
               backgroundSize: "22px 22px",
             }}
           />
-          <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#1766AE]/40 to-transparent to-70%" />
+          <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
 
           <div className={aside ? "grid items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12" : undefined}>
           <motion.div variants={stagger} initial="hidden" animate="show" className="min-w-0">
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <motion.nav variants={item} aria-label="Breadcrumb">
+              <motion.nav variants={item} aria-label={t("Breadcrumb", "مسار التنقل")}>
                 <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-white/60">
                   <li>
                     <Link href="/" className="inline-flex items-center gap-1 py-1.5 transition-colors hover:text-white">
                       <Home size={13} />
-                      Home
+                      {t("Home", "الرئيسية")}
                     </Link>
                   </li>
                   {breadcrumbs.map((c) => (
                     <li key={c.label} className="flex items-center gap-1.5">
-                      <ChevronRight size={13} className="text-white/35" />
+                      <ChevronRight size={13} className="text-white/35 rtl:-scale-x-100" />
                       {c.href ? (
                         <Link href={c.href} className="inline-block py-1.5 transition-colors hover:text-white">
                           {c.label}
@@ -92,7 +94,7 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
             </TextReveal>
 
             {description && (
-              <motion.p variants={item} className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#DCE8F2]/85 sm:text-base">
+              <motion.p variants={item} className="mt-5 max-w-2xl text-[15px] leading-relaxed text-[#D9DEE5]/85 sm:text-base">
                 {description}
               </motion.p>
             )}
