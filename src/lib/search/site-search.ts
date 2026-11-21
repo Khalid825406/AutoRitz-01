@@ -1,6 +1,8 @@
 import { NAV_LINKS } from "@/config/site";
 import { BRAND_MENU } from "@/data/pages/brand-menu";
 import { SERVICE_MENU } from "@/data/pages/service-menu";
+import { APPOINTMENT_SERVICES, APPOINTMENT_SERVICES_AR } from "@/data/pages/appointment";
+import { services as HOME_SERVICES } from "@/data/services";
 
 /** One thing the header search can find. */
 export interface SearchItem {
@@ -92,7 +94,21 @@ const BRAND_EXTRA: Record<string, { ar: string; words?: string }> = {
   Hyundai: { ar: "هيونداي", words: "elantra sonata tucson santa fe" },
   Kia: { ar: "كيا", words: "sportage sorento cerato" },
   Genesis: { ar: "جينيسيس" },
+  MG: { ar: "إم جي", words: "morris garages zs hs mg5" },
   Changan: { ar: "شانجان" },
+};
+
+/** Page each homepage service card (src/data/services.ts, by id) leads to. */
+const HOME_SERVICE_HREF: Record<string, string> = {
+  "01": "/service/", // Expert Car Repairs
+  "02": "/roadside-support/",
+  "03": "/buy-car-batteries/",
+  "04": "/buy-car-tires/",
+  "05": "/service/#service-car-oil-change", // Periodic Maintenance
+  "06": "/service-contract/",
+  "07": "/service/#service-car-ac-repair-service",
+  "08": "/complimentary-vehicle-inspection/",
+  "09": "/service/#service-car-polishing-detailing",
 };
 
 /* ------------------------------------------------------------------ */
@@ -109,6 +125,49 @@ function buildIndex(): SearchItem[] {
     href: s.href,
     keywords: SERVICE_KEYWORDS[s.slug] ?? "",
   }));
+
+  /** Adds words to an existing service when another list names the same service (no duplicate rows). */
+  const sameService = (name: string) => {
+    const n = normalize(name);
+    return services.find((s) => normalize(s.title).includes(n));
+  };
+
+  // Homepage service cards ("Battery Services", "Car AC Services"…) — each opens its closest page.
+  for (const card of HOME_SERVICES) {
+    const href = HOME_SERVICE_HREF[card.id] ?? "/service/";
+    const words = [card.title, card.ar.title, card.category, card.ar.category, ...card.features, ...card.ar.features].join(" ");
+    const existing = services.find((s) => s.href === href);
+    if (existing) existing.keywords += ` ${words}`;
+    else
+      services.push({
+        kind: "service",
+        title: card.title,
+        titleAr: card.ar.title,
+        sub: card.description,
+        subAr: card.ar.description,
+        href,
+        keywords: words,
+      });
+  }
+
+  // Every option of the appointment form — opens the booking form with that service already picked.
+  for (const name of APPOINTMENT_SERVICES) {
+    if (name === "Other Service") continue;
+    const existing = sameService(name);
+    if (existing) {
+      existing.keywords += ` ${name} ${APPOINTMENT_SERVICES_AR[name]}`;
+      continue;
+    }
+    services.push({
+      kind: "service",
+      title: name,
+      titleAr: APPOINTMENT_SERVICES_AR[name],
+      sub: "Book this service",
+      subAr: "احجز هذه الخدمة",
+      href: `/contact-us/?service=${encodeURIComponent(name)}#appointment`,
+      keywords: "book booking appointment حجز موعد",
+    });
+  }
 
   const brands: SearchItem[] = BRAND_MENU.flatMap((g) =>
     g.brands.map((b) => ({

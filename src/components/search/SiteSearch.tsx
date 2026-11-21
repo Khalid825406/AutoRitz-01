@@ -7,7 +7,11 @@ import { ArrowRight, CarFront, CornerDownLeft, FileText, Phone, Search, SearchX,
 import { SITE_CONTACT } from "@/config/site";
 import { useLang } from "@/i18n/LangProvider";
 import { useLocalizedRouter } from "@/i18n/useLocalizedRouter";
+import { BRAND_COUNT } from "@/data/pages/brand-menu";
+import { SERVICE_MENU } from "@/data/pages/service-menu";
 import { POPULAR_BRANDS, POPULAR_SEARCHES, normalize, searchSite, type SearchItem } from "@/lib/search/site-search";
+
+const SERVICE_COUNT = SERVICE_MENU.length;
 
 type Variant = "header" | "overlay";
 
@@ -38,7 +42,7 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
   const [active, setActive] = useState(-1);
 
   const q = query.trim();
-  const results = useMemo(() => searchSite(q, 9), [q]);
+  const results = useMemo(() => searchSite(q, 12), [q]);
   // Results in display order (grouped), so arrow keys move the way the eye reads.
   const ordered = useMemo(
     () => GROUPS.flatMap((g) => results.filter((r) => r.kind === g.kind)),
@@ -257,6 +261,31 @@ function Panel({
               {t(s.title, s.titleAr)}
             </button>
           ))}
+        </div>
+        {/* full lists, for visitors who'd rather browse than type */}
+        <div className="mt-4 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3">
+          <button
+            type="button"
+            onClick={() => onPick("/service/")}
+            className="flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-start text-[13px] font-semibold text-[#0E1116] transition-colors hover:bg-[#F2F8FD] hover:text-[#0563B4]"
+          >
+            <span className="flex items-center gap-2">
+              <Wrench size={15} className="text-[#0563B4]" />
+              {t(`All ${SERVICE_COUNT} services`, `جميع الخدمات (${SERVICE_COUNT})`)}
+            </span>
+            <ArrowRight size={14} />
+          </button>
+          <button
+            type="button"
+            onClick={() => onPick("/brands/")}
+            className="flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-start text-[13px] font-semibold text-[#0E1116] transition-colors hover:bg-[#F2F8FD] hover:text-[#0563B4]"
+          >
+            <span className="flex items-center gap-2">
+              <CarFront size={15} className="text-[#0563B4]" />
+              {t(`All ${BRAND_COUNT} brands`, `جميع العلامات (${BRAND_COUNT})`)}
+            </span>
+            <ArrowRight size={14} />
+          </button>
         </div>
       </div>
     );
