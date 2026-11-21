@@ -9,27 +9,28 @@ import { motion } from "motion/react";
  */
 const CLOUDINARY = "https://res.cloudinary.com/dc1l3bsrr/video/upload";
 const cld = (id: string) => ({
-  // eco quality at 720 px: each clip fills half the screen behind a blue tint, so this looks the same
-  // while being ~45% lighter (3.1 MB → 1.7 MB for both)
-  src: `${CLOUDINARY}/q_auto:eco,w_720/${id}.mp4`,
-  poster: `${CLOUDINARY}/so_0,q_auto:eco,w_720/${id}.jpg`,
+  // eco quality at 1280 px: the clip fills the whole hero behind a dark tint, so this looks sharp
+  // while staying far lighter than the 1080p original
+  src: `${CLOUDINARY}/q_auto:eco,w_1280/${id}.mp4`,
+  poster: `${CLOUDINARY}/so_0,q_auto:eco,w_1280/${id}.jpg`,
 });
 
-const VIDEOS = [
-  { ...cld("left-side_ynv11p"), side: "left" as const },
-  { ...cld("right-side_m8sjtq"), side: "right" as const },
-];
+// One full-width clip: mechanic repairing a luxury car.
+// Earlier clips (to switch back): "left-side_ynv11p" + "right-side_m8sjtq" (left/right pair),
+// "Detailer_polishing_luxury_car_paint_cf21faf6_1080p_gwr_video_mvp_jij5mo".
+const VIDEO = cld("Mechanic_repairing_luxury_car_en__48186cb1_1080p_gwr_video_mvp_trbskf");
 
 /**
- * One overlay does the tint, the soft fade into the centre and the solid blue band.
+ * One overlay tints the clip and darkens the middle a little more, so the white hero text stays
+ * readable while the footage still shows across the whole width (no solid band hiding it).
  * Plain alpha blending only — no mask-image / mix-blend-mode, which force the GPU to
  * re-composite every video frame and made playback stutter on weaker laptops.
  */
 const CENTER_FADE =
-  "linear-gradient(to right, rgba(14, 17, 22,0.35) 0%, rgba(14, 17, 22,0.42) 16%, rgba(16, 20, 26,0.72) 30%, rgba(18, 22, 29,0.95) 40%, #12161D 46%, #12161D 54%, rgba(18, 22, 29,0.95) 60%, rgba(16, 20, 26,0.72) 70%, rgba(14, 17, 22,0.42) 84%, rgba(14, 17, 22,0.35) 100%)";
+  "linear-gradient(to right, rgba(14, 17, 22,0.45) 0%, rgba(14, 17, 22,0.6) 30%, rgba(14, 17, 22,0.7) 50%, rgba(14, 17, 22,0.6) 70%, rgba(14, 17, 22,0.45) 100%)";
 
 /** Autoplaying, muted, looping clip with no controls — purely decorative. Pauses while off-screen. */
-function BackgroundVideo({ src, poster, side }: { src: string; poster: string; side: "left" | "right" }) {
+function BackgroundVideo({ src, poster }: { src: string; poster: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -78,7 +79,7 @@ function BackgroundVideo({ src, poster, side }: { src: string; poster: string; s
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      className={`absolute inset-y-0 w-[60%] sm:w-1/2 ${side === "left" ? "left-0" : "right-0"}`}
+      className="absolute inset-0"
     >
       <video
         ref={ref}
@@ -98,13 +99,11 @@ function BackgroundVideo({ src, poster, side }: { src: string; poster: string; s
   );
 }
 
-/** Two background clips (left + right) behind the hero text and car, blended into the brand blue. */
+/** One full-width background clip behind the hero text and car, under a dark tint. */
 export default function HeroBackgroundVideos() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
-      {VIDEOS.map((v) => (
-        <BackgroundVideo key={v.side} {...v} />
-      ))}
+      <BackgroundVideo {...VIDEO} />
       <div className="absolute inset-0" style={{ background: CENTER_FADE }} />
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-[#07090C]/70 to-transparent" />
     </div>
