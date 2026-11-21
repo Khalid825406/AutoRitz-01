@@ -228,12 +228,33 @@ export default function Header({ onBook }: { onBook: () => void }) {
             </div>
 
             {/* Mobile / tablet actions */}
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-1.5 max-[359px]:gap-1 lg:hidden">
+              {/* Language (compact EN | AR, same as the desktop toggle) */}
+              <div
+                role="group"
+                aria-label={t("Language", "اللغة")}
+                className="flex h-10 shrink-0 items-center rounded-md border border-slate-200 bg-slate-50 p-0.5 max-[359px]:h-9"
+              >
+                {(["en", "ar"] as const).map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    onClick={() => switchLang(code)}
+                    aria-pressed={lang === code}
+                    aria-label={code === "en" ? "English" : "العربية"}
+                    className={`flex h-full items-center rounded-[5px] px-2 text-[11px] font-bold transition-colors max-[359px]:px-1.5 ${focusRing} ${
+                      lang === code ? "bg-[#0E1116] text-white" : "text-[#0E1116] hover:text-[#0563B4]"
+                    }`}
+                  >
+                    {code === "en" ? "EN" : "AR"}
+                  </button>
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={openSearch}
                 aria-label={t("Search cars & services", "ابحث عن سيارة أو خدمة")}
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[#0563B4] transition-colors hover:border-[#0563B4] ${focusRing}`}
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[#0563B4] transition-colors hover:border-[#0563B4] max-[359px]:h-9 max-[359px]:w-9 ${focusRing}`}
               >
                 <Search size={19} />
               </button>
@@ -245,7 +266,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
               onClick={() => setMenu(!menu)}
               aria-label={menu ? t("Close menu", "إغلاق القائمة") : t("Open menu", "فتح القائمة")}
               aria-expanded={menu}
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#0E1116] text-white xl:hidden ${focusRing}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#0E1116] text-white max-[359px]:h-9 max-[359px]:w-9 xl:hidden ${focusRing}`}
             >
               {menu ? <X size={21} /> : <Menu size={21} />}
             </button>

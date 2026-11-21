@@ -29,10 +29,10 @@ export default function BrandLogo({
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- small, pre-optimised webp */}
-      <img src="/images/logo-emblem.webp" alt="" width={350} height={256} className={`${s.emblem} ${stackOnPhone ? "max-[359px]:h-8" : ""} w-auto shrink-0 select-none`} draggable={false} />
+      <img src="/images/logo-emblem.webp" alt="" width={350} height={256} className={`${s.emblem} ${stackOnPhone ? "max-[399px]:h-8" : ""} w-auto shrink-0 select-none`} draggable={false} />
       <span className="flex flex-col leading-none">
         <span
-          className={`brand-wordmark whitespace-nowrap ${s.name} ${stackOnPhone ? "max-[359px]:text-[14px]" : ""} ${tone === "dark" ? "text-white" : "text-[#0563B4]"}`}
+          className={`brand-wordmark whitespace-nowrap ${s.name} ${stackOnPhone ? "max-[399px]:text-[14px]" : ""} ${tone === "dark" ? "text-white" : "text-[#0563B4]"}`}
         >
           {stackOnPhone ? (
             <>
