@@ -4,13 +4,38 @@
   --color-royal: #1d4ed8;
   --color-navy: #0E1116;
   --color-aqua: #7fe7ee;
-  --font-sans: var(--font-montserrat), var(--font-arabic), system-ui, sans-serif;
+  /* Inter for text, Oswald for headings; Cairo fills in Arabic letters for both. */
+  --font-sans: var(--font-inter), var(--font-arabic), system-ui, sans-serif;
+  --font-display: var(--font-oswald), var(--font-arabic), "Arial Narrow", sans-serif;
+}
+
+/* Every heading (incl. TextReveal / SectionHeading titles, which render <h2>) uses Oswald. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
 }
 
 /* Site-wide layout container: 90% of the viewport, centered. */
 @utility site-container {
   width: 90%;
   margin-inline: auto;
+}
+
+/*
+ * One vertical spacing for every page section, so the gap between sections is the same everywhere:
+ * 48px on phones, 64px on tablets, 80px on desktop (top and bottom). Change it here to change the whole site.
+ */
+@utility section-y {
+  padding-block: 3rem;
+  @media (width >= 40rem) {
+    padding-block: 4rem;
+  }
+  @media (width >= 64rem) {
+    padding-block: 5rem;
+  }
 }
 
 /* Tailwind v3 compatibility: keep v3 default border color & button cursor */
@@ -54,19 +79,28 @@ body {
     touch-action: pan-y !important;
   }
 
-  .hero-bg {
-    background:
-      radial-gradient(60% 45% at 50% 38%, rgba(255, 255, 255, .55), transparent 70%),
-      linear-gradient(180deg, #6fe3ec 0%, #9eefef 52%, #c9f4f0 72%, #ffd6e6 100%);
-  }
-
+  /* Hero title keeps its original look: Montserrat Black Italic (the rest of the site uses Oswald + Inter). */
   .hero-text {
+    font-family: var(--font-hero), system-ui, sans-serif;
     font-style: italic;
     font-weight: 900;
-    color: #fff;
     line-height: .82;
     letter-spacing: -0.045em;
-    text-shadow: 0 10px 40px rgba(29, 78, 216, .12);
+    /*
+     * 3D "metal sign" lettering (solid colours only, no gradients):
+     * white face + grey outline drawn outside the letters + a stepped grey extrusion down-right + soft drop shadow.
+     * Sizes are in em so the effect scales with the huge hero text on every screen.
+     */
+    color: #F4F6F8;
+    -webkit-text-stroke: 0.014em #7d848c;
+    paint-order: stroke fill;
+    text-shadow:
+      0.007em 0.007em 0 #c3c8ce,
+      0.014em 0.014em 0 #aab0b7,
+      0.021em 0.021em 0 #959ca4,
+      0.028em 0.028em 0 #80878f,
+      0.035em 0.035em 0 #6b727a,
+      0.05em 0.07em 0.08em rgba(0, 0, 0, 0.55);
     user-select: none;
     white-space: nowrap;
   }
@@ -158,76 +192,26 @@ body {
      HERO SECTION BACKGROUND
   ================================= */
 
+  /* Solid charcoal behind the hero video (no gradients anywhere on the site). */
   .hero-bg {
     position: relative;
     isolation: isolate;
-    background:
-      radial-gradient(
-        ellipse at 50% 48%,
-        rgba(36, 117, 190, 0.55) 0%,
-        rgba(27, 32, 41, 0.25) 35%,
-        transparent 68%
-      ),
-      linear-gradient(
-        135deg,
-        #0E1116 0%,
-        #1B2029 48%,
-        #07090C 100%
-      );
-
+    background: #0E1116;
     overflow: hidden;
-  }
-
-  /* Blue ambient lighting */
-
-  .hero-bg::before {
-    content: "";
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(
-      circle,
-      rgba(48, 145, 224, 0.28),
-      rgba(23, 102, 174, 0.08) 45%,
-      transparent 70%
-    );
-    /* no filter: blur — the radial gradient is already soft, and blur is costly while scrolling */
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  /* Bottom metallic lighting */
-
-  .hero-bg::after {
-    content: "";
-    position: absolute;
-    bottom: -150px;
-    left: 0;
-    width: 100%;
-    height: 300px;
-    background: radial-gradient(
-      ellipse,
-      rgba(217, 222, 229, 0.18),
-      transparent 70%
-    );
-    pointer-events: none;
-    z-index: -1;
   }
 
   /* =================================
      HERO TYPOGRAPHY
   ================================= */
 
+  /* colour + 3D shadow come from .hero-text */
   .hero-title {
-    color: #FFFFFF;
-    text-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+    color: #F4F6F8;
   }
 
+  /* "Care LLC": same 3D lettering, a touch more silver than "Ritz Auto" */
   .hero-sub {
-    color: #D9DEE5;
+    color: #E4E8EC;
   }
 
   /* =================================
@@ -368,23 +352,31 @@ body {
 
 /* ---------- Brand logo wordmark ---------- */
 @layer components {
+  /*
+   * Logo wordmark: Lilita One, flat ("2D") with a little depth — solid blue face, darker blue outline
+   * drawn outside the letters and a short hard shadow. Solid colours only (no gradients).
+   */
   .brand-wordmark {
-    font-family: var(--font-brand), Georgia, serif;
-    font-weight: 900;
-    font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 72;
-    letter-spacing: 0.01em;
+    font-family: var(--font-brand), "Arial Black", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    -webkit-text-stroke: 0.06em #033f73;
+    paint-order: stroke fill;
+    text-shadow: 0.05em 0.06em 0 rgba(3, 63, 115, 0.35);
   }
-  /* brushed chrome / silver, like the logo's tagline */
+  /* on dark backgrounds (footer, menus): white face, brand-blue outline + shadow */
+  .brand-wordmark-dark {
+    -webkit-text-stroke-color: #0563B4;
+    text-shadow: 0.05em 0.06em 0 rgba(5, 99, 180, 0.55);
+  }
+  /* silver tagline, solid colour (no gradients on the site) */
   .brand-tagline {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
     /* on white: deeper steel so it stays readable */
-    background: linear-gradient(90deg, #5d646d 0%, #a9afb7 18%, #6b727b 34%, #b8bec5 50%, #6f767f 66%, #a3a9b1 82%, #5d646d 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #6b727b;
   }
   .brand-tagline-dark {
-    background-image: linear-gradient(90deg, #8e959e 0%, #e6e9ed 18%, #9aa1aa 34%, #f4f6f8 50%, #a2a9b2 66%, #e1e5e9 82%, #8e959e 100%);
+    color: #D9DEE5;
   }
 }
 
@@ -425,4 +417,30 @@ body {
 }
 [dir="rtl"] :is(h1, h2, h3, h4, p, li, a, button, span, label) {
   letter-spacing: 0 !important;
+}
+
+/* =================================
+   Google Translate (EN ⇄ AR) — see src/lib/google-translate.ts
+   Keep the page clean: no Google top bar, no hover pop-ups, no yellow highlight, no visible widget.
+================================= */
+.google-translate-host,
+.goog-te-banner-frame,
+iframe.skiptranslate,
+.skiptranslate > iframe,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-yAWNEb-L7lbkb {
+  display: none !important;
+}
+/* Google pushes the page down by its bar's height — keep the page where it is */
+html,
+body {
+  top: 0 !important;
+}
+.goog-text-highlight,
+font[style] {
+  background: none !important;
+  box-shadow: none !important;
 }

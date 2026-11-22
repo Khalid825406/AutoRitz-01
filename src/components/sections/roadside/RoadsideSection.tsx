@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { motion, type Variants } from "motion/react";
 import {
   ArrowUpRight,
@@ -33,18 +32,17 @@ const fadeUp: Variants = {
 const stagger: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 
 const HIGHLIGHTS = [
-  { icon: ShieldCheck, label: "Professional Support", labelAr: "دعم احترافي" },
-  { icon: Wrench, label: "Expert Assistance", labelAr: "مساعدة من خبراء" },
-  { icon: ThumbsUp, label: "Reliable Solutions", labelAr: "حلول موثوقة" },
-  { icon: MapPin, label: "All Across Dubai", labelAr: "في جميع أنحاء دبي" },
+  { icon: ShieldCheck, label: "Professional Support" },
+  { icon: Wrench, label: "Expert Assistance" },
+  { icon: ThumbsUp, label: "Reliable Solutions" },
+  { icon: MapPin, label: "All Across Dubai" },
 ];
 
 export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
-  const { t } = useLang();
   const wa = whatsappLink();
 
   return (
-      <section id="support" className="w-full scroll-mt-32 bg-[#F7FAFD] py-12 sm:py-24">
+      <section id="support" className="w-full scroll-mt-32 bg-[#F7FAFD] section-y">
         <div className="site-container">
           {/* ================= BANNER ================= */}
           <motion.div
@@ -63,26 +61,25 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
               className="-z-20 object-cover opacity-40"
               fallback={null}
             />
-            <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#07090C] via-[#0E1116]/95 to-[#0E1116]/60" />
-            <div className="pointer-events-none absolute -left-20 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
+            <div className="absolute inset-0 -z-10 bg-[#0E1116]/85" />
 
             <div className="grid gap-8 sm:gap-10 p-6 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14 lg:p-14">
               {/* left */}
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">
                   <Truck size={14} />
-                  {t("Roadside assistance", "المساعدة على الطريق")}
+                  Roadside assistance
                 </span>
                 <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                  {t("Reliable Help,", "مساعدة موثوقة،")}
-                  <span className="block text-[#4B9DE0]">{t("Wherever You Are.", "أينما كنت.")}</span>
+                  Reliable Help,
+                  <span className="block text-[#4B9DE0]">Wherever You Are.</span>
                 </TextReveal>
                 <p className="mt-5 max-w-xl text-[14px] leading-relaxed text-[#D9DEE5]/85">
-                  {t("Unexpected vehicle trouble can happen anytime. Get professional roadside assistance for battery failures, flat tyres, fuel emergencies and more, so you can get back on the road with confidence.", "قد تتعطل سيارتك في أي وقت. احصل على مساعدة احترافية على الطريق لأعطال البطارية والإطارات المثقوبة ونفاد الوقود وغيرها، لتعود إلى الطريق بثقة.")}
+                  Unexpected vehicle trouble can happen anytime. Get professional roadside assistance for battery failures, flat tyres, fuel emergencies and more, so you can get back on the road with confidence.
                 </p>
 
                 <ul className="mt-8 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-2">
-                  {HIGHLIGHTS.map(({ icon: Icon, label, labelAr }) => (
+                  {HIGHLIGHTS.map(({ icon: Icon, label }) => (
                     <li
                       key={label}
                       className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-sm font-semibold text-white"
@@ -90,7 +87,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0B6FC2]/30 text-[#7cc0f5]">
                         <Icon size={17} />
                       </span>
-                      {t(label, labelAr)}
+                      {label}
                     </li>
                   ))}
                 </ul>
@@ -99,22 +96,22 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
               {/* right — help card */}
               <div className="self-center rounded-2xl border border-white/15 bg-white/[0.06] p-6 sm:p-8">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4B9DE0]">
-                  {t("Always ready to assist", "جاهزون دائماً للمساعدة")}
+                  Always ready to assist
                 </p>
                 <h3 className="mt-3 text-2xl font-bold leading-tight text-white sm:text-3xl">
-                  {t("Need help", "تحتاج مساعدة")} <span className="block text-[#4B9DE0]">{t("right now?", "الآن؟")}</span>
+                  Need help <span className="block text-[#4B9DE0]">right now?</span>
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-[#D9DEE5]/80">
-                  {t("Your journey matters to us. Reach our team directly and get roadside support when unexpected situations arise.", "رحلتك تهمنا. تواصل مع فريقنا مباشرة واحصل على المساعدة على الطريق عند حدوث أي طارئ.")}
+                  Your journey matters to us. Reach our team directly and get roadside support when unexpected situations arise.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3">
                   <a
                     href={`tel:${CONTACT.phone}`}
-                    className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-linear-to-r from-[#0B6FC2] to-[#2f8fe0] text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(47,143,224,0.7)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-[#0B6FC2] text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(47,143,224,0.7)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     <Phone size={16} />
-                    {t("Get Roadside Help", "اطلب المساعدة على الطريق")}
+                    Get Roadside Help
                     <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
                   {wa ? (
@@ -125,7 +122,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                       className="inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border border-white/25 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     >
                       <MessageCircle size={16} />
-                      {t("WhatsApp Us", "راسلنا على واتساب")}
+                      WhatsApp Us
                     </a>
                   ) : (
                     <button
@@ -134,14 +131,14 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                       className="inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border border-white/25 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     >
                       <MessageCircle size={16} />
-                      {t("Request a Callback", "اطلب معاودة الاتصال")}
+                      Request a Callback
                     </button>
                   )}
                 </div>
 
                 <p className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5 text-xs text-[#D9DEE5]/70">
                   <ShieldCheck size={14} className="text-[#4B9DE0]" />
-                  {t("Dedicated support for your roadside needs", "دعم مخصص لاحتياجاتك على الطريق")}
+                  Dedicated support for your roadside needs
                 </p>
               </div>
             </div>
@@ -158,14 +155,14 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
             <motion.div variants={fadeUp}>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0563B4]">
                 <span className="h-px w-8 bg-[#0563B4]" />
-                {t("What we offer", "ما نقدمه")}
+                What we offer
               </p>
               <TextReveal className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">
-                {t("Roadside Assistance", "مساعدة على الطريق")}
-                <span className="block text-[#0563B4]">{t("For Every Situation.", "لكل موقف.")}</span>
+                Roadside Assistance
+                <span className="block text-[#0563B4]">For Every Situation.</span>
               </TextReveal>
               <p className="mt-4 max-w-lg text-[14px] leading-relaxed text-slate-600">
-                {t("From minor roadside issues to unexpected emergencies, our assistance services help you move forward with confidence.", "من الأعطال البسيطة إلى الحالات الطارئة المفاجئة، تساعدك خدماتنا على مواصلة طريقك بثقة.")}
+                From minor roadside issues to unexpected emergencies, our assistance services help you move forward with confidence.
               </p>
             </motion.div>
             <motion.span
@@ -173,7 +170,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
               className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-[#0E1116] shadow-xs"
             >
               <span className="h-2 w-2 rounded-full bg-[#0563B4]" />
-              {String(roadsideServices.length).padStart(2, "0")} {t("Assistance Categories", "فئات مساعدة")}
+              {String(roadsideServices.length).padStart(2, "0")} Assistance Categories
             </motion.span>
           </motion.div>
 
@@ -196,12 +193,12 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                   <div className="relative aspect-[16/9] overflow-hidden bg-[#0E1116] sm:aspect-auto sm:min-h-[220px]">
                     <SafeImage
                       src={s.image}
-                      alt={t(s.title, s.titleAr)}
+                      alt={s.title}
                       fill
                       sizes="(min-width: 1024px) 260px, (min-width: 640px) 42vw, 100vw"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       fallback={
-                        <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-[#1B2029] to-[#07090C]">
+                        <div className="absolute inset-0 flex items-center justify-center bg-[#151A22]">
                           <Icon size={56} strokeWidth={1.2} className="text-white/25" />
                         </div>
                       }
@@ -217,9 +214,9 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border sm:h-11 sm:w-11 border-[#0563B4]/15 bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white">
                         <Icon size={20} strokeWidth={1.8} />
                       </span>
-                      <h3 className="text-base font-semibold tracking-tight text-[#0E1116] sm:text-lg">{t(s.title, s.titleAr)}</h3>
+                      <h3 className="text-base font-semibold tracking-tight text-[#0E1116] sm:text-lg">{s.title}</h3>
                     </div>
-                    <p className="mt-2.5 text-[14px] leading-normal text-slate-600 sm:mt-4 sm:leading-relaxed">{t(s.description, s.descriptionAr)}</p>
+                    <p className="mt-2.5 text-[14px] leading-normal text-slate-600 sm:mt-4 sm:leading-relaxed">{s.description}</p>
                     <span className="mt-3 h-[2px] w-10 bg-[#0563B4] sm:mt-5 transition-all duration-500 group-hover:w-20" />
                     <div className="mt-auto flex items-center justify-between pt-3.5 sm:pt-6">
                       <button
@@ -227,7 +224,7 @@ export default function RoadsideSection({ onBook }: RoadsideSectionProps) {
                         onClick={() => onBook("Roadside Support")}
                         className="text-sm font-semibold text-[#0563B4] after:absolute after:inset-0 hover:text-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0563B4]"
                       >
-                        {t("Request Assistance", "اطلب المساعدة")}
+                        Request Assistance
                       </button>
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white sm:h-9 sm:w-9">
                         <ArrowUpRight size={16} />

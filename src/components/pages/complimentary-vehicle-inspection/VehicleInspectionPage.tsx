@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import {
   ArrowUpRight,
@@ -66,7 +66,7 @@ export default function VehicleInspectionPage() {
       </PageHero>
 
       {/* ================= FREE CAR INSPECTION ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
@@ -123,7 +123,7 @@ export default function VehicleInspectionPage() {
       </section>
 
       {/* ================= BENEFITS ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -151,7 +151,7 @@ export default function VehicleInspectionPage() {
                     variants={fadeUp}
                     className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                   >
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0563B4] text-white">
                       <Icon size={22} />
                     </span>
                     <h3 className="mt-5 text-[16px] font-semibold text-[#0E1116]">{b.title}</h3>
@@ -174,16 +174,15 @@ export default function VehicleInspectionPage() {
       </section>
 
       {/* ================= AI-POWERED INSPECTION ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-8 text-white sm:p-12 lg:p-14"
+            className="relative isolate overflow-hidden rounded-3xl bg-[#0E1116] p-8 text-white sm:p-12 lg:p-14"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
             <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">

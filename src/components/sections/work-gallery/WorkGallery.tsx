@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useEffect, useRef, useState } from "react";
 import {
   animate,
@@ -20,21 +19,15 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const WORKS = [
   {
     tag: "Detailing",
-    tagAr: "تنظيف وتلميع",
     title: "Paint correction",
-    titleAr: "تصحيح الطلاء",
     text: "Swirl marks and scratches removed to bring back a deep, glossy finish.",
-    textAr: "إزالة الخدوش والعلامات الدائرية لاستعادة لمعان عميق.",
     before: "/images/home/gallery-before.webp",
     after: "/images/home/gallery-after.webp",
   },
   {
     tag: "Restoration",
-    tagAr: "ترميم",
     title: "Headlight restoration",
-    titleAr: "تجديد المصابيح الأمامية",
     text: "Yellowed, hazy lenses polished back to clear for safer night driving.",
-    textAr: "تلميع العدسات المصفرة والباهتة لتعود واضحة لقيادة ليلية أكثر أماناً.",
     before: "/images/home/bumper-before.webp",
     after: "/images/home/bumper-after.webp",
   },
@@ -68,7 +61,6 @@ function BeforeAfter({
   after: string;
   label: string;
 }) {
-  const { t } = useLang();
   const box = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
   const touched = useRef(false);
@@ -126,7 +118,7 @@ function BeforeAfter({
       ref={box}
       role="slider"
       tabIndex={0}
-      aria-label={t(`${label}: drag to compare before and after`, `${label}: اسحب للمقارنة بين قبل وبعد`)}
+      aria-label={`${label}: drag to compare before and after`}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(pos)}
@@ -146,7 +138,7 @@ function BeforeAfter({
       {/* BEFORE (base layer) */}
       <img
         src={before}
-        alt={`${label} — ${t("before", "قبل")}`}
+        alt={`${label} — $before`}
         draggable={false}
         loading="lazy"
         decoding="async"
@@ -160,7 +152,7 @@ function BeforeAfter({
       >
         <img
           src={after}
-          alt={`${label} — ${t("after", "بعد")}`}
+          alt={`${label} — $after`}
           draggable={false}
           loading="lazy"
           decoding="async"
@@ -170,10 +162,10 @@ function BeforeAfter({
 
       {/* LABELS */}
       <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[12px] font-semibold text-[#0E1116] shadow-xs">
-        {t("Before", "قبل")}
+        Before
       </span>
       <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-[#0563B4] px-3 py-1 text-[12px] font-semibold text-white shadow-xs">
-        {t("After", "بعد")}
+        After
       </span>
 
       {/* HANDLE */}
@@ -194,20 +186,17 @@ function BeforeAfter({
 --------------------------------------------------------- */
 
 interface WorkGalleryProps {
-  onBook?: (service?: string) => void;
   /** where the "View full gallery" button goes */
   galleryHref?: string;
 }
 
 export default function WorkGallery({
-  onBook,
   galleryHref = "/our-work-gallery/",
 }: WorkGalleryProps) {
-  const { t, href } = useLang();
   return (
       <section
         id="gallery"
-        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white section-y"
       >
         <div className="site-container">
           {/* ============ HEADER ROW ============ */}
@@ -224,13 +213,13 @@ export default function WorkGallery({
                 className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0563B4]"
               >
                 <Images size={14} />
-                {t("Our work", "أعمالنا")}
+                Our work
               </motion.span>
 
               <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#0E1116] sm:text-4xl lg:text-[44px]">
-                {t("Visible results.", "نتائج واضحة.")}
+                Visible results.
                 <span className="block text-[#0563B4]">
-                  {t("Real transformations.", "تحولات حقيقية.")}
+                  Real transformations.
                 </span>
               </TextReveal>
 
@@ -238,16 +227,16 @@ export default function WorkGallery({
                 variants={riseV}
                 className="mt-4 text-[15px] leading-relaxed text-slate-600"
               >
-                {t("Real before-and-after results from diagnostics, detailing and car restoration. Drag the slider on each photo to see the difference we make.", "نتائج حقيقية قبل وبعد من التشخيص والتلميع وترميم السيارات. اسحب المؤشر على كل صورة لترى الفرق الذي نصنعه.")}
+                Real before-and-after results from diagnostics, detailing and car restoration. Drag the slider on each photo to see the difference we make.
               </motion.p>
             </div>
 
             <motion.div variants={riseV}>
               <a
-                href={href(galleryHref)}
+                href={galleryHref}
                 className={`group inline-flex h-12 items-center gap-2 rounded-md border border-[#0E1116] px-6 text-[14px] font-semibold text-[#0E1116] transition-colors duration-300 hover:bg-[#0E1116] hover:text-white ${focusRing}`}
               >
-                {t("View full gallery", "عرض المعرض الكامل")}
+                View full gallery
                 <ArrowRight
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -276,55 +265,25 @@ export default function WorkGallery({
                 <BeforeAfter
                   before={work.before}
                   after={work.after}
-                  label={t(work.title, work.titleAr)}
+                  label={work.title}
                 />
 
                 <div className="flex items-start justify-between gap-3 px-4 py-3.5 sm:px-5 sm:py-4">
                   <div>
                     <h3 className="text-base font-semibold tracking-tight text-[#0E1116]">
-                      {t(work.title, work.titleAr)}
+                      {work.title}
                     </h3>
                     <p className="mt-1 max-w-[440px] text-[13px] leading-normal text-slate-600">
-                      {t(work.text, work.textAr)}
+                      {work.text}
                     </p>
                   </div>
                   <span className="shrink-0 rounded-full bg-[#EAF4FC] px-3 py-1 text-[12px] font-semibold text-[#0563B4]">
-                    {t(work.tag, work.tagAr)}
+                    {work.tag}
                   </span>
                 </div>
               </motion.li>
             ))}
           </motion.ul>
-
-          {/* ============ BOTTOM CTA ============ */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={REVEAL_VIEWPORT}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-[#EAF4FC] px-6 py-6 sm:flex-row sm:items-center sm:px-8"
-          >
-            <div>
-              <p className="text-base font-semibold text-[#0E1116]">
-                {t("Want results like these for your car?", "تريد نتائج مثل هذه لسيارتك؟")}
-              </p>
-              <p className="mt-1 text-[14px] text-slate-600">
-                {t("Book a free inspection and we will tell you exactly what your vehicle needs.", "احجز فحصاً مجانياً وسنخبرك بالضبط بما تحتاجه سيارتك.")}
-              </p>
-            </div>
-            <motion.button
-              type="button"
-              onClick={() => onBook?.("Free vehicle inspection")}
-              whileTap={{ scale: 0.97 }}
-              className={`group inline-flex h-12 shrink-0 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
-            >
-              {t("Get a free quote", "احصل على عرض سعر مجاني")}
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </motion.button>
-          </motion.div>
         </div>
       </section>
   );

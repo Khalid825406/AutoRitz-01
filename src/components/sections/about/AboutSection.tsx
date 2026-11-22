@@ -1,7 +1,6 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
-import { useLocalizedRouter } from "@/i18n/useLocalizedRouter";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import {
   motion,
@@ -34,40 +33,32 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const PHONE = CONTACT.phone;
 
 const CHECKS = [
-  { en: "Professional technicians", ar: "فنيون محترفون" },
-  { en: "Advanced diagnostics", ar: "تشخيص متطور" },
-  { en: "Quality workmanship", ar: "جودة في العمل" },
-  { en: "Customer-focused service", ar: "خدمة تركز على العميل" },
+  "Professional technicians",
+  "Advanced diagnostics",
+  "Quality workmanship",
+  "Customer-focused service",
 ];
 
 const FEATURES = [
   {
     icon: Activity,
     title: "Engine diagnostics",
-    titleAr: "تشخيص المحرك",
     text: "Advanced diagnostic tools to accurately identify and resolve your vehicle’s problems.",
-    textAr: "أدوات تشخيص متطورة لتحديد مشاكل سيارتك بدقة وحلها.",
   },
   {
     icon: BadgeCheck,
     title: "Certified technicians",
-    titleAr: "فنيون معتمدون",
     text: "Highly trained technicians with years of hands-on experience on every make.",
-    textAr: "فنيون مدربون تدريباً عالياً بخبرة عملية طويلة مع جميع أنواع السيارات.",
   },
   {
     icon: Wrench,
     title: "Modern equipment",
-    titleAr: "معدات حديثة",
     text: "State-of-the-art tools that make every repair faster, cleaner and more reliable.",
-    textAr: "أحدث الأدوات التي تجعل كل إصلاح أسرع وأنظف وأكثر موثوقية.",
   },
   {
     icon: Car,
     title: "Complete vehicle care",
-    titleAr: "عناية متكاملة بالسيارة",
     text: "Comprehensive repair and maintenance to keep your vehicle running safely.",
-    textAr: "إصلاح وصيانة شاملة لتبقى سيارتك تعمل بأمان.",
   },
 ];
 
@@ -100,9 +91,8 @@ export default function AboutSection({
   onBook,
   image = "/images/home/about.webp",
 }: AboutSectionProps) {
-  const { t } = useLang();
   const reduce = useReducedMotion();
-  const router = useLocalizedRouter();
+  const router = useRouter();
   const imgBox = useRef<HTMLDivElement>(null);
 
   // gentle parallax inside the photo frame
@@ -115,7 +105,7 @@ export default function AboutSection({
   return (
       <section
         id="about"
-        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white section-y"
       >
         <div className="site-container">
           {/* ===================================================
@@ -142,7 +132,7 @@ export default function AboutSection({
               >
                 <motion.img
                   src={image}
-                  alt={t("Technicians working inside the Ritz Auto Care workshop", "فنيون يعملون داخل ورشة ريتز أوتو كير")}
+                  alt="Technicians working inside the Ritz Auto Care workshop"
                   loading="lazy"
                   decoding="async"
                   width={1000}
@@ -152,15 +142,15 @@ export default function AboutSection({
                   className="h-full w-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-linear-to-t from-[#0E1116]/85 via-[#0E1116]/10 to-transparent" />
+                <div className="absolute inset-0 bg-[#0E1116]/45" />
 
                 {/* caption */}
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                   <h3 className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-                    {t("Driven by excellence.", "مدفوعون بالتميز.")}
+                    Driven by excellence.
                   </h3>
                   <p className="mt-2 max-w-[360px] text-[14px] leading-relaxed text-white/80">
-                    {t("Every vehicle that enters our workshop gets the same care we would give our own.", "كل سيارة تدخل ورشتنا تحظى بنفس العناية التي نمنحها لسياراتنا.")}
+                    Every vehicle that enters our workshop gets the same care we would give our own.
                   </p>
                 </div>
               </div>
@@ -178,10 +168,10 @@ export default function AboutSection({
                 </span>
                 <span className="leading-tight">
                   <span className="block text-[14px] font-semibold text-[#0E1116]">
-                    {t("Quality first", "الجودة أولاً")}
+                    Quality first
                   </span>
                   <span className="block text-[12px] text-slate-500">
-                    {t("Every repair double-checked", "كل إصلاح يُفحص مرتين")}
+                    Every repair double-checked
                   </span>
                 </span>
               </motion.div>
@@ -200,7 +190,7 @@ export default function AboutSection({
                 <span className="leading-tight">
                   <span className="block text-2xl font-semibold">20+</span>
                   <span className="block text-[12px] text-white/80">
-                    {t("Expert mechanics", "ميكانيكي خبير")}
+                    Expert mechanics
                   </span>
                 </span>
               </motion.div>
@@ -218,13 +208,13 @@ export default function AboutSection({
                 className="inline-flex items-center gap-2 rounded-full bg-[#EAF4FC] px-4 py-1.5 text-[13px] font-semibold text-[#0563B4]"
               >
                 <Wrench size={14} />
-                {t("About Ritz Auto Care", "عن ريتز أوتو كير")}
+                About Ritz Auto Care
               </motion.span>
 
               <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-[#0E1116] sm:text-4xl lg:text-[44px]">
-                {t("More than just car maintenance.", "أكثر من مجرد صيانة سيارات.")}
+                More than just car maintenance.
                 <span className="block text-[#0563B4]">
-                  {t("We care about your drive.", "نهتم برحلتك.")}
+                  We care about your drive.
                 </span>
               </TextReveal>
 
@@ -232,13 +222,13 @@ export default function AboutSection({
                 variants={riseV}
                 className="mt-5 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
-                {t("Ritz Auto Care delivers professional maintenance and repair across Dubai, backed by trained technicians and modern diagnostic equipment. We find the real problem and fix it properly the first time.", "تقدم ريتز أوتو كير صيانة وإصلاحاً احترافياً في جميع أنحاء دبي، بفريق من الفنيين المدربين ومعدات تشخيص حديثة. نكتشف المشكلة الحقيقية ونصلحها بشكل صحيح من المرة الأولى.")}
+                Ritz Auto Care delivers professional maintenance and repair across Dubai, backed by trained technicians and modern diagnostic equipment. We find the real problem and fix it properly the first time.
               </motion.p>
               <motion.p
                 variants={riseV}
                 className="mt-3 max-w-[560px] text-[15px] leading-relaxed text-slate-600"
               >
-                {t("From a routine service to a roadside emergency, you get clear advice, fair pricing and work you can trust.", "من الصيانة الدورية إلى طوارئ الطريق، تحصل على نصيحة واضحة وأسعار عادلة وعمل يمكنك الوثوق به.")}
+                From a routine service to a roadside emergency, you get clear advice, fair pricing and work you can trust.
               </motion.p>
 
               {/* CHECKLIST */}
@@ -248,14 +238,14 @@ export default function AboutSection({
               >
                 {CHECKS.map((label) => (
                   <li
-                    key={label.en}
+                    key={label}
                     className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0563B4]/50 hover:shadow-[0_10px_24px_rgba(14, 17, 22,0.08)]"
                   >
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF4FC] text-[#0563B4] transition-colors duration-300 group-hover:bg-[#0563B4] group-hover:text-white">
                       <Check size={15} strokeWidth={3} />
                     </span>
                     <span className="text-[14px] font-semibold text-[#0E1116]">
-                      {t(label)}
+                      {label}
                     </span>
                   </li>
                 ))}
@@ -272,7 +262,7 @@ export default function AboutSection({
                   whileTap={{ scale: 0.97 }}
                   className={`group inline-flex h-12 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
                 >
-                  {t("Get in touch", "تواصل معنا")}
+                  Get in touch
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -284,7 +274,7 @@ export default function AboutSection({
                   className={`inline-flex h-12 items-center gap-2 rounded-md border border-slate-200 px-5 text-[14px] font-semibold text-[#0E1116] transition-colors hover:border-[#0563B4] hover:text-[#0563B4] ${focusRing}`}
                 >
                   <Phone size={16} />
-                  {t("Call", "اتصل")} <span dir="ltr">{PHONE}</span>
+                  Call <span dir="ltr">{PHONE}</span>
                 </a>
               </motion.div>
             </motion.div>
@@ -319,10 +309,10 @@ export default function AboutSection({
                   className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-white"
                 >
                   <BadgeCheck size={14} />
-                  {t("Why choose us", "لماذا تختارنا")}
+                  Why choose us
                 </motion.span>
                 <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[44px]">
-                  {t("The Ritz Auto Care difference.", "ما يميز ريتز أوتو كير.")}
+                  The Ritz Auto Care difference.
                 </TextReveal>
               </div>
 
@@ -331,7 +321,7 @@ export default function AboutSection({
                 className="max-w-[440px] lg:text-end"
               >
                 <p className="text-[15px] leading-relaxed text-white/75">
-                  {t("Discover the expertise, technology and commitment that make your satisfaction our priority.", "اكتشف الخبرة والتقنية والالتزام التي تجعل رضاك أولويتنا.")}
+                  Discover the expertise, technology and commitment that make your satisfaction our priority.
                 </p>
                 <motion.button
                   type="button"
@@ -339,7 +329,7 @@ export default function AboutSection({
                   whileTap={{ scale: 0.97 }}
                   className="group mt-5 inline-flex h-12 items-center gap-2 rounded-md bg-white px-6 text-[14px] font-semibold text-[#0E1116] transition-colors hover:bg-[#EAF4FC] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  {t("Book a service", "احجز خدمة")}
+                  Book a service
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -359,7 +349,7 @@ export default function AboutSection({
               viewport={REVEAL_VIEWPORT}
               className="relative mt-8 sm:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
-              {FEATURES.map(({ icon: Icon, title, titleAr, text, textAr }) => (
+              {FEATURES.map(({ icon: Icon, title, text }) => (
                 <motion.li
                   key={title}
                   variants={riseV}
@@ -372,14 +362,14 @@ export default function AboutSection({
                   </span>
 
                   <h3 className="mt-5 text-lg font-semibold tracking-tight text-white">
-                    {t(title, titleAr)}
+                    {title}
                   </h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-white/70">
-                    {t(text, textAr)}
+                    {text}
                   </p>
 
                   {/* accent line on hover */}
-                  <span className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#0563B4] transition-transform duration-500 group-hover:scale-x-100" />
                 </motion.li>
               ))}
             </motion.ul>

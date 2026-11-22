@@ -149,7 +149,7 @@ export default function OurWorkGalleryPage() {
       </section>
 
       {/* ================= GRID ================= */}
-      <section className="w-full bg-white py-12 sm:py-20">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#0E1116] sm:text-3xl">
@@ -185,7 +185,7 @@ export default function OurWorkGalleryPage() {
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <span className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#0E1116]/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="pointer-events-none absolute inset-0 bg-[#0E1116]/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <span className="pointer-events-none absolute bottom-3 right-3 flex h-9 w-9 scale-75 items-center justify-center rounded-full bg-white text-[#0E1116] opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
                     <Maximize2 size={15} />
                   </span>

@@ -75,7 +75,7 @@ export default function SparePartsPage() {
       </PageHero>
 
       {/* ================= INTRO ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">
@@ -96,7 +96,7 @@ export default function SparePartsPage() {
       </section>
 
       {/* ================= PARTS WE SUPPLY ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="What we supply" icon={Cog} title="Our Auto Spare Parts &" highlight="Trading Services Include." />
@@ -135,7 +135,7 @@ export default function SparePartsPage() {
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="mt-10 sm:mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] text-white md:grid-cols-2"
+            className="mt-10 sm:mt-14 grid overflow-hidden rounded-3xl bg-[#0E1116] text-white md:grid-cols-2"
           >
             <div className="relative min-h-[240px]">
               <RevealImage src={SPARE_PARTS.sideImage} alt="Mechanic sorting auto spare parts" fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover" />

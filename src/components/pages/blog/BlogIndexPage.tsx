@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, CalendarDays, Tag } from "lucide-react";
 
@@ -26,7 +26,7 @@ export default function BlogIndexPage() {
         description="Car care tips and advice from the Ritz Auto Care team in Dubai."
       />
 
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.ul
             initial="hidden"

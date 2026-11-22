@@ -35,7 +35,7 @@ export default function AboutUsPage() {
       />
 
       {/* ================= WHO WE ARE ================= */}
-      <section className="w-full overflow-hidden bg-white py-12 sm:py-24">
+      <section className="w-full overflow-hidden bg-white section-y">
         <div className="site-container grid gap-10 sm:gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* photo collage */}
           <div className="relative mx-auto w-full max-w-[560px]">
@@ -85,7 +85,7 @@ export default function AboutUsPage() {
               href={`tel:+${SITE_CONTACT.whatsapp}`}
               className="group mt-8 sm:mt-10 inline-flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-[#F7FAFD] p-4 pr-6 transition-colors hover:border-[#0563B4]/40"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0563B4] text-white">
                 <Phone size={20} />
               </span>
               <span>
@@ -98,7 +98,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ================= CEO MESSAGE ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <motion.div
             variants={fadeUp}

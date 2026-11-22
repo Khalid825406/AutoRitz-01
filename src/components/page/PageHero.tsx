@@ -1,7 +1,6 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { motion, type Variants } from "motion/react";
 import { ChevronRight, Home } from "lucide-react";
@@ -34,7 +33,6 @@ const item: Variants = {
 
 /** Navy banner used at the top of every inner page. */
 export default function PageHero({ eyebrow, title, highlight, description, breadcrumbs, children, aside }: PageHeroProps) {
-  const { t } = useLang();
   return (
     <section className="w-full bg-white pt-6 sm:pt-8">
       <div className="site-container">
@@ -47,17 +45,16 @@ export default function PageHero({ eyebrow, title, highlight, description, bread
               backgroundSize: "22px 22px",
             }}
           />
-          <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
 
           <div className={aside ? "grid items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12" : undefined}>
           <motion.div variants={stagger} initial="hidden" animate="show" className="min-w-0">
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <motion.nav variants={item} aria-label={t("Breadcrumb", "مسار التنقل")}>
+              <motion.nav variants={item} aria-label="Breadcrumb">
                 <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-white/60">
                   <li>
                     <Link href="/" className="inline-flex items-center gap-1 py-1.5 transition-colors hover:text-white">
                       <Home size={13} />
-                      {t("Home", "الرئيسية")}
+                      Home
                     </Link>
                   </li>
                   {breadcrumbs.map((c) => (

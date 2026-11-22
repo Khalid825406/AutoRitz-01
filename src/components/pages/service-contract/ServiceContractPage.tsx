@@ -58,7 +58,7 @@ export default function ServiceContractPage() {
       </PageHero>
 
       {/* ================= PLANS ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -116,13 +116,10 @@ export default function ServiceContractPage() {
                   variants={fadeUp}
                   className={`relative flex flex-col overflow-hidden rounded-3xl border p-8 sm:p-10 ${
                     premium
-                      ? "border-transparent bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] text-white shadow-[0_30px_60px_-24px_rgba(14, 17, 22,0.6)]"
+                      ? "border-transparent bg-[#0E1116] text-white shadow-[0_30px_60px_-24px_rgba(14, 17, 22,0.6)]"
                       : "border-slate-200/80 bg-white text-[#0E1116] shadow-[0_20px_40px_-24px_rgba(14, 17, 22,0.25)]"
                   }`}
                 >
-                  {premium && (
-                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
-                  )}
                   <div className="relative flex items-start justify-between gap-4">
                     <div>
                       <span
@@ -185,7 +182,7 @@ export default function ServiceContractPage() {
       </section>
 
       {/* ================= COMPARISON ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading eyebrow="Compare" icon={FileText} title="Basic vs" highlight="Signature." />

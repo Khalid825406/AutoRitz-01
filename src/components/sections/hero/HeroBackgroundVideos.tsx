@@ -27,7 +27,7 @@ const VIDEO = cld("Mechanic_repairing_luxury_car_en__48186cb1_1080p_gwr_video_mv
  * re-composite every video frame and made playback stutter on weaker laptops.
  */
 const CENTER_FADE =
-  "linear-gradient(to right, rgba(14, 17, 22,0.45) 0%, rgba(14, 17, 22,0.6) 30%, rgba(14, 17, 22,0.7) 50%, rgba(14, 17, 22,0.6) 70%, rgba(14, 17, 22,0.45) 100%)";
+  "rgba(14, 17, 22, 0.6)";
 
 /** Autoplaying, muted, looping clip with no controls — purely decorative. Pauses while off-screen. */
 function BackgroundVideo({ src, poster }: { src: string; poster: string }) {
@@ -105,7 +105,6 @@ export default function HeroBackgroundVideos() {
     <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
       <BackgroundVideo {...VIDEO} />
       <div className="absolute inset-0" style={{ background: CENTER_FADE }} />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-[#07090C]/70 to-transparent" />
     </div>
   );
 }

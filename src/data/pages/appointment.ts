@@ -31,7 +31,7 @@ export const APPOINTMENT_SERVICES = [
 
 type AppointmentService = (typeof APPOINTMENT_SERVICES)[number];
 
-/** Arabic labels for the form options (Arabic site). */
+/** Arabic names of the form options — search keywords only (the page itself is translated by Google). */
 export const APPOINTMENT_SERVICES_AR: Record<AppointmentService, string> = {
   "Oil Change": "تغيير الزيت",
   "Oil Filter Replacement": "تغيير فلتر الزيت",

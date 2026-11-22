@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { X } from "lucide-react";
@@ -14,7 +13,6 @@ interface StickyBannerProps {
 
 /** Announcement bar (inspired by Aceternity UI's StickyBanner) — closable, animated with Framer Motion. */
 export function StickyBanner({ children, className = "", hideOnScroll = false }: StickyBannerProps) {
-  const { t } = useLang();
   const [closed, setClosed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -34,13 +32,13 @@ export function StickyBanner({ children, className = "", hideOnScroll = false }:
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className={`relative overflow-hidden ${className}`}
           role="region"
-          aria-label={t("Announcement", "إعلان")}
+          aria-label="Announcement"
         >
           <div className="flex min-h-11 items-center justify-center px-12 py-2">{children}</div>
           <button
             type="button"
             onClick={() => setClosed(true)}
-            aria-label={t("Close announcement", "إغلاق الإعلان")}
+            aria-label="Close announcement"
             className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
           >
             <X size={16} />

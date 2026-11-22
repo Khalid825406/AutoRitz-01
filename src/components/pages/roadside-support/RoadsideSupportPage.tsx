@@ -87,7 +87,7 @@ export default function RoadsideSupportPage() {
       </PageHero>
 
       {/* ================= EXPERT ROADSIDE ASSISTANCE ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -130,7 +130,7 @@ export default function RoadsideSupportPage() {
                     Book Now
                     <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#0563B4] transition-transform duration-500 group-hover:scale-x-100" />
                 </motion.li>
               );
             })}

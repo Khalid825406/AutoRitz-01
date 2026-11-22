@@ -66,11 +66,11 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       </PageHero>
 
       {/* ================= PROCESS ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0563B4] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
                 <Icon size={26} />
               </span>
               <TextReveal className="mt-6 text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">{process.title}</TextReveal>
@@ -100,7 +100,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
                 variants={fadeUp}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(14, 17, 22,0.3)]"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-linear-to-br from-[#1B2029] to-[#07090C]">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#151A22]">
                   {st.image ? (
                     <RevealImage
                       src={st.image}
@@ -129,7 +129,7 @@ export default function ServiceDetailPage({ slug, title, detail }: ServiceDetail
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
@@ -19,8 +18,6 @@ interface ServiceCardProps {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ServiceCard({ service, index = 0, onBook, ref }: ServiceCardProps) {
-  const { t, lang } = useLang();
-  const ar = lang === "ar" ? service.ar : undefined;
   const Icon = service.icon;
 
   return (
@@ -37,15 +34,15 @@ export default function ServiceCard({ service, index = 0, onBook, ref }: Service
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
         <Image
           src={service.image}
-          alt={ar?.title ?? service.title}
+          alt={service.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#0E1116]/70 via-[#0E1116]/10 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-[#0E1116]/30" />
 
         <span className="absolute start-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0E1116] shadow-xs">
-          {ar?.category ?? service.category}
+          {service.category}
         </span>
         <span className="absolute bottom-3 end-4 text-4xl font-bold leading-none text-white/25 tabular-nums">
           {service.id}
@@ -59,14 +56,14 @@ export default function ServiceCard({ service, index = 0, onBook, ref }: Service
             <Icon size={22} strokeWidth={1.8} />
           </span>
           <h3 className="text-lg font-semibold leading-snug tracking-tight text-[#0E1116]">
-            {ar?.title ?? service.title}
+            {service.title}
           </h3>
         </div>
 
-        <p className="mt-4 text-[14px] leading-relaxed text-slate-600">{ar?.description ?? service.description}</p>
+        <p className="mt-4 text-[14px] leading-relaxed text-slate-600">{service.description}</p>
 
         <ul className="mt-5 space-y-2.5">
-          {(ar?.features ?? service.features).map((f) => (
+          {service.features.map((f) => (
             <li key={f} className="flex items-center gap-2.5 text-sm text-slate-700">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0563B4]/10 text-[#0563B4]">
                 <Check size={12} strokeWidth={3} />
@@ -82,14 +79,14 @@ export default function ServiceCard({ service, index = 0, onBook, ref }: Service
             onClick={() => onBook(service.title)}
             className="group/btn flex w-full items-center justify-between border-t border-slate-100 pt-5 text-sm font-semibold text-[#0563B4] transition-colors hover:text-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0563B4]"
           >
-            {t("Book this service", "احجز هذه الخدمة")}
+            Book this service
             <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </button>
         </div>
       </div>
 
       {/* Accent line */}
-      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#0563B4] transition-transform duration-500 group-hover:scale-x-100" />
     </motion.article>
   );
 }

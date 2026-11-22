@@ -93,14 +93,12 @@ function Skyline() {
  */
 export default function HeroMobile() {
   return (
-    <div className="relative flex min-h-[92svh] flex-col overflow-hidden bg-linear-to-b from-[#12161D] via-[#0E1116] to-[#050608] pb-12 pt-[clamp(9rem,36vw,10.5rem)] md:hidden">
+    <div className="relative flex min-h-[92svh] flex-col overflow-hidden bg-[#0E1116] pb-12 pt-[clamp(9rem,36vw,10.5rem)] md:hidden">
       {/* glows */}
-      <div className="pointer-events-none absolute left-1/2 top-[18%] h-[60vw] w-[120vw] -translate-x-1/2 rounded-full bg-radial from-[#0B6FC2]/45 to-transparent to-70%" />
-      <div className="pointer-events-none absolute -bottom-[10%] left-1/2 h-[70vw] w-[140vw] -translate-x-1/2 rounded-full bg-radial from-[#2f8fe0]/35 to-transparent to-70%" />
 
       <Skyline />
       {/* fade the skyline into the road */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-linear-to-t from-[#050608] via-[#050608]/85 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] bg-[#050608]/60" />
 
       {/* title + car, kept together and centred in the hero's height (top padding clears the fixed header) */}
       <div className="relative z-10 my-auto">

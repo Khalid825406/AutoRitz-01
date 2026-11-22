@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { animate, stagger } from "motion/react";
 
@@ -16,8 +16,8 @@ import {
   Globe,
 } from "lucide-react";
 import { CONTACT, NAV_LINKS, isActiveLink } from "@/config/site";
-import { stripLang, useLang } from "@/i18n/LangProvider";
-
+import { setSiteLang, type SiteLang } from "@/lib/google-translate";
+import { useSiteLang } from "./GoogleTranslate";
 
 import AnnouncementBar from "./AnnouncementBar";
 import BrandLogo from "./BrandLogo";
@@ -45,13 +45,10 @@ export default function Header({ onBook }: { onBook: () => void }) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname() ?? "/";
-  const { lang, t } = useLang();
-  /** Same page in the other language (full navigation so <html lang/dir> and the fonts switch too). */
-  const switchLang = (code: "en" | "ar") => {
-    if (code === lang) return;
-    const bare = stripLang(window.location.pathname);
-    const rest = window.location.search + window.location.hash;
-    window.location.assign((code === "ar" ? (bare === "/" ? "/ar/" : `/ar${bare}`) : bare) + rest);
+  /** EN | AR buttons — Google Translate translates the page (Arabic also turns it right-to-left). */
+  const lang = useSiteLang();
+  const switchLang = (code: SiteLang) => {
+    if (code !== lang) void setSiteLang(code);
   };
   /** Full-screen search on phones / tablets. */
   const [searchOpen, setSearchOpen] = useState(false);
@@ -141,7 +138,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
             <Link
               href="/"
               onClick={closeMenus}
-              aria-label={t("Ritz Auto Care home", "الصفحة الرئيسية لريتز أوتو كير")}
+              aria-label="Ritz Auto Care home"
               className={`header-logo flex shrink-0 items-center rounded-sm ${focusRing}`}
             >
               <BrandLogo
@@ -162,7 +159,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 </span>
                 <span className="leading-tight">
                   <span className="block text-[11px] text-slate-500">
-                    {t("Call us", "اتصل بنا")}
+                    Call us
                   </span>
                   <span className="block text-[14px] font-semibold text-[#0E1116]">
                     {PHONE}
@@ -180,7 +177,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 </span>
                 <span className="leading-tight">
                   <span className="block text-[11px] text-slate-500">
-                    {t("Email us", "راسلنا")}
+                    Email us
                   </span>
                   <span className="block text-[14px] font-semibold text-[#0E1116]">
                     {EMAIL}
@@ -193,9 +190,9 @@ export default function Header({ onBook }: { onBook: () => void }) {
 
               {/* Language */}
               <div
-                className="header-top-item flex shrink-0 items-center gap-2 text-[#0E1116]"
+                className="notranslate header-top-item flex shrink-0 items-center gap-2 text-[#0E1116]"
                 role="group"
-                aria-label={t("Language", "اللغة")}
+                aria-label="Language"
               >
                 <Globe size={17} className="text-[#0563B4]" />
                 <div className="flex rounded-full bg-slate-100 p-0.5">
@@ -223,7 +220,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                 onClick={handleBook}
                 className={`header-top-item flex h-11 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-[#0563B4] px-6 text-[13px] font-bold text-white shadow-xs transition-colors duration-300 hover:bg-[#0E1116] ${focusRing}`}
               >
-                {t("Get a free quote", "احصل على عرض سعر مجاني")}
+                Get a free quote
               </button>
             </div>
 
@@ -232,8 +229,8 @@ export default function Header({ onBook }: { onBook: () => void }) {
               {/* Language (compact EN | AR, same as the desktop toggle) */}
               <div
                 role="group"
-                aria-label={t("Language", "اللغة")}
-                className="flex h-10 shrink-0 items-center rounded-md border border-slate-200 bg-slate-50 p-0.5 max-[359px]:h-9"
+                aria-label="Language"
+                className="notranslate flex h-10 shrink-0 items-center rounded-md border border-slate-200 bg-slate-50 p-0.5 max-[359px]:h-9"
               >
                 {(["en", "ar"] as const).map((code) => (
                   <button
@@ -253,7 +250,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
               <button
                 type="button"
                 onClick={openSearch}
-                aria-label={t("Search cars & services", "ابحث عن سيارة أو خدمة")}
+                aria-label="Search cars & services"
                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[#0563B4] transition-colors hover:border-[#0563B4] max-[359px]:h-9 max-[359px]:w-9 ${focusRing}`}
               >
                 <Search size={19} />
@@ -264,7 +261,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
             <button
               type="button"
               onClick={() => setMenu(!menu)}
-              aria-label={menu ? t("Close menu", "إغلاق القائمة") : t("Open menu", "فتح القائمة")}
+              aria-label={menu ? "Close menu" : "Open menu"}
               aria-expanded={menu}
               className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#0E1116] text-white max-[359px]:h-9 max-[359px]:w-9 xl:hidden ${focusRing}`}
             >
@@ -276,8 +273,8 @@ export default function Header({ onBook }: { onBook: () => void }) {
         {/* ================= NAV BAR (xl and up) ================= */}
         <div className="relative hidden w-full bg-[#0E1116] xl:block">
           <nav
-            aria-label={t("Main navigation", "القائمة الرئيسية")}
-            data-label={t("Main navigation", "القائمة الرئيسية")}
+            aria-label="Main navigation"
+            data-label="Main navigation"
             className="site-container relative flex items-stretch justify-between"
           >
             {NAV_LINKS.map((item) => {
@@ -298,7 +295,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
 
               return (
                 <div
-                  key={t(item.label, item.labelAr)}
+                  key={item.label}
                   // mega menus are positioned against the whole nav bar, normal dropdowns against their item
                   className={`${item.megaBrands || item.megaServices ? "" : "relative "}flex shrink-0 items-stretch`}
                   onMouseEnter={() => dropdown && setActiveDropdown(item.label)}
@@ -315,7 +312,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                       aria-current={isActive ? "page" : undefined}
                       className={itemClass}
                     >
-                      {t(item.label, item.labelAr)}
+                      {item.label}
                       <ChevronDown
                         size={14}
                         strokeWidth={2.5}
@@ -332,7 +329,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                       aria-current={isActive ? "true" : undefined}
                       className={itemClass}
                     >
-                      {t(item.label, item.labelAr)}
+                      {item.label}
                       <ChevronDown
                         size={14}
                         strokeWidth={2.5}
@@ -342,7 +339,7 @@ export default function Header({ onBook }: { onBook: () => void }) {
                     </button>
                   ) : (
                     <Link href={item.href} onClick={closeMenus} aria-current={isActive ? "page" : undefined} className={itemClass}>
-                      {t(item.label, item.labelAr)}
+                      {item.label}
                       {underline}
                     </Link>
                   )}
@@ -387,10 +384,10 @@ export default function Header({ onBook }: { onBook: () => void }) {
                             >
                               <span>
                                 <span className="block text-[14px] font-semibold text-[#0E1116] group-hover:text-[#0563B4]">
-                                  {t(sub.label, sub.labelAr)}
+                                  {sub.label}
                                 </span>
                                 {sub.description && (
-                                  <span className="mt-0.5 block text-[12px] text-slate-500">{t(sub.description, sub.descriptionAr)}</span>
+                                  <span className="mt-0.5 block text-[12px] text-slate-500">{sub.description}</span>
                                 )}
                               </span>
                               <ArrowRight

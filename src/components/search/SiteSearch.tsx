@@ -5,8 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, CarFront, CornerDownLeft, FileText, Phone, Search, SearchX, Wrench, X } from "lucide-react";
 
 import { SITE_CONTACT } from "@/config/site";
-import { useLang } from "@/i18n/LangProvider";
-import { useLocalizedRouter } from "@/i18n/useLocalizedRouter";
+import { useRouter } from "next/navigation";
 import { BRAND_COUNT } from "@/data/pages/brand-menu";
 import { SERVICE_MENU } from "@/data/pages/service-menu";
 import { POPULAR_BRANDS, POPULAR_SEARCHES, normalize, searchSite, type SearchItem } from "@/lib/search/site-search";
@@ -24,16 +23,15 @@ interface SiteSearchProps {
   className?: string;
 }
 
-const GROUPS: { kind: SearchItem["kind"]; en: string; ar: string; icon: typeof Wrench }[] = [
-  { kind: "brand", en: "Car brands", ar: "علامات السيارات", icon: CarFront },
-  { kind: "service", en: "Services", ar: "الخدمات", icon: Wrench },
-  { kind: "page", en: "Pages", ar: "الصفحات", icon: FileText },
+const GROUPS: { kind: SearchItem["kind"]; label: string; icon: typeof Wrench }[] = [
+  { kind: "brand", label: "Car brands", icon: CarFront },
+  { kind: "service", label: "Services", icon: Wrench },
+  { kind: "page", label: "Pages", icon: FileText },
 ];
 
-/** Header search: live results for services, car brands (and their models) and pages, in English and Arabic. */
+/** Header search: live results for services, car brands (and their models) and pages. Arabic searches work too (Arabic names are kept as search keywords). */
 export default function SiteSearch({ variant = "header", autoFocus, onDone, className = "" }: SiteSearchProps) {
-  const { t, lang } = useLang();
-  const router = useLocalizedRouter();
+  const router = useRouter();
   const listId = useId();
   const box = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
@@ -142,7 +140,7 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
           aria-controls={listId}
           aria-autocomplete="list"
           aria-activedescendant={activeId}
-          aria-label={t("Search cars, brands and services", "ابحث عن السيارات والعلامات والخدمات")}
+          aria-label="Search cars, brands and services"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -153,8 +151,8 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
           onKeyDown={onKeyDown}
           placeholder={
             isHeader
-              ? t("Search cars & services", "ابحث عن سيارة أو خدمة")
-              : t("Search a car brand, model or service…", "ابحث عن علامة أو موديل أو خدمة…")
+              ? "Search cars & services"
+              : "Search a car brand, model or service…"
           }
           autoComplete="off"
           enterKeyHint="search"
@@ -169,7 +167,7 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
               setQuery("");
               input.current?.focus();
             }}
-            aria-label={t("Clear search", "مسح البحث")}
+            aria-label="Clear search"
             className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-200/70 text-slate-600 transition-colors hover:bg-slate-300"
           >
             <X size={13} />
@@ -189,7 +187,7 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
             >
               <div className="max-h-[min(70vh,520px)] overflow-y-auto overscroll-contain p-2">{panel}</div>
               <p className="hidden items-center justify-between gap-3 border-t border-slate-100 bg-slate-50/80 px-4 py-2 text-[11px] text-slate-500 sm:flex">
-                <span>{t("↑ ↓ to move · Enter to open · Esc to close", "↑ ↓ للتنقل · Enter للفتح · Esc للإغلاق")}</span>
+                <span>↑ ↓ to move · Enter to open · Esc to close</span>
                 <CornerDownLeft size={13} />
               </p>
             </motion.div>
@@ -199,7 +197,7 @@ export default function SiteSearch({ variant = "header", autoFocus, onDone, clas
         <div className="mt-3">{panel}</div>
       )}
       <span className="sr-only" aria-live="polite">
-        {q ? (lang === "ar" ? `${ordered.length} نتيجة` : `${ordered.length} results`) : ""}
+        {q ? `${ordered.length} results` : ""}
       </span>
     </div>
   );
@@ -228,13 +226,12 @@ function Panel({
   onPick: (href: string) => void;
   onSubmit: () => void;
 }) {
-  const { t } = useLang();
 
   // Nothing typed yet: popular brands + services.
   if (!query)
     return (
-      <div id={listId} role="listbox" aria-label={t("Popular searches", "عمليات البحث الشائعة")} className="p-2">
-        <GroupTitle>{t("Popular car brands", "علامات شائعة")}</GroupTitle>
+      <div id={listId} role="listbox" aria-label="Popular searches" className="p-2">
+        <GroupTitle>Popular car brands</GroupTitle>
         <div className={`mt-2 grid grid-cols-3 gap-2 ${variant === "overlay" ? "sm:grid-cols-6" : ""}`}>
           {POPULAR_BRANDS.map((b) => (
             <button
@@ -249,7 +246,7 @@ function Panel({
             </button>
           ))}
         </div>
-        <GroupTitle className="mt-4">{t("Popular services", "خدمات شائعة")}</GroupTitle>
+        <GroupTitle className="mt-4">Popular services</GroupTitle>
         <div className="mt-2 flex flex-wrap gap-2">
           {POPULAR_SEARCHES.map((s) => (
             <button
@@ -258,7 +255,7 @@ function Panel({
               onClick={() => onPick(s.href)}
               className="rounded-full bg-[#EAF4FC] px-3.5 py-2 text-[13px] font-semibold text-[#0563B4] transition-colors hover:bg-[#0563B4] hover:text-white"
             >
-              {t(s.title, s.titleAr)}
+              {s.title}
             </button>
           ))}
         </div>
@@ -271,7 +268,7 @@ function Panel({
           >
             <span className="flex items-center gap-2">
               <Wrench size={15} className="text-[#0563B4]" />
-              {t(`All ${SERVICE_COUNT} services`, `جميع الخدمات (${SERVICE_COUNT})`)}
+              {`All ${SERVICE_COUNT} services`}
             </span>
             <ArrowRight size={14} />
           </button>
@@ -282,7 +279,7 @@ function Panel({
           >
             <span className="flex items-center gap-2">
               <CarFront size={15} className="text-[#0563B4]" />
-              {t(`All ${BRAND_COUNT} brands`, `جميع العلامات (${BRAND_COUNT})`)}
+              {`All ${BRAND_COUNT} brands`}
             </span>
             <ArrowRight size={14} />
           </button>
@@ -295,10 +292,10 @@ function Panel({
       <div id={listId} role="listbox" className="flex flex-col items-center px-4 py-8 text-center">
         <SearchX size={30} className="text-[#0563B4]" />
         <p className="mt-3 text-[14px] font-semibold text-[#0E1116]">
-          {t("No results for", "لا توجد نتائج لـ")} “{query}”
+          No results for “{query}”
         </p>
         <p className="mt-1 max-w-xs text-[13px] text-slate-500">
-          {t("We service every make and model — ask our team.", "نخدم جميع العلامات والموديلات — اسأل فريقنا.")}
+          We service every make and model — ask our team.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <a
@@ -313,20 +310,20 @@ function Panel({
             onClick={() => onPick("/service/")}
             className="inline-flex h-10 items-center rounded-full border border-slate-200 px-4 text-[13px] font-semibold text-[#0E1116] transition-colors hover:border-[#0563B4] hover:text-[#0563B4]"
           >
-            {t("All services", "جميع الخدمات")}
+            All services
           </button>
         </div>
       </div>
     );
 
   return (
-    <div id={listId} role="listbox" aria-label={t("Search results", "نتائج البحث")}>
+    <div id={listId} role="listbox" aria-label="Search results">
       {GROUPS.map((g) => {
         const items = ordered.filter((r) => r.kind === g.kind);
         if (!items.length) return null;
         return (
           <div key={g.kind} className="py-1">
-            <GroupTitle className="px-3 pt-2">{t(g.en, g.ar)}</GroupTitle>
+            <GroupTitle className="px-3 pt-2">{g.label}</GroupTitle>
             <ul className="mt-1">
               {items.map((item) => {
                 const i = ordered.indexOf(item);
@@ -354,7 +351,7 @@ function Panel({
         className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-start text-[13px] font-semibold text-[#0563B4] transition-colors hover:bg-[#F2F8FD]"
       >
         <span>
-          {t("Open best match for", "افتح أفضل نتيجة لـ")} “{query}”
+          Open best match for “{query}”
         </span>
         <ArrowRight size={15} />
       </button>
@@ -379,8 +376,7 @@ function ResultRow({
   onHover: () => void;
   onPick: () => void;
 }) {
-  const { t } = useLang();
-  const title = t(item.title, item.titleAr);
+  const title = item.title;
   return (
     <button
       id={id}
@@ -409,7 +405,7 @@ function ResultRow({
         <span className="block truncate text-[14px] font-semibold text-[#0E1116]">
           <Highlight text={title} query={query} />
         </span>
-        <span className="block truncate text-[12px] text-slate-500">{t(item.sub, item.subAr)}</span>
+        <span className="block truncate text-[12px] text-slate-500">{item.sub}</span>
       </span>
       <ArrowRight
         size={15}

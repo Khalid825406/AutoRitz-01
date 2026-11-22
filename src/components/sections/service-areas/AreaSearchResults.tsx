@@ -1,10 +1,9 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { motion } from "motion/react";
 import { Check, ChevronRight, MapPin, Phone } from "lucide-react";
 
-import { REGION_AR, type ServiceArea } from "@/data/service-areas";
+import type { ServiceArea } from "@/data/service-areas";
 
 interface AreaSearchResultsProps {
   query: string;
@@ -31,20 +30,19 @@ function Highlight({ text, query }: { text: string; query: string }) {
 
 /** Live results shown right under the search box (replaces "Popular areas" while typing). */
 export default function AreaSearchResults({ query, results, selected, onSelect, phone }: AreaSearchResultsProps) {
-  const { t } = useLang();
   const q = query.trim();
 
   if (results.length === 0) {
     return (
       <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-5 text-center" role="status">
-        <p className="text-[14px] font-semibold text-white">{t("No area matches", "لا توجد منطقة تطابق")} &ldquo;{q}&rdquo;</p>
-        <p className="mt-1 text-[13px] text-white/65">{t("We may still reach you — call us to confirm your location.", "قد نصل إليك رغم ذلك، اتصل بنا لتأكيد موقعك.")}</p>
+        <p className="text-[14px] font-semibold text-white">No area matches &ldquo;{q}&rdquo;</p>
+        <p className="mt-1 text-[13px] text-white/65">We may still reach you — call us to confirm your location.</p>
         <a
           href={`tel:${phone}`}
           className="mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-[13px] font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <Phone size={15} />
-          {t("Call", "اتصل")} <span dir="ltr">{phone}</span>
+          Call <span dir="ltr">{phone}</span>
         </a>
       </div>
     );
@@ -53,10 +51,7 @@ export default function AreaSearchResults({ query, results, selected, onSelect, 
   return (
     <div className="mt-4">
       <p className="text-[13px] font-medium text-white/60" role="status" aria-live="polite">
-        {t(
-          `${results.length} ${results.length === 1 ? "area matches" : "areas match"} “${q}” — we cover ${results.length === 1 ? "it" : "them all"}`,
-          `${results.length} ${results.length === 1 ? "منطقة تطابق" : "مناطق تطابق"} “${q}” — نغطيها جميعاً`,
-        )}
+        {`${results.length} ${results.length === 1 ? "area matches" : "areas match"} “${q}” — we cover ${results.length === 1 ? "it" : "them all"}`}
       </p>
       <ul className="mt-3 max-h-[232px] space-y-1.5 overflow-y-auto pr-1 [scrollbar-color:rgba(255,255,255,0.25)_transparent] [scrollbar-width:thin]">
         {results.map((a, i) => {
@@ -87,14 +82,14 @@ export default function AreaSearchResults({ query, results, selected, onSelect, 
                   <span className="block truncate text-[14px] font-semibold">
                     <Highlight text={a.name} query={q} />
                   </span>
-                  <span className={`block text-xs ${active ? "text-slate-500" : "text-white/55"}`}>{t(a.region, REGION_AR[a.region])}</span>
+                  <span className={`block text-xs ${active ? "text-slate-500" : "text-white/55"}`}>{a.region}</span>
                 </span>
                 <span
                   className={`hidden items-center gap-1 text-xs font-semibold sm:flex ${
                     active ? "text-[#0563B4]" : "text-white/50 group-hover:text-white"
                   }`}
                 >
-                  {active ? t("On map", "على الخريطة") : t("Show on map", "اعرض على الخريطة")}
+                  {active ? "On map" : "Show on map"}
                   <ChevronRight size={14} />
                 </span>
               </button>

@@ -1,34 +1,49 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
-import { Cairo, Fraunces, Montserrat } from "next/font/google";
+import { Cairo, Inter, Lilita_One, Montserrat, Oswald } from "next/font/google";
 
 import BookingJourneyProvider from "@/components/booking-journey/BookingJourneyProvider";
 import CallAdvisor from "@/components/layout/CallAdvisor";
+import GoogleTranslate from "@/components/layout/GoogleTranslate";
 import ScrollManager from "@/components/layout/ScrollManager";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import MotionProvider from "@/components/providers/MotionProvider";
-import { LangProvider, type Lang } from "@/i18n/LangProvider";
 
 import "./globals.css";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
-
-/** Brand wordmark ("RITZ AUTO CARE LLC") — Fraunces with the SOFT axis turned up reads like the logo's Cooper-style lettering. */
-const brandFont = Fraunces({
+/** Body text, buttons, forms — Inter is built for screens and stays crisp at small sizes. */
+const inter = Inter({
   subsets: ["latin"],
   weight: "variable",
-  axes: ["SOFT", "WONK"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+/** Headings + hero title — Oswald's tall, condensed letters give the automotive / performance feel. */
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-oswald",
+});
+
+/** Brand wordmark ("RITZ AUTO CARE LLC") — Lilita One: heavy, rounded-corner sign lettering like the logo artwork. */
+const brandFont = Lilita_One({
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
   variable: "--font-brand",
 });
 
-/** Arabic text — Montserrat has no Arabic letters, so the browser takes them from Cairo. */
+/** Homepage hero title only ("Ritz Auto / Care LLC") — kept in its original Montserrat Black Italic. */
+const heroFont = Montserrat({
+  subsets: ["latin"],
+  weight: "900",
+  style: "italic",
+  display: "swap",
+  variable: "--font-hero",
+});
+
+/** Arabic text — Inter and Oswald have no Arabic letters, so the browser takes them from Cairo. */
 const arabicFont = Cairo({
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -36,37 +51,22 @@ const arabicFont = Cairo({
   variable: "--font-arabic",
 });
 
-/** "ar" on /ar/... (set by src/proxy.ts), otherwise "en". */
-async function getLang(): Promise<Lang> {
-  return (await headers()).get("x-lang") === "ar" ? "ar" : "en";
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const lang = await getLang();
-  return lang === "ar"
-    ? {
-        title: "ريتز أوتو كير ذ.م.م | صيانة وإصلاح السيارات في دبي",
-        description:
-          "صيانة وإصلاح وخدمة السيارات في دبي — فنيون خبراء، قطع غيار أصلية، استلام وتوصيل مجاني ومساعدة على الطريق على مدار الساعة من ورشتنا في مجمع دبي للاستثمار.",
-        alternates: { languages: { en: "/", ar: "/ar/" } },
-      }
-    : {
-        title: "Ritz Auto Care LLC | Car Service, Repair & Maintenance in Dubai",
-        description:
-          "Car service, repair and maintenance in Dubai — expert technicians, genuine parts, free pick-up & drop-off and 24/7 roadside support from our workshop in Dubai Investment Park.",
-        alternates: { languages: { en: "/", ar: "/ar/" } },
-      };
-}
+export const metadata: Metadata = {
+  title: "Ritz Auto Care LLC | Car Service, Repair & Maintenance in Dubai",
+  description:
+    "Car service, repair and maintenance in Dubai — expert technicians, genuine parts, free pick-up & drop-off and 24/7 roadside support from our workshop in Dubai Investment Park.",
+};
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const lang = await getLang();
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
+    // lang/dir switch to ar/rtl in the browser when a visitor picks Arabic (Google Translate)
     <html
-      lang={lang}
-      dir={lang === "ar" ? "rtl" : "ltr"}
-      className={`${montserrat.variable} ${brandFont.variable} ${arabicFont.variable}`}
+      lang="en"
+      dir="ltr"
+      suppressHydrationWarning
+      className={`${inter.variable} ${oswald.variable} ${heroFont.variable} ${brandFont.variable} ${arabicFont.variable}`}
     >
       <head>
         {/* videos (hero, booking journey) come from Cloudinary — open the connection early */}
@@ -74,7 +74,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body>
-        <LangProvider lang={lang}>
         <MotionProvider>
           <BookingJourneyProvider>
             {children}
@@ -83,7 +82,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <ScrollManager />
           </BookingJourneyProvider>
         </MotionProvider>
-        </LangProvider>
+        <GoogleTranslate />
       </body>
     </html>
   );

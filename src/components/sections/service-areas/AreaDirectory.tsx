@@ -1,11 +1,10 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Building2, Check, ChevronDown, ChevronRight, MapPin, Palmtree, Plane, Waves } from "lucide-react";
 
-import { REGION_AR, REGIONS, type ServiceArea } from "@/data/service-areas";
+import { REGIONS, type ServiceArea } from "@/data/service-areas";
 
 import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 interface AreaDirectoryProps {
@@ -23,32 +22,27 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /** Areas shown per region before "Show more". */
 const PREVIEW_COUNT = 6;
 
-const REGION_META: Record<string, { icon: typeof MapPin; blurb: string; blurbAr: string }> = {
+const REGION_META: Record<string, { icon: typeof MapPin; blurb: string }> = {
   "Central Dubai": {
     icon: Building2,
     blurb: "Downtown, Business Bay, DIFC, Bur Dubai and the city's core neighbourhoods.",
-    blurbAr: "وسط المدينة، الخليج التجاري، مركز دبي المالي العالمي، بر دبي والأحياء الرئيسية في المدينة.",
   },
   "Marina & Al Barsha": {
     icon: Waves,
     blurb: "Dubai Marina, JLT, Palm Jumeirah, Al Barsha and the new coastal communities.",
-    blurbAr: "دبي مارينا، أبراج بحيرات جميرا، نخلة جميرا، البرشاء والمجتمعات الساحلية الجديدة.",
   },
   "Dubailand & South": {
     icon: Palmtree,
     blurb: "Villa communities and new developments from Dubai Hills to Dubai South.",
-    blurbAr: "مجمعات الفلل والمشاريع الجديدة من دبي هيلز إلى دبي الجنوب.",
   },
   "Deira & East Dubai": {
     icon: Plane,
     blurb: "Deira, Al Qusais, Mirdif and the neighbourhoods around the airport.",
-    blurbAr: "ديرة، القصيص، مردف والأحياء المحيطة بالمطار.",
   },
 };
 
 /** Two-pane directory: pick a region on the left, see every area in it on the right. */
 export default function AreaDirectory({ areas, selected, onSelect, searching, onBook }: AreaDirectoryProps) {
-  const { t } = useLang();
   const groups = REGIONS.map((region) => ({ region, items: areas.filter((a) => a.region === region) })).filter(
     (g) => g.items.length > 0,
   );
@@ -68,8 +62,8 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
 
   // Fall back to the first region that still has matches (e.g. after a search or tab change).
   const active = groups.find((g) => g.region === picked) ?? groups[0];
-  const meta = REGION_META[active.region] ?? { icon: MapPin, blurb: "", blurbAr: "" };
-  const areasWord = (n: number) => (n === 1 ? t("area", "منطقة") : t("areas", "مناطق"));
+  const meta = REGION_META[active.region] ?? { icon: MapPin, blurb: "" };
+  const areasWord = (n: number) => (n === 1 ? "area" : "areas");
   const ActiveIcon = meta.icon;
 
   // First 6 areas, the rest behind "Show more". While searching, or when the chosen area (e.g. from a
@@ -89,9 +83,9 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
       className="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_24px_60px_-28px_rgba(14, 17, 22,0.25)] lg:grid lg:grid-cols-[300px_minmax(0,1fr)]"
     >
       {/* ============ REGION LIST ============ */}
-      <nav aria-label={t("Regions", "المناطق")} className="border-b border-slate-200/80 bg-[#F7FAFD] p-3 lg:border-b-0 lg:border-r lg:p-5">
+      <nav aria-label="Regions" className="border-b border-slate-200/80 bg-[#F7FAFD] p-3 lg:border-b-0 lg:border-r lg:p-5">
         <p className="px-1 pb-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 lg:px-3 lg:pb-3">
-          {searching ? t("Matches by region", "النتائج حسب المنطقة") : t("Browse by region", "تصفح حسب المنطقة")}
+          {searching ? "Matches by region" : "Browse by region"}
         </p>
         <ul className="flex gap-2 overflow-x-auto [scrollbar-width:none] lg:flex-col lg:gap-1 [&::-webkit-scrollbar]:hidden">
           {groups.map(({ region, items }) => {
@@ -117,14 +111,14 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                   <span
                     className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
                       isActive
-                        ? "bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white"
+                        ? "bg-[#0563B4] text-white"
                         : "bg-white text-[#0563B4] ring-1 ring-slate-200"
                     }`}
                   >
                     <Icon size={17} />
                   </span>
                   <span className="relative min-w-0 flex-1">
-                    <span className="block whitespace-nowrap text-[14px] font-semibold">{t(region, REGION_AR[region])}</span>
+                    <span className="block whitespace-nowrap text-[14px] font-semibold">{region}</span>
                     <span className="block text-xs text-slate-500">
                       {items.length} {areasWord(items.length)}
                     </span>
@@ -159,18 +153,18 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                   <ActiveIcon size={22} />
                 </span>
                 <div>
-                  <h3 className="text-xl font-bold tracking-tight text-[#0E1116] sm:text-2xl">{t(active.region, REGION_AR[active.region])}</h3>
+                  <h3 className="text-xl font-bold tracking-tight text-[#0E1116] sm:text-2xl">{active.region}</h3>
                   <p className="mt-1 max-w-md text-[14px] leading-relaxed text-slate-600">
                     {searching
-                      ? t(`${active.items.length} matching ${areasWord(active.items.length)} in this region.`, `${active.items.length} ${areasWord(active.items.length)} مطابقة في هذه المنطقة.`)
-                      : t(meta.blurb, meta.blurbAr)}
+                      ? `${active.items.length} matching ${areasWord(active.items.length)} in this region.`
+                      : meta.blurb}
                   </p>
                 </div>
               </div>
               <div className="flex shrink-0 items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  {t(`${active.items.length} ${areasWord(active.items.length)} covered`, `${active.items.length} ${areasWord(active.items.length)} مغطاة`)}
+                  {`${active.items.length} ${areasWord(active.items.length)} covered`}
                 </span>
                 {onBook && (
                   <button
@@ -178,7 +172,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                     onClick={() => onBook(`Service in ${active.region}`)}
                     className="group inline-flex items-center gap-1.5 rounded-full bg-[#0563B4] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
                   >
-                    {t("Book here", "احجز هنا")}
+                    Book here
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </button>
                 )}
@@ -237,7 +231,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
                   aria-expanded={expandedRegion === active.region}
                   className="group inline-flex h-11 items-center gap-2 rounded-full border border-[#0563B4]/25 bg-[#EAF4FC] px-5 text-[13px] font-semibold text-[#0563B4] transition-colors hover:bg-[#0563B4] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] sm:text-sm"
                 >
-                  {expandedRegion === active.region ? t("Show less", "عرض أقل") : t(`Show ${hiddenCount} more ${areasWord(hiddenCount)}`, `عرض ${hiddenCount} ${areasWord(hiddenCount)} إضافية`)}
+                  {expandedRegion === active.region ? "Show less" : `Show ${hiddenCount} more ${areasWord(hiddenCount)}`}
                   <ChevronDown
                     size={16}
                     className={`transition-transform duration-300 ${expandedRegion === active.region ? "rotate-180" : ""}`}
@@ -248,7 +242,7 @@ export default function AreaDirectory({ areas, selected, onSelect, searching, on
 
             <p className="mt-6 flex items-center gap-2 text-xs text-slate-500">
               <MapPin size={13} className="text-[#0563B4]" />
-              {t("Tap an area to see it on the map.", "اضغط على منطقة لرؤيتها على الخريطة.")}
+              Tap an area to see it on the map.
             </p>
           </motion.div>
         </AnimatePresence>

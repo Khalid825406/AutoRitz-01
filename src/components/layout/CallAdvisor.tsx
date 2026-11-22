@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Phone } from "lucide-react";
@@ -22,7 +21,6 @@ const ROUND = "h-14 w-14 sm:h-16 sm:w-16";
  *  - "Call Advisor" pill + round button with the waving Ritz advisor inside — dials the toll-free number
  */
 export default function CallAdvisor() {
-  const { t } = useLang();
   // "Calling…" feedback: a click starts it, the tel: link still opens the dialer straight away.
   const [ringId, setRingId] = useState(0);
   const ringing = ringId > 0;
@@ -44,10 +42,10 @@ export default function CallAdvisor() {
     >
       {/* WhatsApp */}
       <a
-        href={waLink(SITE_CONTACT.whatsapp, t("Hi Ritz Auto Care, I'd like to speak with a service advisor.", "مرحباً ريتز أوتو كير، أود التحدث مع مستشار الخدمة."))}
+        href={waLink(SITE_CONTACT.whatsapp, "Hi Ritz Auto Care, I'd like to speak with a service advisor.")}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={t("Chat with an advisor on WhatsApp", "تحدث مع مستشار عبر واتساب")}
+        aria-label="Chat with an advisor on WhatsApp"
         className={`${ROUND} flex shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_24px_-6px_rgba(37,211,102,0.6)] ring-4 ring-white transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-[#0563B4]`}
       >
         <WhatsAppGlyph className="h-7 w-7 sm:h-8 sm:w-8" />
@@ -56,7 +54,7 @@ export default function CallAdvisor() {
       {/* Call advisor */}
       <a
         href={`tel:${CONTACT.phone}`}
-        aria-label={t(`Call an advisor on ${CONTACT.phone}`, `اتصل بمستشار على ${CONTACT.phone}`)}
+        aria-label={`Call an advisor on ${CONTACT.phone}`}
         onClick={() => setRingId(Date.now())}
         className="group relative flex items-center focus-visible:outline-none"
       >
@@ -77,7 +75,7 @@ export default function CallAdvisor() {
             >
               {ringing ? (
                 <>
-                  {t("Calling", "جارٍ الاتصال")}
+                  Calling
                   <span className="ml-0.5 inline-flex" aria-hidden>
                     {[0, 1, 2].map((i) => (
                       <motion.span
@@ -91,7 +89,7 @@ export default function CallAdvisor() {
                   </span>
                 </>
               ) : (
-                t("Call Advisor", "اتصل بمستشار")
+                "Call Advisor"
               )}
             </motion.span>
           </AnimatePresence>
@@ -106,7 +104,7 @@ export default function CallAdvisor() {
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
           />
           <span
-            className="relative h-full w-full overflow-hidden rounded-full bg-linear-to-b from-[#EAF4FC] to-[#bcdcf7] shadow-[0_10px_24px_-6px_rgba(255,0,0,0.55)] ring-4 ring-[#FF0000] transition-transform duration-300 group-hover:scale-105 group-focus-visible:ring-[#0563B4]">
+            className="relative h-full w-full overflow-hidden rounded-full bg-[#D6E9F9] shadow-[0_10px_24px_-6px_rgba(255,0,0,0.55)] ring-4 ring-[#FF0000] transition-transform duration-300 group-hover:scale-105 group-focus-visible:ring-[#0563B4]">
             {/* eslint-disable-next-line @next/next/no-img-element -- animated WebP must not be re-encoded by next/image */}
             <img
               src="/images/advisor/advisor-128.webp"

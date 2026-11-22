@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { motion, useScroll, useSpring } from "motion/react";
 import { ArrowLeft, ArrowUpRight, CalendarDays, MessageCircle, Phone, Tag } from "lucide-react";
 
@@ -36,7 +36,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
         </p>
       </PageHero>
 
-      <section className="w-full bg-white py-12 sm:py-20">
+      <section className="w-full bg-white section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
           <motion.article
             initial={{ opacity: 0, y: 24 }}
@@ -73,8 +73,7 @@ export default function BlogPostPage({ post }: { post: BlogPost }) {
 
           {/* sidebar */}
           <aside className="space-y-6 lg:sticky lg:top-36 lg:self-start">
-            <div className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-7 text-white">
-              <div className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
+            <div className="relative isolate overflow-hidden rounded-3xl bg-[#0E1116] p-7 text-white">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7cc0f5]">Need help?</p>
               <p className="mt-3 text-xl font-bold leading-snug">Talk to our technicians today.</p>
               <div className="mt-6 flex flex-col gap-3">

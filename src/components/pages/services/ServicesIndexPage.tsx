@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, Mail, MessageCircle, Phone, SearchX, Wrench, X } from "lucide-react";
@@ -66,7 +66,7 @@ export default function ServicesIndexPage() {
         </div>
       </PageHero>
 
-      <section id="all-services" className="w-full scroll-mt-32 bg-white py-12 sm:py-24">
+      <section id="all-services" className="w-full scroll-mt-32 bg-white section-y">
         <div className="site-container">
           {/* The static HTML shows every service; the header search (?q=…) filters it in the browser. */}
           <Suspense fallback={<ServiceGrid items={SERVICES} />}>
@@ -162,7 +162,7 @@ function ServiceGrid({ items, query = "" }: { items: ServiceItem[]; query?: stri
                     <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   )}
                 </span>
-                <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-linear-to-r from-[#0563B4] to-[#3FA9F5] transition-transform duration-500 group-hover:scale-x-100" />
+                <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#0563B4] transition-transform duration-500 group-hover:scale-x-100" />
               </>
             );
             const cls =

@@ -51,7 +51,7 @@ export default function ServiceAreasPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <motion.div

@@ -13,7 +13,7 @@ const ICONS = [CalendarCheck, KeyRound, ClipboardCheck, ThumbsUp, Wrench, Car];
 /** "HOW IT WORKS — Easy Steps to Make Your Car Shine" (6 steps, from the original service pages). */
 export default function HowItWorksSection() {
   return (
-    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+    <section className="w-full bg-[#F7FAFD] section-y">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -39,7 +39,7 @@ export default function HowItWorksSection() {
                 <span className="pointer-events-none absolute right-6 top-5 text-5xl font-bold leading-none text-slate-100 tabular-nums transition-colors group-hover:text-[#EAF4FC]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
+                <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#0563B4] text-white shadow-[0_10px_20px_-8px_rgba(23,102,174,0.6)]">
                   <Icon size={22} strokeWidth={1.8} />
                 </span>
                 <p className="relative mt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0563B4]">Step {i + 1}</p>

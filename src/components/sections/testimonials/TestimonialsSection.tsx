@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useEffect, useRef } from "react";
 import { animate, motion, type AnimationPlaybackControls } from "motion/react";
 import { ArrowUpRight, Star } from "lucide-react";
@@ -13,9 +12,8 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Stars({ value, size = 16 }: { value: number; size?: number }) {
-  const { t } = useLang();
   return (
-    <span className="flex items-center gap-0.5" aria-label={t(`${value} out of 5 stars`, `${value} من 5 نجوم`)}>
+    <span className="flex items-center gap-0.5" aria-label={`${value} out of 5 stars`}>
       {Array.from({ length: 5 }, (_, i) => {
         const fill = Math.max(0, Math.min(1, value - i)); // 0, partial, or 1
         return (
@@ -46,21 +44,20 @@ function GoogleG({ size = 14 }: { size?: number }) {
 /** One review — the whole card opens the Google reviews page in a new tab. */
 function ReviewCard({ t, hidden }: { t: Testimonial; hidden: boolean }) {
   const { url } = REVIEW_SUMMARY;
-  const { t: tr } = useLang();
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       tabIndex={hidden ? -1 : undefined}
-      aria-label={tr(`Read ${t.name}'s review on Google`, `اقرأ تقييم ${t.name} على Google`)}
+      aria-label={`Read ${t.name}'s review on Google`}
       className="group flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_1px_2px_rgba(14, 17, 22,0.04)] transition-[box-shadow,border-color,translate] duration-300 hover:-translate-y-0.5 hover:border-[#0563B4]/30 hover:shadow-[0_20px_40px_-16px_rgba(14, 17, 22,0.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4] sm:p-5"
     >
       <div className="flex items-center justify-between gap-3">
         <Stars value={t.rating} />
         <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
           <GoogleG />
-          {tr("Google Review", "تقييم Google")}
+          Google Review
         </span>
       </div>
       {/* long reviews are trimmed to 4 lines — the full text is on Google */}
@@ -78,10 +75,10 @@ function ReviewCard({ t, hidden }: { t: Testimonial; hidden: boolean }) {
         )}
         <span className="min-w-0 flex-1">
           <span className="block truncate text-[14px] font-semibold text-[#0E1116]">{t.name}</span>
-          <span className="block text-xs text-slate-500">{tr("Customer review", "تقييم عميل")}</span>
+          <span className="block text-xs text-slate-500">Customer review</span>
         </span>
         <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-[#0563B4]">
-          <span className="max-sm:text-[11px]">{tr("Read on Google", "اقرأه على Google")}</span>
+          <span className="max-sm:text-[11px]">Read on Google</span>
           <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </div>
@@ -133,7 +130,6 @@ function MarqueeRow({ items, direction }: { items: Testimonial[]; direction: "le
 }
 
 export default function TestimonialsSection() {
-  const { t } = useLang();
   const { rating, count, url } = REVIEW_SUMMARY;
 
   const summary = (
@@ -143,14 +139,14 @@ export default function TestimonialsSection() {
         <CountUp value={rating.toFixed(1)} />/5
       </span>
       <span className="h-5 w-px bg-slate-200" />
-      <span className="text-sm text-slate-600">{t("Based on", "بناءً على")} <CountUp value={count} /> {t("Google reviews", "تقييم على Google")}</span>
+      <span className="text-sm text-slate-600">Based on <CountUp value={count} /> Google reviews</span>
     </>
   );
 
   return (
       <section
         id="testimonials"
-        className="w-full scroll-mt-32 overflow-hidden bg-linear-to-b from-[#EEF5FB] to-[#F7FAFD] py-12 sm:py-24 lg:py-28"
+        className="w-full scroll-mt-32 overflow-hidden bg-[#F2F8FD] section-y"
       >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -160,11 +156,11 @@ export default function TestimonialsSection() {
           className="site-container flex flex-col items-center"
         >
           <SectionHeading
-            eyebrow={t("Customer testimonials", "آراء العملاء")}
+            eyebrow="Customer testimonials"
             icon={Star}
-            title={t("Trusted by Car Owners", "موثوق من مالكي السيارات")}
-            highlight={t("Loved by Customers.", "ومحبوب من العملاء.")}
-            description={t("Discover what our customers say about their experience with Ritz Auto Care and our automotive services.", "اكتشف ما يقوله عملاؤنا عن تجربتهم مع ريتز أوتو كير وخدماتنا.")}
+            title="Trusted by Car Owners"
+            highlight="Loved by Customers."
+            description="Discover what our customers say about their experience with Ritz Auto Care and our automotive services."
           />
           {url ? (
             <a

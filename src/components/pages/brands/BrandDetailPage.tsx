@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import {
   ArrowUpRight,
@@ -62,7 +62,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </PageHero>
 
       {/* ================= INTRO + CAR ================= */}
-      <section className="w-full overflow-hidden bg-white py-12 sm:py-24">
+      <section className="w-full overflow-hidden bg-white section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <TextReveal className="text-3xl font-bold leading-[1.1] tracking-tight text-[#0E1116] sm:text-4xl">{detail.heading}</TextReveal>
@@ -85,7 +85,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
             transition={{ duration: 1, ease: EASE }}
             className="relative aspect-[3/2]"
           >
-            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-radial from-[#0E1116]/20 to-transparent to-70%" />
+            <div className="absolute inset-x-[10%] bottom-[6%] h-[18%] rounded-[50%] bg-[#0E1116]/10" />
             <Image src={detail.heroImage} alt={`${detail.fullName}`} fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-contain" />
           </motion.div>
         </div>
@@ -115,7 +115,7 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </section>
 
       {/* ================= FEATURES + GALLERY ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <motion.ul
             initial="hidden"
@@ -166,16 +166,15 @@ export default function BrandDetailPage({ name, logo, detail }: BrandDetailPageP
       </section>
 
       {/* ================= EXCLUSIVE OFFER ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={REVEAL_VIEWPORT}
-            className="relative isolate overflow-hidden rounded-3xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-8 text-white sm:p-12"
+            className="relative isolate overflow-hidden rounded-3xl bg-[#0E1116] p-8 text-white sm:p-12"
           >
-            <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-xl">
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#4B9DE0]/40 bg-[#4B9DE0]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7cc0f5]">

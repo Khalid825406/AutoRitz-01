@@ -12,7 +12,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 /** "Service Areas in Dubai" — compact list of every area we cover (used on brand pages). */
 export default function ServiceAreasList() {
   return (
-    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+    <section className="w-full bg-[#F7FAFD] section-y">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

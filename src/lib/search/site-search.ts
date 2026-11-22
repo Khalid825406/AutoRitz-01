@@ -8,10 +8,10 @@ import { services as HOME_SERVICES } from "@/data/services";
 export interface SearchItem {
   kind: "service" | "brand" | "page";
   title: string;
+  /** Arabic name — never shown (Google Translate translates the page); it lets Arabic visitors search in Arabic. */
   titleAr: string;
   /** Small grey line under the title. */
   sub: string;
-  subAr: string;
   href: string;
   /** Brand logo (brands only). */
   logo?: string;
@@ -98,6 +98,25 @@ const BRAND_EXTRA: Record<string, { ar: string; words?: string }> = {
   Changan: { ar: "شانجان" },
 };
 
+/** Arabic names of the menu pages (search keywords only). */
+const PAGE_NAMES_AR: Record<string, string> = {
+  "/roadside-support/": "المساعدة على الطريق",
+  "/service/": "الخدمات",
+  "/service/auto-spare-parts-trading/": "قطع غيار السيارات",
+  "/brands/": "العلامات التجارية",
+  "/buy-car-batteries/": "بطاريات السيارات",
+  "/buy-car-tires/": "إطارات السيارات",
+  "/service-contract/": "عقد الصيانة",
+  "/complimentary-vehicle-inspection/": "فحص مجاني للسيارة",
+  "/about-us/": "من نحن",
+  "/our-work-gallery/": "معرض أعمالنا",
+  "/customer-reviews/": "آراء العملاء",
+  "/service-areas/": "مناطق الخدمة",
+  "/blog/": "المدونة",
+  "/careers/": "الوظائف",
+  "/contact-us/": "اتصل بنا",
+};
+
 /** Page each homepage service card (src/data/services.ts, by id) leads to. */
 const HOME_SERVICE_HREF: Record<string, string> = {
   "01": "/service/", // Expert Car Repairs
@@ -121,7 +140,6 @@ function buildIndex(): SearchItem[] {
     title: s.title,
     titleAr: s.titleAr,
     sub: "Car service",
-    subAr: "خدمة سيارات",
     href: s.href,
     keywords: SERVICE_KEYWORDS[s.slug] ?? "",
   }));
@@ -135,16 +153,15 @@ function buildIndex(): SearchItem[] {
   // Homepage service cards ("Battery Services", "Car AC Services"…) — each opens its closest page.
   for (const card of HOME_SERVICES) {
     const href = HOME_SERVICE_HREF[card.id] ?? "/service/";
-    const words = [card.title, card.ar.title, card.category, card.ar.category, ...card.features, ...card.ar.features].join(" ");
+    const words = [card.title, card.category, ...card.features].join(" ");
     const existing = services.find((s) => s.href === href);
     if (existing) existing.keywords += ` ${words}`;
     else
       services.push({
         kind: "service",
         title: card.title,
-        titleAr: card.ar.title,
+        titleAr: card.title,
         sub: card.description,
-        subAr: card.ar.description,
         href,
         keywords: words,
       });
@@ -163,7 +180,6 @@ function buildIndex(): SearchItem[] {
       title: name,
       titleAr: APPOINTMENT_SERVICES_AR[name],
       sub: "Book this service",
-      subAr: "احجز هذه الخدمة",
       href: `/contact-us/?service=${encodeURIComponent(name)}#appointment`,
       keywords: "book booking appointment حجز موعد",
     });
@@ -175,7 +191,6 @@ function buildIndex(): SearchItem[] {
       title: b.name,
       titleAr: BRAND_EXTRA[b.name]?.ar ?? b.name,
       sub: `${g.nationality} brand · repair & service`,
-      subAr: `علامة ${g.nationalityAr.replace(/^ال/, "")} · صيانة وإصلاح`,
       href: b.href,
       logo: b.logo,
       keywords: `${BRAND_EXTRA[b.name]?.words ?? ""} ${BRAND_EXTRA[b.name]?.ar ?? ""} ${g.nationality} car cars`,
@@ -192,9 +207,8 @@ function buildIndex(): SearchItem[] {
       pages.push({
         kind: "page",
         title: l.label,
-        titleAr: l.labelAr ?? l.label,
+        titleAr: PAGE_NAMES_AR[l.href] ?? l.label,
         sub: l.description ?? "Page",
-        subAr: l.descriptionAr ?? "صفحة",
         href: l.href,
         keywords: "",
       });

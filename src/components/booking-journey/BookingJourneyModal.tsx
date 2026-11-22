@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useCallback, useEffect, useEffectEvent, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { AlertTriangle, Car, Check, Loader2, Phone, RotateCcw, Sparkles, Truck, X } from "lucide-react";
@@ -47,20 +46,20 @@ const CLIPS: Partial<Record<View, ReturnType<typeof clip>>> = {
   4: clip("forth_ssftbh", 0.8, 2.8), // car already on screen
 };
 
-const COPY: Record<View, { title: string; titleAr: string; text: string; textAr: string }> = {
-  0: { title: "Connecting to Advisor...", titleAr: "جارٍ الاتصال بالمستشار...", text: "Please wait while we connect you with our service advisor.", textAr: "يرجى الانتظار بينما نوصلك بمستشار الخدمة." },
-  1: { title: "Processing Your Request...", titleAr: "جارٍ معالجة طلبك...", text: "We're checking your details and preparing for service.", textAr: "نراجع بياناتك ونستعد لتقديم الخدمة." },
-  2: { title: "Service In Progress...", titleAr: "الخدمة قيد التنفيذ...", text: "Your car is on the way and will be picked up shortly.", textAr: "نحن في الطريق وسيتم استلام سيارتك قريباً." },
-  3: { title: "Service Completed!", titleAr: "اكتملت الخدمة!", text: "Your car is ready, cleaned and on the way back.", textAr: "سيارتك جاهزة ونظيفة وفي طريق العودة." },
-  4: { title: "On the Way Back!", titleAr: "في طريق العودة!", text: "We are returning your car now. Thank you for choosing us!", textAr: "نعيد سيارتك إليك الآن. شكراً لاختيارك لنا!" },
-  error: { title: "We couldn't send your request", titleAr: "تعذر إرسال طلبك", text: "", textAr: "" },
+const COPY: Record<View, { title: string; text: string }> = {
+  0: { title: "Connecting to Advisor...", text: "Please wait while we connect you with our service advisor." },
+  1: { title: "Processing Your Request...", text: "We're checking your details and preparing for service." },
+  2: { title: "Service In Progress...", text: "Your car is on the way and will be picked up shortly." },
+  3: { title: "Service Completed!", text: "Your car is ready, cleaned and on the way back." },
+  4: { title: "On the Way Back!", text: "We are returning your car now. Thank you for choosing us!" },
+  error: { title: "We couldn't send your request", text: "" },
 };
 
 const STEPS = [
-  { icon: Truck, title: "Free Towing", titleAr: "سحب مجاني", text: "From your location", textAr: "من موقعك" },
-  { icon: Car, title: "Free Pickup", titleAr: "استلام مجاني", text: "We collect your car", textAr: "نستلم سيارتك" },
-  { icon: Sparkles, title: "Free Service & Wash", titleAr: "صيانة وغسيل مجاني", text: "Complete care & cleaning", textAr: "عناية وتنظيف كامل" },
-  { icon: RotateCcw, title: "Free Return", titleAr: "إعادة مجانية", text: "We bring it back", textAr: "نعيدها إليك" },
+  { icon: Truck, title: "Free Towing", text: "From your location" },
+  { icon: Car, title: "Free Pickup", text: "We collect your car" },
+  { icon: Sparkles, title: "Free Service & Wash", text: "Complete care & cleaning" },
+  { icon: RotateCcw, title: "Free Return", text: "We bring it back" },
 ] as const;
 
 /** Top progress bar position for each view. */
@@ -77,7 +76,6 @@ export interface JourneyOptions {
 }
 
 export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: JourneyOptions & { onClose: () => void }) {
-  const { t } = useLang();
   const [stage, setStage] = useState<Stage>(0);
   const [animDone, setAnimDone] = useState(false);
   const [submitState, setSubmitState] = useState<"pending" | "ok" | "error">(submit ? "pending" : "ok");
@@ -109,14 +107,14 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
       () => alive && setSubmitState("ok"),
       (e: unknown) => {
         if (!alive) return;
-        setError(e instanceof Error ? e.message : t("Something went wrong. Please try again.", "حدث خطأ ما. يرجى المحاولة مرة أخرى."));
+        setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
         setSubmitState("error");
       },
     );
     return () => {
       alive = false;
     };
-  }, [submit, t]);
+  }, [submit]);
 
   const retry = () => {
     if (!submit) return;
@@ -125,7 +123,7 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
     submit().then(
       () => setSubmitState("ok"),
       (e: unknown) => {
-        setError(e instanceof Error ? e.message : t("Something went wrong. Please try again.", "حدث خطأ ما. يرجى المحاولة مرة أخرى."));
+        setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
         setSubmitState("error");
       },
     );
@@ -194,7 +192,7 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
           <button
             type="button"
             onClick={onClose}
-            aria-label={t("Close", "إغلاق")}
+            aria-label="Close"
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-200 hover:text-[#0E1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
           >
             <X size={18} />
@@ -204,7 +202,7 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
         {/* overall progress */}
         <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-slate-100" aria-hidden>
           <motion.div
-            className={`h-full w-full origin-left rounded-full rtl:origin-right ${view === "error" ? "bg-red-400" : redirecting ? "bg-[#25D366]" : "bg-linear-to-r from-[#0563B4] to-[#4B9DE0]"}`}
+            className={`h-full w-full origin-left rounded-full rtl:origin-right ${view === "error" ? "bg-red-400" : redirecting ? "bg-[#25D366]" : "bg-[#0563B4]"}`}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: redirecting ? 1 : PROGRESS[view] + (waiting ? 0.04 : 0) }}
             transition={{ duration: 0.6, ease: EASE }}
@@ -232,22 +230,22 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
           {/* new text replaces the old instantly (no exit wait) so it stays in step with the scene */}
           <motion.div key={String(view)} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
               <h2 id="journey-title" className={`text-xl font-bold tracking-tight sm:text-2xl ${view === "error" ? "text-red-600" : "text-[#0E1116]"}`}>
-                {t(copy.title, copy.titleAr)}
+                {copy.title}
               </h2>
               <p id="journey-text" className="mx-auto mt-1.5 max-w-sm text-[14px] leading-relaxed text-slate-600 sm:text-[14px]">
-                {view === "error" ? error : t(copy.text, copy.textAr)}
+                {view === "error" ? error : copy.text}
               </p>
           </motion.div>
           {waiting && (
             <p className="mt-2 inline-flex items-center gap-2 text-[13px] font-medium text-[#0563B4]">
               <Loader2 size={14} className="animate-spin" />
-              {t("Confirming your booking…", "جارٍ تأكيد حجزك…")}
+              Confirming your booking…
             </p>
           )}
           {redirecting && (
             <p className="mt-2 inline-flex items-center gap-2 text-[13px] font-medium text-[#16a34a]">
               <Loader2 size={14} className="animate-spin" />
-              {t("Opening WhatsApp…", "جارٍ فتح واتساب…")}
+              Opening WhatsApp…
             </p>
           )}
         </div>
@@ -261,14 +259,14 @@ export default function BookingJourneyModal({ whatsappUrl, submit, onClose }: Jo
               className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[#0E1116] text-sm font-semibold text-white transition-colors hover:bg-[#0563B4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
             >
               <RotateCcw size={16} />
-              {t("Try again", "حاول مرة أخرى")}
+              Try again
             </button>
             <a
               href={`tel:${SITE_CONTACT.phone}`}
               className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-[#0E1116] transition-colors hover:bg-slate-50"
             >
               <Phone size={16} />
-              {t("Call", "اتصل")} <span dir="ltr">{SITE_CONTACT.phone}</span>
+              Call <span dir="ltr">{SITE_CONTACT.phone}</span>
             </a>
           </div>
         )}
@@ -300,7 +298,7 @@ function Scene({ view }: { view: View }) {
 
 function Center({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center bg-linear-to-b from-[#EAF4FC] to-[#F7FAFD]">
+    <div className="flex h-full w-full flex-col items-center justify-center bg-[#EEF5FB]">
       {children}
     </div>
   );
@@ -372,11 +370,10 @@ function VideoLayer({ view, onNearEnd }: { view: View; onNearEnd: () => void }) 
 
 /** Soft bottom shade so the footage blends into the white card. */
 function VideoShade() {
-  return <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-[#07090C]/20 to-transparent" />;
+  return <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-[#07090C]/10" />;
 }
 
 function AdvisorScene() {
-  const { t } = useLang();
   return (
     <Center>
       <div className="relative">
@@ -385,9 +382,9 @@ function AdvisorScene() {
           animate={{ scale: [1, 1.25], opacity: [0.6, 0] }}
           transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
         />
-        <div className="relative h-28 w-28 overflow-hidden rounded-full bg-linear-to-b from-white to-[#DCEBFA] ring-4 ring-white shadow-[0_12px_30px_-10px_rgba(14, 17, 22,0.35)] sm:h-32 sm:w-32">
+        <div className="relative h-28 w-28 overflow-hidden rounded-full bg-[#EAF4FC] ring-4 ring-white shadow-[0_12px_30px_-10px_rgba(14, 17, 22,0.35)] sm:h-32 sm:w-32">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/advisor/advisor.webp" alt={t("Ritz Auto Care service advisor", "مستشار خدمة ريتز أوتو كير")} className="h-full w-full object-cover object-top" />
+          <img src="/images/advisor/advisor.webp" alt="Ritz Auto Care service advisor" className="h-full w-full object-cover object-top" />
         </div>
       </div>
       <div className="mt-4 flex gap-1.5" aria-hidden>
@@ -404,24 +401,23 @@ function AdvisorScene() {
   );
 }
 
-const SERVICE_CHIPS = STEPS.map((s) => ({ en: s.title, ar: s.titleAr }));
+const SERVICE_CHIPS = STEPS.map((s) => s.title);
 
 /** Stage 3: the four free services pop in over the towing footage. */
 function ServiceChipsOverlay() {
-  const { t } = useLang();
   return (
     <>
       <VideoShade />
       <div className="absolute inset-x-3 top-3 flex flex-wrap justify-center gap-1.5">
         {SERVICE_CHIPS.map((c, i) => (
           <motion.span
-            key={c.en}
+            key={c}
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 * i, duration: 0.25 }}
             className="rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-[#0563B4] shadow-sm sm:text-[11px]"
           >
-            {t(c)}
+            {c}
           </motion.span>
         ))}
       </div>
@@ -431,7 +427,6 @@ function ServiceChipsOverlay() {
 
 /** Stage 4: sparkles once the foam wash is done. */
 function CleanOverlay() {
-  const { t } = useLang();
   return (
     <>
       <VideoShade />
@@ -445,7 +440,7 @@ function CleanOverlay() {
         className="absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-[#16a34a] px-3 py-1 text-[11px] font-semibold text-white shadow"
       >
         <Check size={13} strokeWidth={3} />
-        {t("Washed & serviced", "تم الغسيل والصيانة")}
+        Washed & serviced
       </motion.span>
     </>
   );
@@ -465,9 +460,8 @@ function ErrorScene() {
 /* Bottom service progress                                             */
 /* ------------------------------------------------------------------ */
 function StepTracker({ done, muted }: { done: number; muted: boolean }) {
-  const { t } = useLang();
   return (
-    <ol className={`mt-6 grid grid-cols-4 gap-1 border-t border-slate-100 pt-5 ${muted ? "opacity-50" : ""}`} aria-label={t("Service steps", "خطوات الخدمة")}>
+    <ol className={`mt-6 grid grid-cols-4 gap-1 border-t border-slate-100 pt-5 ${muted ? "opacity-50" : ""}`} aria-label="Service steps">
       {STEPS.map((s, i) => {
         const Icon = s.icon;
         const isDone = i < done;
@@ -520,10 +514,10 @@ function StepTracker({ done, muted }: { done: number; muted: boolean }) {
               </AnimatePresence>
             </span>
             <span className={`mt-2 text-[10.5px] font-semibold leading-tight sm:text-xs ${isDone ? "text-[#16a34a]" : "text-[#0E1116]"}`}>
-              {t(s.title, s.titleAr)}
+              {s.title}
             </span>
-            <span className="mt-0.5 block text-[9.5px] leading-tight text-slate-500 sm:text-[11px]">{t(s.text, s.textAr)}</span>
-            <span className="sr-only">{isDone ? t(" — completed", " — مكتمل") : ""}</span>
+            <span className="mt-0.5 block text-[9.5px] leading-tight text-slate-500 sm:text-[11px]">{s.text}</span>
+            <span className="sr-only">{isDone ? " — completed" : ""}</span>
           </li>
         );
       })}

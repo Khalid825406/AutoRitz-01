@@ -56,7 +56,7 @@ export default function CareersPage() {
     <PageShell>
       <PageHero breadcrumbs={[{ label: "Careers" }]} eyebrow="Join our team" title="Careers" />
 
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           {/* left: story + photo */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
@@ -138,7 +138,7 @@ export default function CareersPage() {
 
             <button
               type="submit"
-              className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-[#0E1116] to-[#0B6FC2] text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(23,102,174,0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
+              className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#0563B4] text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(23,102,174,0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0563B4]"
             >
               Submit
               <Send size={16} className="transition-transform group-hover:translate-x-0.5" />

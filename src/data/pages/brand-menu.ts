@@ -14,19 +14,6 @@ const NATIONALITY: Record<string, string> = {
   China: "Chinese",
 };
 
-/** Arabic group names (Arabic site). */
-const NATIONALITY_AR: Record<string, string> = {
-  Germany: "الألمانية",
-  "United Kingdom": "البريطانية",
-  Italy: "الإيطالية",
-  France: "الفرنسية",
-  Sweden: "السويدية",
-  "United States": "الأمريكية",
-  Japan: "اليابانية",
-  "South Korea": "الكورية",
-  China: "الصينية",
-};
-
 export interface BrandMenuItem {
   name: string;
   slug: string;
@@ -40,9 +27,7 @@ export interface BrandMenuGroup {
   /** e.g. "Chinese brands" */
   label: string;
   /** e.g. "العلامات الصينية" */
-  labelAr: string;
   /** e.g. "الصينية" (tab label on the Arabic site) */
-  nationalityAr: string;
   /** e.g. "Chinese" */
   nationality: string;
   country: string;
@@ -57,8 +42,6 @@ export const BRAND_MENU: BrandMenuGroup[] = BRAND_ORIGINS.map((origin) => {
   const nationality = NATIONALITY[origin.country] ?? origin.country;
   return {
     label: `${nationality} brands`,
-    labelAr: `العلامات ${NATIONALITY_AR[origin.country] ?? origin.country}`,
-    nationalityAr: NATIONALITY_AR[origin.country] ?? origin.country,
     nationality,
     country: origin.country,
     brands: origin.brands.flatMap((name) => {

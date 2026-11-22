@@ -29,10 +29,10 @@ export default function HomePage() {
       <RoadsideSection onBook={book} />
       <ProcessSection onBook={book} />
       <BenefitsSection onBook={book} />
-      <BrandsSection onBook={book} />
+      <BrandsSection />
       <ServiceAreas onBook={book} />
       <AboutSection onBook={book} />
-      <WorkGallery onBook={book} />
+      <WorkGallery />
       <TestimonialsSection />
       <Footer />
     </main>

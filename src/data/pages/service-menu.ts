@@ -1,6 +1,6 @@
 import { SERVICES } from "./services";
 
-/** Arabic service names (Arabic site). */
+/** Arabic service names — search keywords only, so Arabic visitors can search in Arabic (the page itself is translated by Google). */
 export const SERVICE_TITLES_AR: Record<string, string> = {
   "car-battery-replacement": "تغيير بطارية السيارة",
   "jump-start": "تشغيل السيارة بالكابلات",

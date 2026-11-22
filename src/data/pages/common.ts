@@ -56,31 +56,21 @@ export const GENERAL_FAQS = [
   {
     q: "Why choose Ritz Auto Care?",
     a: "Ritz Auto Care combines experienced technicians, advanced equipment, genuine parts and exceptional customer service to deliver dealership-quality care at competitive prices.",
-    qAr: "لماذا تختار ريتز أوتو كير؟",
-    aAr: "تجمع ريتز أوتو كير بين فنيين ذوي خبرة ومعدات متطورة وقطع غيار أصلية وخدمة عملاء استثنائية، لتقدم عناية بمستوى الوكالة بأسعار تنافسية.",
   },
   {
     q: "Do you provide warranty on repairs?",
     a: "Yes. We stand behind the quality of our workmanship and parts. Warranty coverage varies depending on the service or component.",
-    qAr: "هل تقدمون ضماناً على الإصلاحات؟",
-    aAr: "نعم. نحن نضمن جودة عملنا وقطع الغيار. تختلف تغطية الضمان حسب الخدمة أو القطعة.",
   },
   {
     q: "How long does a routine car service take?",
     a: "Most routine maintenance services are completed on the same day. For major repairs we give you an estimated completion time after inspection.",
-    qAr: "كم تستغرق الصيانة الدورية للسيارة؟",
-    aAr: "تُنجز معظم خدمات الصيانة الدورية في نفس اليوم. أما الإصلاحات الكبيرة فنعطيك وقتاً تقديرياً للإنجاز بعد الفحص.",
   },
   {
     q: "Can I service my vehicle without an appointment?",
     a: "Walk-ins are welcome, subject to workshop availability. We recommend booking in advance for faster service.",
-    qAr: "هل يمكنني صيانة سيارتي بدون موعد؟",
-    aAr: "نرحب بالزيارات بدون موعد حسب توفر الورشة. ننصح بالحجز المسبق للحصول على خدمة أسرع.",
   },
   {
     q: "What services does Ritz Auto Care offer?",
     a: "Periodic maintenance, engine diagnostics, brakes, suspension, AC, battery replacement, oil changes, detailing, denting and painting, wheel alignment, electrical repairs and roadside assistance.",
-    qAr: "ما الخدمات التي تقدمها ريتز أوتو كير؟",
-    aAr: "الصيانة الدورية، تشخيص المحرك، الفرامل، نظام التعليق، المكيف، تغيير البطارية، تغيير الزيت، التلميع، السمكرة والدهان، ضبط العجلات، الإصلاحات الكهربائية والمساعدة على الطريق.",
   },
 ];

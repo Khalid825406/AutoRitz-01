@@ -21,7 +21,7 @@ const TOTAL_BRANDS = BRAND_ORIGINS.reduce((n, o) => n + o.brands.length, 0);
 /** /brands/ — world map with arcs from our Dubai workshop to the home country of every brand we service. */
 export default function BrandOriginsMap() {
   return (
-    <section className="w-full bg-white pb-12 sm:pb-24">
+    <section className="w-full bg-white pb-12 sm:pb-16 lg:pb-20">
       <div className="site-container">
         <div className="relative isolate overflow-hidden rounded-3xl bg-[#0E1116] px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-14">
           <div
@@ -29,7 +29,6 @@ export default function BrandOriginsMap() {
             className="pointer-events-none absolute inset-0 -z-10"
             style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "22px 22px" }}
           />
-          <div className="pointer-events-none absolute -left-24 -top-24 -z-10 h-96 w-96 rounded-full bg-radial from-[#0B6FC2]/40 to-transparent to-70%" />
 
           {/* heading */}
           <div className="mx-auto max-w-2xl text-center">

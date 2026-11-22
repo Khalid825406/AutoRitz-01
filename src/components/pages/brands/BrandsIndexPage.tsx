@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, MessageCircle, Phone } from "lucide-react";
 
@@ -80,7 +80,7 @@ export default function BrandsIndexPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="text-2xl font-bold tracking-tight text-[#0E1116] sm:text-3xl">

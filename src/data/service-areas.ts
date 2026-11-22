@@ -111,14 +111,6 @@ const REGION_AREAS: Record<string, Record<string, LatLng>> = {
 
 export const REGIONS = Object.keys(REGION_AREAS);
 
-/** Arabic region names (Arabic site). Area names stay as they appear on Dubai road signs. */
-export const REGION_AR: Record<string, string> = {
-  "Central Dubai": "وسط دبي",
-  "Marina & Al Barsha": "المارينا والبرشاء",
-  "Dubailand & South": "دبي لاند والجنوب",
-  "Deira & East Dubai": "ديرة وشرق دبي",
-};
-
 export const SERVICE_AREAS: ServiceArea[] = Object.entries(REGION_AREAS)
   .flatMap(([region, areas]) => Object.entries(areas).map(([name, position]) => ({ name, region, position })))
   .sort((a, b) => a.name.localeCompare(b.name));

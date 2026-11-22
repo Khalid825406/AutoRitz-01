@@ -1,7 +1,6 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -24,7 +23,6 @@ export default function MobileMenu({
   /** Opens the full-screen search (closes this menu). */
   onSearch: () => void;
 }) {
-  const { t } = useLang();
   const pathname = usePathname() ?? "/";
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -53,7 +51,7 @@ export default function MobileMenu({
             className="mt-6 flex h-12 w-full items-center gap-2 rounded-full bg-white/10 px-4 text-start text-[15px] text-white/55 ring-1 ring-white/15 transition-colors hover:bg-white/15"
           >
             <Search size={18} className="shrink-0 text-[#7cc0f5]" />
-            {t("Search cars & services", "ابحث عن سيارة أو خدمة")}
+            Search cars & services
           </button>
 
           <nav className="mt-4 flex flex-1 flex-col" aria-label="Mobile navigation">
@@ -75,14 +73,14 @@ export default function MobileMenu({
                       aria-current={active ? "page" : undefined}
                       className={`flex-1 py-3.5 text-xl font-bold ${active ? "text-[#7cc0f5]" : "text-white"}`}
                     >
-                      {t(n.label, n.labelAr)}
+                      {n.label}
                     </Link>
                     {n.children && (
                       <button
                         type="button"
                         onClick={() => setExpanded(isOpen ? null : n.label)}
                         aria-label={`${isOpen ? "Hide" : "Show"} ${n.label} pages`}
-                        title={t(n.label, n.labelAr)}
+                        title={n.label}
                         aria-expanded={isOpen}
                         className="rounded-full p-2 hover:bg-white/10"
                       >
@@ -99,11 +97,11 @@ export default function MobileMenu({
                         className="overflow-hidden pb-4 pl-3"
                       >
                         <Link href="/brands/" onClick={onClose} className="block py-2 text-[15px] font-semibold text-[#7cc0f5]">
-                          {t("View all brands", "عرض جميع العلامات")}
+                          View all brands
                         </Link>
                         {BRAND_MENU.map((g) => (
                           <div key={g.label} className="mt-3">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">{t(g.label, g.labelAr)}</p>
+                            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">{g.label}</p>
                             <ul className="mt-1 grid grid-cols-2 gap-x-4">
                               {g.brands.map((b) => (
                                 <li key={b.name}>
@@ -126,15 +124,15 @@ export default function MobileMenu({
                       >
                         {SERVICE_MENU_EXTRAS.map((x) => (
                           <Link key={x.href} href={x.href} onClick={onClose} className="block py-1.5 text-[15px] font-semibold text-[#7cc0f5]">
-                            {t(x.label, x.labelAr)}
+                            {x.label}
                           </Link>
                         ))}
-                        <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">{t("All services", "جميع الخدمات")}</p>
+                        <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#7cc0f5]">All services</p>
                         <ul className="mt-1 grid grid-cols-2 gap-x-4">
                           {SERVICE_MENU.map((s) => (
                             <li key={s.slug}>
                               <Link href={s.href} onClick={onClose} className="block py-1.5 text-[14px] leading-snug text-white/80 hover:text-white">
-                                {t(s.title, s.titleAr)}
+                                {s.title}
                               </Link>
                             </li>
                           ))}
@@ -151,7 +149,7 @@ export default function MobileMenu({
                         {n.children.map((c) => (
                           <li key={c.href + c.label}>
                             <Link href={c.href} onClick={onClose} className="block py-2 text-[15px] text-white/75 hover:text-white">
-                              {t(c.label, c.labelAr)}
+                              {c.label}
                             </Link>
                           </li>
                         ))}
@@ -166,8 +164,8 @@ export default function MobileMenu({
           {/* contact details (desktop shows phone + email in the header) */}
           <ul className="mt-8 grid gap-2 text-[15px]">
             {[
-              { icon: Phone, label: t(`Toll free ${SITE_CONTACT.phone}`, `الرقم المجاني ${SITE_CONTACT.phone}`), href: `tel:${SITE_CONTACT.phone}` },
-              { icon: MessageCircle, label: t(`WhatsApp +${SITE_CONTACT.whatsapp}`, `واتساب +${SITE_CONTACT.whatsapp}`), href: waLink(SITE_CONTACT.whatsapp) },
+              { icon: Phone, label: `Toll free ${SITE_CONTACT.phone}`, href: `tel:${SITE_CONTACT.phone}` },
+              { icon: MessageCircle, label: `WhatsApp +${SITE_CONTACT.whatsapp}`, href: waLink(SITE_CONTACT.whatsapp) },
               { icon: Mail, label: SITE_CONTACT.email, href: `mailto:${SITE_CONTACT.email}` },
             ].map(({ icon: Icon, label, href }) => (
               <li key={href}>
@@ -186,7 +184,7 @@ export default function MobileMenu({
             }}
             className="mb-2 mt-4 flex items-center justify-center gap-2 rounded-full bg-white py-4 font-bold text-navy"
           >
-            <CalendarDays size={18} /> {t("Book Service", "احجز خدمة")}
+            <CalendarDays size={18} /> Book Service
           </button>
         </motion.div>
       )}

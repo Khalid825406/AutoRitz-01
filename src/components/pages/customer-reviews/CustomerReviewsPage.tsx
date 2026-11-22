@@ -66,7 +66,7 @@ export default function CustomerReviewsPage() {
         </div>
       </PageHero>
 
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <TextReveal className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#0E1116] sm:text-3xl">
@@ -109,7 +109,7 @@ export default function CustomerReviewsPage() {
                         <Image src={r.photo} alt={r.name} fill sizes="48px" className="object-cover" />
                       </span>
                     ) : (
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-lg font-bold text-white">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0563B4] text-lg font-bold text-white">
                         {r.name.charAt(0).toUpperCase()}
                       </span>
                     )}

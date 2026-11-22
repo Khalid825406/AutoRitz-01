@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { HelpCircle, Plus } from "lucide-react";
@@ -11,8 +10,6 @@ import { REVEAL_VIEWPORT } from "@/components/motion/viewport";
 export interface Faq {
   q: string;
   a: string;
-  qAr?: string;
-  aAr?: string;
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -23,11 +20,10 @@ export default function FaqSection({ items, eyebrow, title }: {
   eyebrow?: string;
   title?: string;
 }) {
-  const { t } = useLang();
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="w-full bg-[#F7FAFD] py-12 sm:py-24">
+    <section className="w-full bg-[#F7FAFD] section-y">
       <div className="site-container grid gap-8 sm:gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -36,7 +32,7 @@ export default function FaqSection({ items, eyebrow, title }: {
           transition={{ duration: 0.7, ease: EASE }}
           className="lg:sticky lg:top-32 lg:self-start"
         >
-          <SectionHeading align="left" eyebrow={eyebrow ?? t("FAQ's", "الأسئلة الشائعة")} icon={HelpCircle} title={title ?? t("Frequently Asked Questions", "الأسئلة المتكررة")} />
+          <SectionHeading align="left" eyebrow={eyebrow ?? "FAQ's"} icon={HelpCircle} title={title ?? "Frequently Asked Questions"} />
         </motion.div>
 
         <ul className="flex flex-col gap-3">
@@ -59,7 +55,7 @@ export default function FaqSection({ items, eyebrow, title }: {
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-start focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#0563B4]"
                 >
-                  <span className="text-[16px] font-semibold text-[#0E1116]">{t(f.q, f.qAr)}</span>
+                  <span className="text-[16px] font-semibold text-[#0E1116]">{f.q}</span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.25 }}
@@ -78,7 +74,7 @@ export default function FaqSection({ items, eyebrow, title }: {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: EASE }}
                     >
-                      <p className="px-6 pb-6 text-[14px] leading-relaxed text-slate-600">{t(f.a, f.aAr)}</p>
+                      <p className="px-6 pb-6 text-[14px] leading-relaxed text-slate-600">{f.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

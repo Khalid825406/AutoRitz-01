@@ -22,10 +22,10 @@ interface StickyScrollProps {
 }
 
 const DEFAULT_BACKGROUNDS = [
-  "linear-gradient(135deg, #07090C 0%, #1B2029 100%)",
-  "linear-gradient(135deg, #0E1116 0%, #0B6FC2 100%)",
-  "linear-gradient(135deg, #151A22 0%, #0563B4 100%)",
-  "linear-gradient(135deg, #07090C 0%, #12528F 100%)",
+  "#0E1116",
+  "#0563B4",
+  "#151A22",
+  "#12528F",
 ];
 
 /**
@@ -53,7 +53,7 @@ export function StickyScroll({ content, backgrounds = DEFAULT_BACKGROUNDS, class
       {/* text column with progress rail */}
       <div ref={listRef} className="relative lg:pl-14">
         <div aria-hidden className="absolute bottom-[25vh] left-[19px] top-[25vh] hidden w-[2px] rounded-full bg-slate-200 lg:block">
-          <motion.div style={{ scaleY: rail }} className="h-full w-full origin-top rounded-full bg-linear-to-b from-[#0563B4] to-[#3FA9F5]" />
+          <motion.div style={{ scaleY: rail }} className="h-full w-full origin-top rounded-full bg-[#0563B4]" />
         </div>
 
         {content.map((item, i) => {

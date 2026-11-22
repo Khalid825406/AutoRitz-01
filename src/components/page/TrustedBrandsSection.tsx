@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { BadgeCheck } from "lucide-react";
 
@@ -32,7 +32,7 @@ export default function TrustedBrandsSection({
   const groups = tab === ALL_BRANDS ? BRAND_MENU : BRAND_MENU.filter((g) => g.nationality === tab);
 
   return (
-    <section className="w-full bg-white py-12 sm:py-24">
+    <section className="w-full bg-white section-y">
       <div className="site-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

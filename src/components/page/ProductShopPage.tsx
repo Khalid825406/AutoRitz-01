@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "@/i18n/Link";
+import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRight, Mail, MessageCircle, Phone, Wrench, type LucideIcon } from "lucide-react";
 
@@ -84,7 +84,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       </PageHero>
 
       {/* ================= PRODUCTS ================= */}
-      <section className="w-full bg-white py-12 sm:py-24">
+      <section className="w-full bg-white section-y">
         <div className="site-container">
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
             <SectionHeading
@@ -151,7 +151,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
       </section>
 
       {/* ================= BRANDS ================= */}
-      <section className="w-full bg-[#F7FAFD] py-12 sm:py-20">
+      <section className="w-full bg-[#F7FAFD] section-y">
         <div className="site-container">
           <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0563B4]">{brandsLabel}</p>
         </div>
@@ -180,7 +180,7 @@ export default function ProductShopPage(props: ProductShopPageProps) {
             className="flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200/80 bg-white p-6 sm:flex-row sm:items-center sm:p-8"
           >
             <div className="flex items-center gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0563B4] text-white">
                 <Wrench size={20} />
               </span>
               <div>

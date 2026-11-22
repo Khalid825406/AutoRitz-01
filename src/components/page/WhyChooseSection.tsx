@@ -30,7 +30,7 @@ export default function WhyChooseSection({
   highlight = "Quality Services.",
 }: WhyChooseSectionProps) {
   return (
-    <section className="w-full bg-white py-12 sm:py-24">
+    <section className="w-full bg-white section-y">
       <div className={`site-container grid gap-10 sm:gap-14 ${images ? "lg:grid-cols-2 lg:items-center lg:gap-16" : ""}`}>
         <div>
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={REVEAL_VIEWPORT}>
@@ -58,7 +58,7 @@ export default function WhyChooseSection({
                   variants={fadeUp}
                   className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[#0563B4]/30 hover:shadow-[0_20px_40px_-18px_rgba(14, 17, 22,0.25)]"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-[#0B6FC2] to-[#0E1116] text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0563B4] text-white">
                     <Icon size={20} />
                   </span>
                   <h3 className="mt-4 text-[16px] font-semibold text-[#0E1116]">{it.title}</h3>

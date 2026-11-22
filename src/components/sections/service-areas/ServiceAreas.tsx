@@ -1,6 +1,5 @@
 "use client";
 
-import { useLang } from "@/i18n/LangProvider";
 import { useCallback, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
@@ -20,7 +19,7 @@ import {
   X,
 } from "lucide-react";
 import { CONTACT } from "@/config/site";
-import { POPULAR_AREAS, REGION_AR, REGIONS, SERVICE_AREAS } from "@/data/service-areas";
+import { POPULAR_AREAS, REGIONS, SERVICE_AREAS } from "@/data/service-areas";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import AreaDirectory from "./AreaDirectory";
 import AreaSearchResults from "./AreaSearchResults";
@@ -69,7 +68,6 @@ interface ServiceAreasProps {
 }
 
 export default function ServiceAreas({ onBook }: ServiceAreasProps) {
-  const { t } = useLang();
   const mapBox = useRef<HTMLDivElement>(null);
   const mapNear = useInView(mapBox, { margin: "800px", once: true });
   const [query, setQuery] = useState("");
@@ -103,16 +101,16 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
     {
       icon: MapPin,
       value: `${Math.floor(SERVICE_AREAS.length / 10) * 10}+`,
-      label: t("Areas covered", "منطقة نغطيها"),
+      label: "Areas covered",
     },
-    { icon: BadgeCheck, value: t("Free", "مجاني"), label: t("Vehicle inspection", "فحص السيارة") },
-    { icon: CalendarDays, value: t("7 days", "7 أيام"), label: t("Open every week", "مفتوح طوال الأسبوع") },
+    { icon: BadgeCheck, value: "Free", label: "Vehicle inspection" },
+    { icon: CalendarDays, value: "7 days", label: "Open every week" },
   ];
 
   return (
       <section
         id="areas"
-        className="w-full scroll-mt-32 bg-white py-12 sm:py-20 lg:py-24"
+        className="w-full scroll-mt-32 bg-white section-y"
       >
         <div className="site-container">
           {/* ================= HERO PANEL ================= */}
@@ -142,25 +140,25 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-semibold text-white"
                 >
                   <MapPin size={14} />
-                  {t("Service areas", "مناطق الخدمة")}
+                  Service areas
                 </motion.span>
 
                 <TextReveal className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[46px]">
-                  {t("Wherever you are in Dubai, we come to you.", "أينما كنت في دبي، نأتي إليك.")}
+                  Wherever you are in Dubai, we come to you.
                 </TextReveal>
 
                 <motion.p
                   variants={heroItemV}
                   className="mt-4 max-w-[500px] text-[15px] leading-relaxed text-white/75"
                 >
-                  {t("Professional car repair, maintenance and roadside assistance across Dubai. Search your area to check coverage and book in a minute.", "إصلاح وصيانة احترافية للسيارات ومساعدة على الطريق في جميع أنحاء دبي. ابحث عن منطقتك للتحقق من التغطية واحجز خلال دقيقة.")}
+                  Professional car repair, maintenance and roadside assistance across Dubai. Search your area to check coverage and book in a minute.
                 </motion.p>
               </div>
 
               {/* search + popular */}
               <motion.div variants={heroItemV}>
                 <label htmlFor="area-search" className="sr-only">
-                  {t("Search your area", "ابحث عن منطقتك")}
+                  Search your area
                 </label>
                 <div className="flex h-14 items-center gap-3 rounded-xl bg-white px-4 shadow-[0_12px_30px_rgba(0,0,0,0.18)] ring-2 ring-transparent transition focus-within:ring-[#3FA9F5]">
                   <Search size={20} className="shrink-0 text-[#0563B4]" />
@@ -169,7 +167,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                     type="text"
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}
-                    placeholder={t("Search your area, e.g. Business Bay", "ابحث عن منطقتك، مثل Business Bay")}
+                    placeholder="Search your area, e.g. Business Bay"
                     autoComplete="off"
                     className="w-full min-w-0 bg-transparent text-[15px] text-[#0E1116] outline-hidden placeholder:text-slate-400"
                   />
@@ -177,7 +175,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                     <button
                       type="button"
                       onClick={() => setQuery("")}
-                      aria-label={t("Clear search", "مسح البحث")}
+                      aria-label="Clear search"
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 ${focusRing}`}
                     >
                       <X size={16} />
@@ -213,7 +211,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                       className="mt-5"
                     >
                     <p className="text-[13px] font-medium text-white/60">
-                      {t("Popular areas", "المناطق الشائعة")}
+                      Popular areas
                     </p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {POPULAR.map((area) => {
@@ -273,7 +271,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
           <div className="mt-10 sm:mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div
               role="group"
-              aria-label={t("Filter areas by region", "تصفية المناطق حسب المنطقة")}
+              aria-label="Filter areas by region"
               className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
             >
               {TABS.map((name) => {
@@ -307,7 +305,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                       />
                     )}
                     <span className="relative z-10">
-                      {name === ALL ? t(ALL, "جميع المناطق") : t(name, REGION_AR[name])}
+                      {name === ALL ? ALL : name}
                       <span
                         className={`ms-2 text-[12px] ${
                           active ? "text-white/80" : "text-slate-400"
@@ -325,7 +323,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
               className="shrink-0 text-[13px] text-slate-500"
               aria-live="polite"
             >
-              {t(`Showing ${list.length} of ${SERVICE_AREAS.length} areas`, `عرض ${list.length} من ${SERVICE_AREAS.length} منطقة`)}
+              {`Showing ${list.length} of ${SERVICE_AREAS.length} areas`}
             </p>
           </div>
 
@@ -338,7 +336,7 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
             className={`mt-6 grid gap-6 ${globeOk ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]" : ""}`}
           >
             {globeOk && (
-              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#07090C] via-[#0E1116] to-[#1B2029] p-6">
+              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-[#0E1116] p-6">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0"
@@ -360,23 +358,23 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                   {mapNear ? <AreasMap areas={list} selected={selected} onSelect={toggleArea} /> : <div className="h-full w-full rounded-2xl bg-[#EAF4FC]" />}
                   {/* touch screens: one finger scrolls the page, so explain how to move the map */}
                   <p className="pointer-events-none absolute bottom-7 left-1/2 z-[500] -translate-x-1/2 whitespace-nowrap rounded-full bg-[#0E1116]/85 px-3 py-1.5 text-[11px] font-medium text-white [@media(hover:hover)]:hidden">
-                    {t("Use two fingers to move the map", "استخدم إصبعين لتحريك الخريطة")}
+                    Use two fingers to move the map
                   </p>
                 </>
               ) : (
                   <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center">
                     <p className="text-[15px] font-semibold text-[#0E1116]">
-                      {t("No area matches", "لا توجد منطقة تطابق")} “{query}”
+                      No area matches “{query}”
                     </p>
                     <p className="mt-1 text-[14px] text-slate-600">
-                      {t("We may still reach you. Call us and we will confirm availability for your location.", "قد نصل إليك رغم ذلك. اتصل بنا وسنؤكد توفر الخدمة في موقعك.")}
+                      We may still reach you. Call us and we will confirm availability for your location.
                     </p>
                     <a
                       href={`tel:${PHONE}`}
                       className={`mt-4 inline-flex h-11 items-center gap-2 rounded-md bg-[#0563B4] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
                     >
                       <Phone size={16} />
-                      {t("Call", "اتصل")} <span dir="ltr">{PHONE}</span>
+                      Call <span dir="ltr">{PHONE}</span>
                     </a>
                   </div>
               )}
@@ -411,9 +409,9 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                     </span>
                     <p className="text-[14px] leading-snug text-slate-600">
                       <span className="block font-semibold text-[#0E1116]">
-                        {t("We serve", "نخدم")} {selected}
+                        We serve {selected}
                       </span>
-                      {t("Book a technician to your location.", "احجز فنياً يأتي إلى موقعك.")}
+                      Book a technician to your location.
                     </p>
                   </div>
 
@@ -423,13 +421,13 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                       onClick={() => onBook?.(`Service in ${selected}`)}
                       className={`inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md bg-[#0563B4] px-5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] sm:flex-none ${focusRing}`}
                     >
-                      {t("Book now", "احجز الآن")}
+                      Book now
                       <ArrowRight size={16} />
                     </button>
                     <button
                       type="button"
                       onClick={() => setSelected(null)}
-                      aria-label={t("Clear selected area", "إلغاء المنطقة المحددة")}
+                      aria-label="Clear selected area"
                       className={`flex h-11 w-11 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-slate-100 ${focusRing}`}
                     >
                       <X size={18} />
@@ -438,38 +436,6 @@ export default function ServiceAreas({ onBook }: ServiceAreasProps) {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
-
-          {/* ================= BOTTOM CTA ================= */}
-          <div className="mt-8 sm:mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#EAF4FC] px-6 py-7 sm:flex-row sm:items-center sm:px-8">
-            <div>
-              <p className="text-base font-semibold text-[#0E1116]">
-                {t("Can’t find your area?", "لم تجد منطقتك؟")}
-              </p>
-              <p className="mt-1 text-[14px] text-slate-600">
-                {t("Tell us where your vehicle is and we will confirm if we can reach you today.", "أخبرنا بمكان سيارتك وسنؤكد إن كان بإمكاننا الوصول إليك اليوم.")}
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <motion.button
-                type="button"
-                onClick={() => onBook?.()}
-                whileTap={{ scale: 0.97 }}
-                className={`inline-flex h-12 items-center gap-2 rounded-md bg-[#0563B4] px-6 text-[14px] font-semibold text-white transition-colors hover:bg-[#0E1116] ${focusRing}`}
-              >
-                {t("Get a free quote", "احصل على عرض سعر مجاني")}
-                <ArrowRight size={16} />
-              </motion.button>
-
-              <a
-                href={`tel:${PHONE}`}
-                className={`inline-flex h-12 items-center gap-2 rounded-md border border-[#0E1116] px-5 text-[14px] font-semibold text-[#0E1116] transition-colors hover:bg-[#0E1116] hover:text-white ${focusRing}`}
-              >
-                <Phone size={16} />
-                <span dir="ltr">{PHONE}</span>
-              </a>
-            </div>
           </div>
         </div>
       </section>
