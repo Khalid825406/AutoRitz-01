@@ -4,48 +4,61 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { useReducedMotion } from "motion/react";
 
 /**
- * Hero car clip: front view of a luxury car on a dark podium (light on → headlights → car). Plays once and
- * stays on its last frame. Files are web encodes of public/videos/Luxury_car_front_view.mp4 (no audio):
- *   car-front.mp4 (1920 px, ~1.2 MB) and car-front-mobile.mp4 (960 px, ~0.3 MB).
- * Posters: car-front-start.webp (first frame, matches the start) and car-front-end.webp (finished reveal,
- * shown instead of the video when the visitor prefers reduced motion).
+ * Hero car clip. Plays once and stays on its last frame. Web encodes, no audio:
+ * - desktop (≥ 1024 px): car-front.mp4 (1920 px, ~1.2 MB) — landscape, from public/videos/Luxury_car_front_view.mp4
+ * - phones + tablets (< 1024 px, the stacked hero layout): car-mobile-portrait.mp4 (720×1280, ~0.4 MB) — portrait, from
+ *   public/videos/Black_luxury_Mobile.mp4 (black car in the dark, headlights + smoke)
+ * Each clip has a start poster (shown until it plays) and an end poster (shown instead of the video when the
+ * visitor prefers reduced motion).
  */
-const SRC_DESKTOP = "/videos/car-front.mp4";
-const SRC_MOBILE = "/videos/car-front-mobile.mp4";
-const POSTER_START = "/images/home/car-front-start.webp";
-const POSTER_END = "/images/home/car-front-end.webp";
+const CLIPS = {
+  desktop: {
+    src: "/videos/car-front.mp4",
+    posterStart: "/images/home/car-front-start.webp",
+    posterEnd: "/images/home/car-front-end.webp",
+  },
+  phone: {
+    src: "/videos/car-mobile-portrait.mp4",
+    posterStart: "/images/home/car-mobile-start.webp",
+    posterEnd: "/images/home/car-mobile-end.webp",
+  },
+} as const;
 
-/** Phones get the lighter file; "" while rendering on the server (no download until the browser decides). */
-const PHONE_QUERY = "(max-width: 767px)";
+type Device = keyof typeof CLIPS;
+
+/** "" while rendering on the server, so nothing downloads until the browser knows the screen size. */
+const PHONE_QUERY = "(max-width: 1023px)";
 const subscribe = (cb: () => void) => {
   const mq = window.matchMedia(PHONE_QUERY);
   mq.addEventListener("change", cb);
   return () => mq.removeEventListener("change", cb);
 };
-const pickSrc = () => (window.matchMedia(PHONE_QUERY).matches ? SRC_MOBILE : SRC_DESKTOP);
+const pickDevice = (): Device => (window.matchMedia(PHONE_QUERY).matches ? "phone" : "desktop");
 
 export default function HeroRevealVideo({ className = "" }: { className?: string }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
-  const src = useSyncExternalStore(subscribe, pickSrc, () => "");
+  const device = useSyncExternalStore<Device | "">(subscribe, pickDevice, () => "");
+  const clip = device ? CLIPS[device] : null;
 
   useEffect(() => {
     const v = ref.current;
-    if (!v || !src) return;
+    if (!v || !clip) return;
     v.muted = true;
     v.play().catch(() => {}); // autoplay refused (e.g. data saver): the poster stays
-  }, [src]);
+  }, [clip]);
 
   return (
     <div aria-hidden className={`pointer-events-none select-none overflow-hidden ${className}`}>
-      {reduce ? (
+      {!clip ? null : reduce ? (
         // eslint-disable-next-line @next/next/no-img-element -- full-bleed decorative still, pre-optimised webp
-        <img src={POSTER_END} alt="" className="h-full w-full object-cover" />
+        <img src={clip.posterEnd} alt="" className="h-full w-full object-cover" />
       ) : (
         <video
+          key={clip.src}
           ref={ref}
-          src={src || undefined}
-          poster={POSTER_START}
+          src={clip.src}
+          poster={clip.posterStart}
           muted
           playsInline
           autoPlay

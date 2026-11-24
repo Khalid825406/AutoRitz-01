@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Sparkles, Truck, Wrench, type LucideIcon } from "lucide-react";
+import { BadgeCheck, CalendarDays, MapPin, Phone, Sparkles, Truck, Wrench, type LucideIcon } from "lucide-react";
 
+import { CONTACT } from "@/config/site";
 import HeroRevealVideo from "./HeroRevealVideo";
 
 interface HeroProps {
@@ -34,13 +35,21 @@ const FEATURES: { icon: LucideIcon; title: string; text: string }[] = [
 
 const FEATURE_MS = 5000;
 
+/** Phones/tablets: quick trust points under the buttons. */
+const TRUST: { icon: LucideIcon; label: string }[] = [
+  { icon: BadgeCheck, label: "Free inspection" },
+  { icon: Truck, label: "Free pick-up & drop" },
+  { icon: CalendarDays, label: "Open 7 days" },
+];
+
 /**
  * Homepage hero, dark showroom layout:
  * - left: large light headline, short line, one white pill button
  * - centre: the car video (front view on a dark podium) at full width behind everything
  * - right: an info card joined to the car by a thin diagonal line, and an icon list joined by a dotted line
- * Solid colours only. Phones/tablets: one column — text, full-width car video, info. Desktop (lg+): the video
- * fills the whole hero behind both columns.
+ * Solid colours only. Phones/tablets: full-screen portrait clip with the car in the middle, headline + buttons
+ * + three trust points at the bottom (the card and list are desktop only). Desktop (lg+): landscape clip behind
+ * both columns.
  */
 export default function Hero({ onBook }: HeroProps) {
   const reduce = useReducedMotion();
@@ -55,49 +64,74 @@ export default function Hero({ onBook }: HeroProps) {
 
   return (
     // no fade on the whole section: an invisible (opacity 0) hero delays the first meaningful paint
-    <section id="home" className="relative isolate overflow-hidden bg-black lg:min-h-[100svh]">
-      <div className="site-container flex flex-col gap-8 pb-12 pt-36 sm:pt-40 lg:static lg:min-h-[100svh] lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:pb-12 lg:pt-40">
-        {/* ---------- LEFT: headline + button ---------- */}
+    <section id="home" className="relative isolate min-h-[100svh] overflow-hidden bg-black">
+      {/* ---------- car video: full screen on every device (phones/tablets get the portrait clip) ---------- */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: EASE, delay: 0.2 }}
+        className="absolute inset-0 z-0"
+      >
+        <HeroRevealVideo className="absolute inset-0" />
+      </motion.div>
+      {/* phones/tablets: light solid veil so the text over the clip stays crisp */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-black/25 lg:hidden" />
+
+      <div className="site-container relative z-10 flex min-h-[100svh] flex-col justify-end pb-10 pt-32 sm:pb-14 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:pb-12 lg:pt-40">
+        {/* ---------- LEFT: headline + buttons (phones: bottom of the screen, under the car) ---------- */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-          className="relative z-20 lg:w-[19vw] lg:min-w-[250px] lg:max-w-[460px]"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
+          className="relative z-20 max-lg:max-w-[520px] lg:w-[19vw] lg:min-w-[250px] lg:max-w-[460px]"
         >
-          <h1 className="font-display text-[38px] font-bold leading-[1.08] tracking-tight text-white sm:text-[48px] lg:text-[clamp(32px,2.8vw,56px)]">
+          <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/75 lg:hidden">
+            <MapPin size={13} className="text-[#4B9DE0]" />
+            Car Service &amp; Repair · Dubai
+          </p>
+          <h1 className="mt-3 font-display text-[34px] font-bold leading-[1.08] tracking-tight text-white sm:text-[44px] lg:mt-0 lg:text-[clamp(32px,2.8vw,56px)]">
             Elevate Your Drive to Extraordinary Care
           </h1>
-          <p className="mt-4 max-w-[340px] text-[15px] leading-relaxed text-white/70 sm:text-[17px] lg:mt-5 lg:text-[clamp(14px,1vw,17px)]">
+          <p className="mt-3 max-w-[340px] text-[15px] leading-relaxed text-white/75 sm:text-[17px] lg:mt-5 lg:text-[clamp(14px,1vw,17px)]">
             Crafting power, performance and peace of mind for every car in Dubai.
           </p>
-          <button
-            type="button"
-            onClick={() => onBook?.()}
-            className="mt-7 inline-flex h-12 min-w-[190px] items-center justify-center rounded-full bg-white px-8 text-[14px] font-medium text-[#0E1116] transition-colors hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            Book a service
-          </button>
+          <div className="mt-6 flex gap-3 lg:mt-7">
+            <button
+              type="button"
+              onClick={() => onBook?.()}
+              className="inline-flex h-12 flex-1 items-center justify-center rounded-full bg-white px-7 text-[14px] font-semibold text-[#0E1116] transition-colors hover:bg-[#D9DEE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:flex-none lg:min-w-[190px]"
+            >
+              Book a service
+            </button>
+            <a
+              href={`tel:${CONTACT.phone}`}
+              aria-label={`Call ${CONTACT.phone}`}
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-white/40 px-6 text-[14px] font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:flex-none lg:hidden"
+            >
+              <Phone size={16} />
+              Call now
+            </a>
+          </div>
+
+          {/* phones/tablets: three quick trust points instead of the desktop card + list */}
+          <ul className="mt-6 grid grid-cols-3 gap-2 border-t border-white/15 pt-5 lg:hidden">
+            {TRUST.map(({ icon: Icon, label }) => (
+              <li key={label} className="flex flex-col items-center gap-1.5 text-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
+                  <Icon size={17} />
+                </span>
+                <span className="text-[11px] font-medium leading-tight text-white/80">{label}</span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
-        {/* ---------- CENTRE: car video — full width (phones: 16:9 strip under the text; desktop: the whole hero) ---------- */}
-        <div className="relative -mx-[5.6%] aspect-video lg:absolute lg:inset-0 lg:z-10 lg:mx-0 lg:aspect-auto">
-          {/* the car (the clip has its own studio light and dark podium) */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, ease: EASE, delay: 0.2 }}
-            className="absolute inset-0"
-          >
-            <HeroRevealVideo className="absolute inset-0" />
-          </motion.div>
-        </div>
-
-        {/* ---------- RIGHT: info card + service list ---------- */}
+        {/* ---------- RIGHT (desktop only): info card + service list ---------- */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-          className="relative z-20 flex flex-col gap-8 max-lg:mx-auto max-lg:w-full max-lg:max-w-md lg:w-[19vw] lg:min-w-[250px] lg:max-w-[380px]"
+          className="relative z-20 hidden flex-col gap-8 lg:flex lg:w-[19vw] lg:min-w-[250px] lg:max-w-[380px]"
         >
           <InfoCard />
           <FeatureList active={active} onPick={setActive} onHover={setPaused} />
