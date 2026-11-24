@@ -138,7 +138,7 @@ function BeforeAfter({
       {/* BEFORE (base layer) */}
       <img
         src={before}
-        alt={`${label} — $before`}
+        alt={`${label} — before`}
         draggable={false}
         loading="lazy"
         decoding="async"
@@ -152,7 +152,7 @@ function BeforeAfter({
       >
         <img
           src={after}
-          alt={`${label} — $after`}
+          alt={`${label} — after`}
           draggable={false}
           loading="lazy"
           decoding="async"

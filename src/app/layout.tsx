@@ -34,12 +34,16 @@ const brandFont = Lilita_One({
   variable: "--font-brand",
 });
 
-/** Homepage hero title only ("Ritz Auto / Care LLC") — kept in its original Montserrat Black Italic. */
+/**
+ * Montserrat Black Italic for the previous hero title (components/sections/hero/HeroTypography.tsx, not used by
+ * the current hero). preload: false — the file only downloads if a page actually uses it.
+ */
 const heroFont = Montserrat({
   subsets: ["latin"],
   weight: "900",
   style: "italic",
   display: "swap",
+  preload: false,
   variable: "--font-hero",
 });
 

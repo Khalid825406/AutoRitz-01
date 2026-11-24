@@ -41,7 +41,7 @@ export const services: Service[] = [
     title: "Expert Car Repairs",
     description: "Engine, brake, suspension and electrical repairs by certified technicians.",
     features: ["Computer diagnostics", "Genuine & OEM parts", "Transparent pricing"],
-    image: "/images/services/expert-car-repairs.webp",
+    image: "/images/services/workshop/expert-car-repairs.webp",
     icon: Wrench,
   },
   {
@@ -51,7 +51,7 @@ export const services: Service[] = [
     title: "Roadside Assistance",
     description: "Fast help anywhere in Dubai when you are stuck — day or night.",
     features: ["Jump starts & towing", "Flat tyre change", "Quick response"],
-    image: "/images/services/roadside-assistance.webp",
+    image: "/images/services/workshop/roadside-assistance.webp",
     icon: Truck,
   },
   {
@@ -61,7 +61,7 @@ export const services: Service[] = [
     title: "Battery Services",
     description: "Testing, replacement and on-site fitting with the right battery for your car.",
     features: ["Battery health check", "On-site replacement", "Top brands in stock"],
-    image: "/images/services/battery-services.webp",
+    image: "/images/services/workshop/battery-services.webp",
     icon: BatteryCharging,
   },
   {
@@ -71,7 +71,7 @@ export const services: Service[] = [
     title: "Tyre & Wheel Care",
     description: "Better grip, balanced handling and safer journeys on every road.",
     features: ["Supply & fitting", "Wheel balancing", "Alignment check"],
-    image: "/images/services/tyre-wheel-care.webp",
+    image: "/images/services/workshop/tyre-wheel-care.webp",
     icon: CircleGauge,
   },
   {
@@ -81,7 +81,7 @@ export const services: Service[] = [
     title: "Periodic Maintenance",
     description: "Scheduled servicing that keeps your car reliable and protects its value.",
     features: ["Oil & filter change", "Fluid top-ups", "Multi-point check"],
-    image: "/images/services/periodic-maintenance.webp",
+    image: "/images/services/workshop/periodic-maintenance.webp",
     icon: Settings2,
   },
   {
@@ -91,7 +91,7 @@ export const services: Service[] = [
     title: "Service Contracts",
     description: "Fixed-price maintenance plans built around your vehicle and mileage.",
     features: ["Predictable costs", "Priority booking", "Service reminders"],
-    image: "/images/services/service-contracts.webp",
+    image: "/images/services/workshop/service-contracts.webp",
     icon: FileText,
   },
   {
@@ -101,7 +101,7 @@ export const services: Service[] = [
     title: "Car AC Services",
     description: "Stay cool in UAE summers with complete AC diagnosis and repair.",
     features: ["Gas refill", "Compressor repair", "Cabin filter change"],
-    image: "/images/services/car-ac-services.webp",
+    image: "/images/services/workshop/car-ac-services.webp",
     icon: Snowflake,
   },
   {
@@ -111,7 +111,7 @@ export const services: Service[] = [
     title: "Vehicle Inspection",
     description: "A detailed health report before you buy, sell or travel.",
     features: ["Detailed checklist", "Written report", "Pre-purchase checks"],
-    image: "/images/services/vehicle-inspection.webp",
+    image: "/images/services/workshop/vehicle-inspection.webp",
     icon: ClipboardCheck,
   },
   {
@@ -121,7 +121,7 @@ export const services: Service[] = [
     title: "Premium Car Detailing",
     description: "Restore the shine inside and out with professional-grade products.",
     features: ["Paint correction", "Ceramic coating", "Interior deep clean"],
-    image: "/images/services/car-detailing.webp",
+    image: "/images/services/workshop/car-detailing.webp",
     icon: Sparkles,
   },
 ];
