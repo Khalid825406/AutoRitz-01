@@ -61,7 +61,7 @@ export const services: Service[] = [
     title: "Battery Services",
     description: "Testing, replacement and on-site fitting with the right battery for your car.",
     features: ["Battery health check", "On-site replacement", "Top brands in stock"],
-    image: "/images/services/workshop/battery-services.webp",
+    image: "/images/services/workshop/battery-services-change.webp",
     icon: BatteryCharging,
   },
   {
@@ -81,7 +81,7 @@ export const services: Service[] = [
     title: "Periodic Maintenance",
     description: "Scheduled servicing that keeps your car reliable and protects its value.",
     features: ["Oil & filter change", "Fluid top-ups", "Multi-point check"],
-    image: "/images/services/workshop/periodic-maintenance.webp",
+    image: "/images/services/workshop/periodic-maintenance-drain.webp",
     icon: Settings2,
   },
   {
@@ -91,7 +91,7 @@ export const services: Service[] = [
     title: "Service Contracts",
     description: "Fixed-price maintenance plans built around your vehicle and mileage.",
     features: ["Predictable costs", "Priority booking", "Service reminders"],
-    image: "/images/services/workshop/service-contracts.webp",
+    image: "/images/services/workshop/service-contracts-bays.webp",
     icon: FileText,
   },
   {
@@ -101,7 +101,7 @@ export const services: Service[] = [
     title: "Car AC Services",
     description: "Stay cool in UAE summers with complete AC diagnosis and repair.",
     features: ["Gas refill", "Compressor repair", "Cabin filter change"],
-    image: "/images/services/workshop/car-ac-services.webp",
+    image: "/images/services/workshop/car-ac-services-machine.webp",
     icon: Snowflake,
   },
   {
@@ -121,7 +121,7 @@ export const services: Service[] = [
     title: "Premium Car Detailing",
     description: "Restore the shine inside and out with professional-grade products.",
     features: ["Paint correction", "Ceramic coating", "Interior deep clean"],
-    image: "/images/services/workshop/car-detailing.webp",
+    image: "/images/services/workshop/car-detailing-wash.webp",
     icon: Sparkles,
   },
 ];

@@ -1,5 +1,5 @@
 /**
- * Our Work gallery — real photos from the Ritz Auto Care workshop in Dubai (Audi work-01…38, BMW work-39…81, Porsche work-82…92:
+ * Our Work gallery — real photos from the Ritz Auto Care workshop in Dubai (Audi work-01…38, BMW work-39…81, Porsche work-82…92, more workshop jobs work-93…135, roadside jobs work-136…140:
  * service, repair, diagnostics, bodywork and detailing). Files: public/images/pages/our-work-gallery/work-NN.webp, in this order.
  */
 
@@ -99,7 +99,55 @@ const ALTS = [
   "Black Porsche Panamera GTS side view",
   "Porsche Panamera GTS from above",
   "White Porsche Panamera on a service bay",
-  "Black Porsche Panamera after detailing"
+  "Black Porsche Panamera after detailing",
+  "Chevrolet Camaro on a lift with the oil drain underneath",
+  "Engine timing chain and gears during an engine rebuild",
+  "Technician working under a Ford Edge with the wheel removed",
+  "Jeep Grand Cherokee on a lift with fender covers on",
+  "Lamborghini Huracán in the paint booth",
+  "Jeep Grand Cherokee SRT with the bonnet open",
+  "White Porsche Cayenne under a two-post lift",
+  "White BMW X7 under a two-post lift",
+  "Rolls-Royce Ghost in the Ritz Auto Care workshop",
+  "Workshop bays with an engine on a stand during a rebuild",
+  "Audi Q3 suspension and brake disc with the wheel removed",
+  "Honda Odyssey during body filler and paint preparation",
+  "Toyota Fortuner with the bonnet open for service",
+  "Technician draining engine oil under a Mitsubishi on a lift",
+  "Range Rover being pressure-washed in the wash bay",
+  "Technicians working on a Jeep Grand Cherokee engine",
+  "Volkswagen Touareg electrical check with a multimeter",
+  "Technician working on the brakes of a VW on a lift",
+  "Engine removed from a VW during a major repair",
+  "Maserati, Mercedes-AMG and VW Golf in the workshop bays",
+  "Volkswagen and Range Rover in the service bays",
+  "Range Rover after a full wash and detailing",
+  "AC service machine connected to a VW Touareg",
+  "Maserati Ghibli masked and primed for paint",
+  "Mercedes-AMG A35 and VW Golf R on two-post lifts",
+  "Technicians working on a Maserati Ghibli",
+  "VW Touareg on a lift with the wheels removed, Range Rover alongside",
+  "VW Golf R, Touareg and Maserati in the service bays",
+  "VW Touareg V6 TSI engine bay during service",
+  "Mercedes GLE in a service bay",
+  "Mercedes-AMG A35 interior with red leather seats",
+  "Mercedes-AMG A35 cockpit",
+  "Maserati Ghibli and Range Rover in the workshop",
+  "Range Rover Vogue on a two-post lift",
+  "Maserati Ghibli by the paint booth",
+  "Range Rover with the bonnet open on a lift",
+  "Toyota Tundra in the paint booth",
+  "Jeep Wrangler engine work with the bonnet open",
+  "VW Touareg with the engine removed for repair",
+  "Jeep Wrangler front end stripped for engine work",
+  "Toyota Tundra masked up for paintwork",
+  "Mercedes-AMG A35 in a service bay",
+  "Mercedes-AMG A35 outside the workshop",
+  "Jump-starting a BMW 7 Series with a 2500A start booster",
+  "Technician replacing the battery in a VW Tiguan",
+  "Fuel delivery to a Range Rover from a jerry can",
+  "Technician connecting a start booster to a BMW",
+  "Ritz Auto Care technician bringing fuel to a Range Rover"
 ];
 
 export const GALLERY = ALTS.map((alt, i) => ({

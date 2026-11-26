@@ -14,14 +14,14 @@ export const roadsideServices: RoadsideService[] = [
     id: "01",
     title: "Car Battery Change",
     description: "Fast replacement with testing and professional installation.",
-    image: "/images/roadside/workshop/battery.webp",
+    image: "/images/roadside/workshop/battery-change.webp",
     icon: BatteryCharging,
   },
   {
     id: "02",
     title: "Jump Start",
     description: "Emergency jump-start assistance to get you moving quickly.",
-    image: "/images/roadside/workshop/jump-start.webp",
+    image: "/images/roadside/workshop/jump-start-booster.webp",
     icon: Zap,
   },
   {
@@ -35,7 +35,7 @@ export const roadsideServices: RoadsideService[] = [
     id: "04",
     title: "Fuel Delivery",
     description: "On-demand fuel delivery whenever you're stranded.",
-    image: "/images/roadside/workshop/fuel-delivery.webp",
+    image: "/images/roadside/workshop/fuel-delivery-can.webp",
     icon: Fuel,
   },
 ];

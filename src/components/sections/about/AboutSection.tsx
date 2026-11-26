@@ -89,7 +89,7 @@ interface AboutSectionProps {
 
 export default function AboutSection({
   onBook,
-  image = "/images/home/about.webp",
+  image = "/images/home/about-workshop.webp",
 }: AboutSectionProps) {
   const reduce = useReducedMotion();
   const router = useRouter();

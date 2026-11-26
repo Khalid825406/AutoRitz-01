@@ -53,7 +53,7 @@ export const BRAND_PAGES: BrandPageItem[] = [
       heading: "Expert Porsche Service & Repair in Dubai",
       intro:
         "From the 911 and 718 Boxster to the Panamera, Cayenne and Macan, Porsche owners across Dubai trust Ritz Auto Care with their cars. Our technicians handle Porsche servicing, PIWIS-level diagnostics, engine and PDK transmission work, brakes, suspension, AC, electrical faults and detailing — with genuine and OEM parts.",
-      heroImage: `${IMG}/porsche/hero.webp`,
+      heroImage: `${IMG}/porsche/hero-cayenne.webp`,
       models: [
         "Porsche 911",
         "Porsche 718 Boxster",
@@ -151,7 +151,7 @@ export const BRAND_PAGES: BrandPageItem[] = [
       heading: "Expert BMW Service & Repair in Dubai",
       intro:
         "From the 1 Series and 3 Series to the 7 Series, X5, X7 and M models, BMW owners across Dubai bring their cars to Ritz Auto Care. Our technicians use advanced BMW diagnostics for servicing, engine and transmission repairs, brakes, suspension, AC, electrical faults, coding, bodywork and detailing — with genuine and OEM parts.",
-      heroImage: `${IMG}/bmw/hero.webp`,
+      heroImage: `${IMG}/bmw/hero-x7.webp`,
       models: [
         "BMW 1 Series",
         "BMW 3 Series",
@@ -200,7 +200,7 @@ export const BRAND_PAGES: BrandPageItem[] = [
       heading: "Premium Mercedes-Benz Service Specialists in Dubai",
       intro:
         "Mercedes-Benz stands for the balance of luxury, innovation and performance. At Ritz Auto Care we offer maintenance and repair tailored to Mercedes-Benz engineering, using advanced diagnostic technology and experienced technicians — from scheduled maintenance and engine diagnostics to brake servicing, suspension repairs and advanced mechanical work.",
-      heroImage: `${IMG}/mercedes/hero.webp`,
+      heroImage: `${IMG}/mercedes/hero-g63.webp`,
       models: [
         "Mercedes-Benz C-Class",
         "Mercedes-Benz E-Class",
@@ -213,7 +213,7 @@ export const BRAND_PAGES: BrandPageItem[] = [
         "Mercedes-Benz G-Class",
         "Mercedes-Benz Vito",
       ],
-      gallery: [`${IMG}/mercedes/gallery-1.webp`, `${IMG}/mercedes/gallery-2.webp`, `${IMG}/mercedes/gallery-3.webp`],
+      gallery: [`${IMG}/mercedes/gallery-a35.webp`, `${IMG}/mercedes/gallery-gle.webp`, `${IMG}/mercedes/gallery-interior.webp`],
       faqs: [
         {
           q: "Why Choose Ritz Auto Care for Your Mercedes-Benz?",
